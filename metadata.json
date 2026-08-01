@@ -1,5 +1,8 @@
 {
-  "name": "VenezIA",
-  "description": "The most advanced tourism platform for Venezuela - Government Official MVP",
-  "requestFramePermissions": ["camera", "geolocation", "microphone"]
+  "name": "Remix: MIDAS",
+  "description": "Tu asesor financiero personal convertido en oro. Chat interactivo con MIA para transformar tu futuro financiero.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

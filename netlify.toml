@@ -1,0 +1,20 @@
+# Configuración de despliegue en Netlify para MIDAS
+
+[build]
+  command = "npx vite build"
+  publish = "dist"
+
+[functions]
+  node_bundler = "esbuild"
+
+# El chat del cliente llama a /api/chat → lo enruta a la función serverless
+[[redirects]]
+  from = "/api/chat"
+  to = "/.netlify/functions/chat"
+  status = 200
+
+# SPA: cualquier otra ruta sirve la app de React
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

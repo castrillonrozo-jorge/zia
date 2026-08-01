@@ -1,20 +1,28 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# MIDAS — Tesorero personal autónomo
 
-# Run and deploy your AI Studio app
+App móvil/web de orquestación financiera para economías inflacionarias de
+LatAm. Jarvis (Claude Sonnet) orquesta 8 agentes especialistas reales
+(Claude Haiku) bajo un protocolo de autonomía graduada: Sugerir → Aprobar →
+Autónomo con límite. La IA propone y narra; el código ejecuta bajo las
+reglas del usuario.
 
-This contains everything you need to run your app locally.
+## Stack
 
-View your app in AI Studio: https://ai.studio/apps/486078ec-beef-48b5-90a4-b194ab303ec5
+- React 19 + Vite + Tailwind v4 + Zustand (persist) + motion + recharts
+- Cerebro: API de Anthropic vía función serverless (`netlify/functions/chat.mts`)
+- Streaming SSE al cliente en formato `{text, functionCalls}`
 
-## Run Locally
+## Ejecutar en local
 
-**Prerequisites:**  Node.js
+1. `npm install`
+2. Copia `.env.example` a `.env.local` y pon tu `ANTHROPIC_API_KEY`
+3. `npm run dev` (levanta `server.ts`, que reutiliza el mismo handler de Netlify)
 
+## Desplegar
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+Ver `INSTRUCCIONES-NETLIFY.md` (en español, paso a paso, sin jerga).
+
+## Verificación
+
+- `npx tsc --noEmit` — tipos limpios
+- `npx vite build` — build de producción

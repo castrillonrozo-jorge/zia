@@ -1,38 +1,156 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
+/* Tailwind v4 usa prefers-color-scheme por defecto para las variantes dark:*.
+   MIDAS controla el tema con la clase .dark en <html>, así que redefinimos la
+   variante para que dark:* siga a la clase y no al sistema operativo. Sin esto,
+   un usuario con el SO en oscuro y la app en claro vería colores mezclados. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Inter", sans-serif;
-  
-  --color-klarna: #FFB3C7;
-  --color-ven-purple: #9333ea;
-  --color-ven-green: #22c55e;
-  --color-ven-dark: #111827;
-  --color-glass: rgba(255, 255, 255, 0.8);
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+
+  --color-gold-primary: var(--gold-primary);
+  --color-gold-bright: var(--gold-bright);
+  --color-gold-deep: var(--gold-deep);
+  --color-gold-warm: var(--gold-warm);
+  --color-gold-pale: var(--gold-pale);
+
+  --color-bg-canvas: var(--bg-canvas);
+  --color-bg-main: var(--bg-main);
+  --color-bg-chat: var(--bg-chat);
+  --color-bg-bubble-jarvis: var(--bg-bubble-jarvis);
+
+  --color-text-gold: var(--text-gold);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+
+  --color-border-subtle: var(--border-subtle);
 }
 
 @layer base {
+  :root {
+    /* Oro champán: apagado, caro, sin estridencia */
+    --gold-primary: #C9A227;
+    --gold-bright: #DDB84A;
+    --gold-deep: #8A6D1D;
+    --gold-warm: #B8922B;
+    --gold-pale: #F5EDD5;
+    /* Porcelana cálida en claro */
+    --bg-canvas: #F4F2EC;
+    --bg-main: #FFFFFF;
+    --bg-chat: #FFFFFF;
+    --bg-bubble-jarvis: #F6F4EE;
+    --text-gold: #1A1810;
+    --text-primary: #1C1B17;
+    --text-secondary: #6E6A5E;
+    --border-subtle: #E9E6DC;
+  }
+
+  .dark {
+    --gold-primary: #D4AF37;
+    --gold-bright: #E8C765;
+    --gold-deep: #E1BE5A;
+    --gold-warm: #C9A227;
+    --gold-pale: #2E2814;
+    /* Carbón profundo en oscuro */
+    --bg-canvas: #0B0C0F;
+    --bg-main: #121419;
+    --bg-chat: #121419;
+    --bg-bubble-jarvis: #1C1F26;
+    --text-gold: #14120A;
+    --text-primary: #F2EFE6;
+    --text-secondary: #9A968A;
+    --border-subtle: #262A33;
+  }
+
   body {
-    @apply font-sans antialiased bg-gray-50 text-gray-900;
+    @apply bg-bg-canvas text-text-primary antialiased flex items-center justify-center min-h-screen;
+    margin: 0;
+    font-feature-settings: "ss01";
   }
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-sans font-bold tracking-tight text-gray-900;
+
+  /* La firma de MIDAS: las cifras de dinero se graban en serif editorial,
+     con numerales tabulares para que los montos se alineen como en un
+     estado de cuenta de banca privada. */
+  .text-4xl, .text-3xl, .text-2xl {
+    font-family: var(--font-display);
+    font-variant-numeric: tabular-nums lining-nums;
+    letter-spacing: -0.015em;
   }
-  p {
-    @apply text-gray-700;
+
+  :focus-visible {
+    outline: 2px solid var(--gold-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-.glass {
-  @apply backdrop-blur-xl bg-white/80 border border-gray-200 shadow-lg;
+.font-display {
+  font-family: var(--font-display);
 }
 
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+.markdown-body {
+  overflow-wrap: anywhere;
+  min-width: 0;
 }
 
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+.markdown-body p {
+  @apply mb-2;
+}
+
+.markdown-body strong {
+  @apply text-gold-deep font-bold;
+  font-variant-numeric: tabular-nums;
+}
+
+.markdown-body ul {
+  @apply list-disc ml-5 mb-2 space-y-1;
+}
+
+.markdown-body ol {
+  @apply list-decimal ml-5 mb-2 space-y-1;
+}
+
+.markdown-body li {
+  @apply pl-1;
+}
+
+.markdown-body pre {
+  @apply rounded-xl p-3 my-2 text-xs;
+  overflow-x: auto;
+  background: rgba(0, 0, 0, 0.06);
+}
+.dark .markdown-body pre {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.markdown-body code {
+  font-variant-numeric: tabular-nums;
+  word-break: break-all;
+}
+
+.markdown-body table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+  @apply my-2 text-xs;
+}
+
+.markdown-body th, .markdown-body td {
+  @apply border border-border-subtle px-2 py-1;
+}
+
+.premium-shadow {
+  box-shadow: 0 1px 2px rgba(28, 27, 23, 0.04), 0 6px 20px rgba(28, 27, 23, 0.05);
+}
+.dark .premium-shadow {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
 }
