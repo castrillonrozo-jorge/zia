@@ -146,6 +146,171 @@ async function runSpecialist(
     .join("\n");
 }
 
+// --- Modo respaldo: Gemini (nivel gratuito, sin tarjeta) -------------------
+// Se activa solo cuando falta ANTHROPIC_API_KEY pero existe GEMINI_API_KEY.
+// El historial del cliente ya viene en formato Gemini (herencia del proyecto
+// original), así que aquí se pasa casi tal cual. La delegación a subagentes
+// (consult_agent) también funciona: el especialista corre en otra llamada.
+
+const GEMINI_MODEL = "gemini-2.5-flash";
+const GEMINI_BASE = "https://generativelanguage.googleapis.com/v1beta/models";
+
+async function geminiGenerate(key: string, payload: object): Promise<any> {
+  const res = await fetch(`${GEMINI_BASE}/${GEMINI_MODEL}:generateContent`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "x-goog-api-key": key },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) {
+    const detail = await res.text().catch(() => "");
+    throw new Error(`Gemini API ${res.status}: ${detail.slice(0, 300)}`);
+  }
+  return res.json();
+}
+
+async function runSpecialistGemini(
+  key: string,
+  agent: string,
+  task: string,
+  userContext: unknown
+): Promise<string> {
+  const systemPrompt = AGENT_SPECIALISTS[agent];
+  if (!systemPrompt) return `Agente '${agent}' no encontrado.`;
+  const contextBlock = userContext
+    ? `\n\n=== DATOS REALES DEL USUARIO ===\n${JSON.stringify(userContext, null, 2)}`
+    : "";
+  const data = await geminiGenerate(key, {
+    system_instruction: {
+      parts: [{ text: systemPrompt + contextBlock + "\n\nResponde en español, conciso y con cifras concretas." }],
+    },
+    contents: [{ role: "user", parts: [{ text: task }] }],
+  });
+  const parts = data?.candidates?.[0]?.content?.parts || [];
+  return parts.filter((p: any) => typeof p.text === "string").map((p: any) => p.text).join("\n");
+}
+
+function runGeminiChat(
+  key: string,
+  system: string,
+  messages: any[],
+  userContext: unknown
+): Response {
+  const contents: any[] = (messages || [])
+    .map((m: any) => ({
+      role: m.role === "model" ? "model" : "user",
+      parts: (m.parts || []).filter(
+        (p: any) =>
+          (typeof p.text === "string" && p.text.trim().length > 0) ||
+          p.functionCall ||
+          p.functionResponse
+      ),
+    }))
+    .filter((m: any) => m.parts.length > 0);
+
+  // Gemini también exige que la conversación arranque con el usuario.
+  if (contents.length > 0 && contents[0].role === "model") {
+    contents.unshift({ role: "user", parts: [{ text: "[El usuario abre la aplicación MIDAS]" }] });
+  }
+
+  const consultAgentDecl = {
+    name: "consult_agent",
+    description:
+      "Delega un análisis profundo a un subagente especialista de MIDAS (otra IA real). Úsalo para análisis de gastos, planes de pago, estrategias de inversión o dolarización, proyección de metas, purga de suscripciones o calendario financiero. NO lo uses para preguntas simples ni para registrar transacciones.",
+    parameters: {
+      type: "OBJECT",
+      properties: {
+        agent: {
+          type: "STRING",
+          enum: Object.keys(AGENT_SPECIALISTS),
+          description: "El especialista a consultar",
+        },
+        task: {
+          type: "STRING",
+          description: "Tarea específica con los datos relevantes del usuario incluidos",
+        },
+      },
+      required: ["agent", "task"],
+    },
+  };
+  const tools = [{ functionDeclarations: [consultAgentDecl, ...(FUNCTIONS as any[])] }];
+  const encoder = new TextEncoder();
+
+  const readable = new ReadableStream({
+    async start(controller) {
+      const emit = (payload: object) =>
+        controller.enqueue(encoder.encode(`data: ${JSON.stringify(payload)}\n\n`));
+
+      try {
+        for (let turn = 0; turn < MAX_AGENT_TURNS; turn++) {
+          const data = await geminiGenerate(key, {
+            system_instruction: { parts: [{ text: system }] },
+            contents,
+            tools,
+          });
+          const parts: any[] = data?.candidates?.[0]?.content?.parts || [];
+
+          const text = parts
+            .filter((p) => typeof p.text === "string")
+            .map((p) => p.text)
+            .join("");
+          if (text) emit({ text });
+
+          const calls = parts.filter((p) => p.functionCall);
+          if (calls.length === 0) break;
+
+          const specialistCalls = calls.filter((p) => p.functionCall.name === "consult_agent");
+          const clientCalls = calls.filter((p) => p.functionCall.name !== "consult_agent");
+
+          if (clientCalls.length > 0) {
+            emit({
+              text: "",
+              functionCalls: clientCalls.map((p) => ({
+                name: p.functionCall.name,
+                args: p.functionCall.args || {},
+              })),
+            });
+            break;
+          }
+
+          contents.push({ role: "model", parts });
+          const responseParts: any[] = [];
+          for (const call of specialistCalls) {
+            const input = (call.functionCall.args || {}) as { agent?: string; task?: string };
+            const label = AGENT_LABELS[input.agent || ""] || input.agent;
+            emit({ text: `\n\n*🧠 Consultando al ${label}…*\n\n` });
+            let analysis: string;
+            try {
+              analysis = await runSpecialistGemini(key, input.agent || "", input.task || "", userContext);
+            } catch (err) {
+              analysis = `El especialista no pudo completar el análisis: ${String(err)}`;
+            }
+            responseParts.push({
+              functionResponse: { name: "consult_agent", response: { analysis } },
+            });
+          }
+          contents.push({ role: "user", parts: responseParts });
+        }
+
+        emit({ text: "" });
+        controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+      } catch (err) {
+        emit({ text: `\n\n⚠️ Error del servidor: ${String(err)}` });
+        controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+      } finally {
+        controller.close();
+      }
+    },
+  });
+
+  return new Response(readable, {
+    status: 200,
+    headers: {
+      "Content-Type": "text/event-stream",
+      "Cache-Control": "no-cache",
+    },
+  });
+}
+
 export default async (req: Request): Promise<Response> => {
   if (req.method !== "POST") {
     return new Response(JSON.stringify({ error: "Method not allowed" }), {
@@ -165,11 +330,12 @@ export default async (req: Request): Promise<Response> => {
   }
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
+  const geminiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey && !geminiKey) {
     return new Response(
       JSON.stringify({
         error:
-          "Falta la clave ANTHROPIC_API_KEY. Configúrala en Netlify: Site configuration → Environment variables.",
+          "Falta una clave de IA. Configura ANTHROPIC_API_KEY (Claude) o GEMINI_API_KEY (Gemini, con nivel gratuito) en Netlify: Site configuration → Environment variables.",
       }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
@@ -180,6 +346,11 @@ export default async (req: Request): Promise<Response> => {
   let system = JARVIS_SYSTEM_PROMPT;
   if (userContext) {
     system += `\n\n=== CONTEXTO DEL USUARIO ===\n${JSON.stringify(userContext, null, 2)}\n\nUsa estos datos financieros reales del usuario para dar consejos personalizados. Si su salud financiera está 'En Riesgo' o 'Crítica', propón pasos urgentes. Si es 'Saludable', enfócate en inversión y crecimiento.`;
+  }
+
+  // Sin clave de Anthropic pero con clave de Gemini → modo respaldo gratuito.
+  if (!apiKey && geminiKey) {
+    return runGeminiChat(geminiKey, system, messages || [], userContext);
   }
 
   const client = new Anthropic({ apiKey });

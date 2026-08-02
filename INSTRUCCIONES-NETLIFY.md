@@ -7,7 +7,11 @@ No necesitas saber programar. Son 3 pasos y unos 15 minutos.
 > Jarvis (la función serverless del chat). La app cargaría pero el chat nunca
 > respondería. Usa el método de GitHub de abajo: Netlify construye todo solo.
 
-## Paso 1 — Consigue tu clave de Claude
+## Paso 1 — Consigue tu clave de IA
+
+Tienes dos opciones; con cualquiera de las dos funciona el chat:
+
+**Opción A — Claude (recomendada, es el cerebro para el que está afinada la app):**
 
 1. Entra a **console.anthropic.com** e inicia sesión.
 2. Ve a **Settings → Billing** y carga un poco de crédito prepago (~$5 alcanza
@@ -15,6 +19,15 @@ No necesitas saber programar. Son 3 pasos y unos 15 minutos.
    *Ojo: el plan de claude.ai (Max/Pro) NO sirve para la API; son cuentas distintas.*
 3. Ve a **API Keys → Create API key**, copia la clave (texto largo tipo
    `sk-ant-...`) y guárdala. La usarás en el Paso 3.
+
+**Opción B — Gemini (GRATIS, sin tarjeta; ideal para empezar hoy mismo):**
+
+1. Entra a **aistudio.google.com/apikey** con tu cuenta de Google.
+2. Haz clic en **"Create API key"**, copia la clave (empieza con `AIza...`)
+   y guárdala. La usarás en el Paso 3 con el nombre `GEMINI_API_KEY`.
+3. El nivel gratuito tiene límites de uso por minuto y por día, de sobra
+   para probar la app. Cuando quieras, pasas a Claude sin tocar código:
+   solo agregas la otra clave (si están las dos, la app prefiere Claude).
 
 ## Paso 2 — Conecta Netlify con tu GitHub
 
@@ -35,14 +48,15 @@ El código de MIDAS ya vive en tu repositorio de GitHub (`castrillonrozo-jorge/z
 Ventaja extra: cada vez que el código cambie en GitHub, Netlify actualiza la
 app solo, sin que tengas que subir nada.
 
-## Paso 3 — Conecta la clave de Claude
+## Paso 3 — Conecta la clave de IA
 
 El chat de Jarvis necesita la clave del Paso 1:
 
 1. En Netlify, entra a tu sitio recién creado.
 2. Ve a **Site configuration → Environment variables → Add a variable**.
-3. En "Key" escribe exactamente: `ANTHROPIC_API_KEY`
-4. En "Value" pega tu clave de Claude. Guarda.
+3. En "Key" escribe exactamente: `ANTHROPIC_API_KEY` (si elegiste Claude)
+   o `GEMINI_API_KEY` (si elegiste la opción gratuita de Gemini).
+4. En "Value" pega tu clave. Guarda.
 5. Ve a la pestaña **Deploys** y haz clic en **"Trigger deploy" → "Deploy site"**
    (esto reinicia la app con la clave ya conectada).
 
@@ -52,10 +66,10 @@ y habla con Jarvis.
 ## Si algo falla
 
 - **El chat no responde:** casi siempre es la clave. Revisa que la variable se
-  llame exactamente `ANTHROPIC_API_KEY` (mayúsculas, sin espacios), que tu
-  cuenta de console.anthropic.com tenga crédito, y vuelve a hacer
-  "Trigger deploy". Ahora la app te muestra el mensaje de error real en el
-  chat, así sabrás si es la clave.
+  llame exactamente `ANTHROPIC_API_KEY` o `GEMINI_API_KEY` (mayúsculas, sin
+  espacios), que la cuenta correspondiente tenga crédito (Claude) o cuota
+  disponible (Gemini gratuito), y vuelve a hacer "Trigger deploy". La app te
+  muestra el mensaje de error real en el chat, así sabrás si es la clave.
 - **Probaste antes y ves cosas raras:** abre la app en una ventana de
   incógnito (los datos viejos guardados en el navegador interfieren).
 - **Quieres cambiar el nombre de la dirección:** Site configuration →
