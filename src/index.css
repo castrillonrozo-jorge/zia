@@ -30,28 +30,28 @@
 
 @layer base {
   :root {
-    /* Oro champán: apagado, caro, sin estridencia */
-    --gold-primary: #C9A227;
-    --gold-bright: #DDB84A;
-    --gold-deep: #8A6D1D;
-    --gold-warm: #B8922B;
-    --gold-pale: #F5EDD5;
-    /* Porcelana cálida en claro */
-    --bg-canvas: #F4F2EC;
+    /* Oro luminoso: metálico, con brillo de joyería (nunca plano ni opaco) */
+    --gold-primary: #DEA935;
+    --gold-bright: #F3C95C;
+    --gold-deep: #9C7A1E;
+    --gold-warm: #C89230;
+    --gold-pale: #FBF5E4;
+    /* Lienzo editorial: blanco puro y gris claro neutro, estilo feed */
+    --bg-canvas: #FAFAFA;
     --bg-main: #FFFFFF;
     --bg-chat: #FFFFFF;
-    --bg-bubble-jarvis: #F6F4EE;
-    --text-gold: #1A1810;
-    --text-primary: #1C1B17;
-    --text-secondary: #6E6A5E;
-    --border-subtle: #E9E6DC;
+    --bg-bubble-jarvis: #F2F3F5;
+    --text-gold: #1A1508;
+    --text-primary: #16181C;
+    --text-secondary: #74777D;
+    --border-subtle: #E8E9EB;
   }
 
   .dark {
-    --gold-primary: #D4AF37;
-    --gold-bright: #E8C765;
-    --gold-deep: #E1BE5A;
-    --gold-warm: #C9A227;
+    --gold-primary: #E8BC4A;
+    --gold-bright: #F7D97C;
+    --gold-deep: #EFCB62;
+    --gold-warm: #D4A94A;
     --gold-pale: #2E2814;
     /* Carbón profundo en oscuro */
     --bg-canvas: #0B0C0F;
@@ -149,8 +149,76 @@
 }
 
 .premium-shadow {
-  box-shadow: 0 1px 2px rgba(28, 27, 23, 0.04), 0 6px 20px rgba(28, 27, 23, 0.05);
+  box-shadow: 0 1px 2px rgba(22, 24, 28, 0.04), 0 6px 20px rgba(22, 24, 28, 0.05);
 }
 .dark .premium-shadow {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* --- Oro metálico: los CTA usan degradado con brillo, nunca color plano --- */
+.gold-gradient {
+  background-image: linear-gradient(135deg, #F8DC85 0%, #EFC152 38%, #D9A439 68%, #C08E2B 100%);
+  color: #1A1508;
+}
+.gold-gradient:hover {
+  filter: brightness(1.06) saturate(1.05);
+}
+.gold-glow {
+  box-shadow: 0 10px 30px -8px rgba(222, 169, 53, 0.55), 0 2px 8px rgba(222, 169, 53, 0.25);
+}
+.gold-text-gradient {
+  background-image: linear-gradient(110deg, #F8DC85 0%, #E9BC4E 45%, #C9932E 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* --- Negro cristalizado: fondo de las pantallas de entrada ---------------
+   Obsidiana con vetas de luz frías y un reflejo dorado alto, como un bloque
+   de cristal ahumado iluminado en estudio. */
+.crystal-bg {
+  background:
+    radial-gradient(120% 65% at 85% -12%, rgba(243, 201, 92, 0.13) 0%, transparent 55%),
+    radial-gradient(90% 55% at -15% 8%, rgba(126, 148, 196, 0.12) 0%, transparent 55%),
+    radial-gradient(75% 50% at 108% 78%, rgba(178, 190, 216, 0.08) 0%, transparent 60%),
+    radial-gradient(140% 90% at 50% 118%, rgba(222, 169, 53, 0.07) 0%, transparent 55%),
+    linear-gradient(168deg, #101116 0%, #05060A 46%, #0B0C12 100%);
+}
+/* Facetas: dos vetas diagonales apenas visibles, como aristas del cristal */
+.crystal-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, transparent 42%, rgba(255, 255, 255, 0.035) 46%, transparent 52%),
+    linear-gradient(65deg, transparent 62%, rgba(255, 255, 255, 0.025) 68%, transparent 76%);
+}
+
+/* Panel de vidrio esmerilado sobre el cristal */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 20px 50px -20px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+/* Destello que recorre el wordmark del splash una sola vez */
+@keyframes shine-sweep {
+  from { background-position: -200% center; }
+  to { background-position: 200% center; }
+}
+.shine-text {
+  background-image: linear-gradient(
+    100deg,
+    #E9E4D4 0%, #E9E4D4 40%,
+    #FFF6D9 48%, #F3C95C 52%,
+    #E9E4D4 60%, #E9E4D4 100%
+  );
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine-sweep 2.4s ease-in-out 0.6s both;
 }

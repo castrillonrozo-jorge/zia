@@ -7,6 +7,7 @@ interface UserProfileStore {
   updateField: (path: string, value: any) => void;
   addTransaction: (tx: Omit<UserProfile['transactions'][0], 'id' | 'date'>) => void;
   transferToVault: (amount: number, note?: string) => { newVaultTotal: number; available: number };
+  addInvestment: (name: string, amount: number) => { totalInvested: number; available: number };
   getProfile: () => UserProfile;
   calculateComputed: () => void;
   resetProfile: () => void;
@@ -108,6 +109,44 @@ export const useUserProfileStore = create<UserProfileStore>()(
       },
 
       getProfile: () => get().profile,
+
+      // Inversión real: registra la posición Y el gasto correspondiente, para
+      // que el disponible baje de verdad. Filtra entradas heredadas (strings)
+      // de perfiles guardados con versiones anteriores.
+      addInvestment: (name, amount) => {
+        const clean = Math.max(0, Number(amount) || 0);
+        set((state) => ({
+          profile: {
+            ...state.profile,
+            savings: {
+              ...state.profile.savings,
+              currentInvestments: [
+                ...(state.profile.savings.currentInvestments || []).filter(
+                  (p: any) => p && typeof p === 'object'
+                ),
+                { id: newTxId(), name, amount: clean, date: new Date().toISOString() },
+              ],
+            },
+            transactions: [
+              ...(state.profile.transactions || []),
+              {
+                id: newTxId(),
+                type: 'expense' as const,
+                amount: clean,
+                category: 'Inversión',
+                description: name,
+                date: new Date().toISOString(),
+              },
+            ],
+          },
+        }));
+        get().calculateComputed();
+        const p = get().profile;
+        const totalInvested = (p.savings.currentInvestments || []).reduce(
+          (s: number, pos: any) => s + (Number(pos?.amount) || 0), 0
+        );
+        return { totalInvested, available: p.computed.availableToSave };
+      },
 
       transferToVault: (amount, note) => {
         const clean = Math.max(0, Number(amount) || 0);

@@ -19,7 +19,7 @@ const AppleIcon = ({ className = "" }) => (
   </svg>
 );
 
-const ScreenWrapper = ({ children, bg = "bg-[#0A0A0A]", className = "" }: any) => (
+const ScreenWrapper = ({ children, bg = "crystal-bg", className = "" }: any) => (
   <motion.div
     initial={{ opacity: 0, y: 10 }}
     animate={{ opacity: 1, y: 0 }}
@@ -35,18 +35,57 @@ const ScreenWrapper = ({ children, bg = "bg-[#0A0A0A]", className = "" }: any) =
 
 export const SplashScreen = ({ onComplete }: { onComplete: () => void, key?: string }) => {
   useEffect(() => {
-    const timer = setTimeout(onComplete, 2500);
+    const timer = setTimeout(onComplete, 3200);
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <ScreenWrapper className="items-center justify-center">
-      <motion.div initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}>
-        <SaturnLogo size={180} className="shadow-[0_0_80px_rgba(201,162,39,0.18)] rounded-[45px]" />
+    <ScreenWrapper className="items-center justify-center px-10">
+      {/* El sello emerge del cristal: escala + bloom de luz dorada */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.82, y: 12 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+        className="relative"
+      >
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 0.9, 0.55] }}
+          transition={{ delay: 0.7, duration: 1.6, times: [0, 0.6, 1] }}
+          className="absolute inset-[-60px] rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(243,201,92,0.22) 0%, rgba(243,201,92,0.06) 45%, transparent 70%)' }}
+        />
+        <SaturnLogo size={148} className="relative rounded-[38px]" />
       </motion.div>
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 1 }} className="mt-8 text-gold-primary font-light text-[14px] tracking-[8px]">
+
+      {/* Wordmark con destello que lo recorre una vez */}
+      <motion.h1
+        initial={{ opacity: 0, letterSpacing: '0.55em' }}
+        animate={{ opacity: 1, letterSpacing: '0.42em' }}
+        transition={{ delay: 0.45, duration: 1.1, ease: 'easeOut' }}
+        className="shine-text mt-9 text-[26px] font-semibold pl-[0.42em] font-display"
+      >
         MIDAS
-      </motion.div>
+      </motion.h1>
+
+      {/* Eslogan */}
+      <motion.p
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.15, duration: 0.9, ease: 'easeOut' }}
+        className="mt-3 text-[15px] text-[#B9B4A6] font-light text-center tracking-[0.02em]"
+      >
+        Cuida tu dinero, sin esfuerzo.
+      </motion.p>
+
+      {/* Hilo de luz bajo el eslogan */}
+      <motion.div
+        initial={{ scaleX: 0, opacity: 0 }}
+        animate={{ scaleX: 1, opacity: 1 }}
+        transition={{ delay: 1.5, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        className="mt-7 h-px w-24"
+        style={{ background: 'linear-gradient(90deg, transparent, rgba(243,201,92,0.7), transparent)' }}
+      />
     </ScreenWrapper>
   );
 };
@@ -60,7 +99,7 @@ export const OnboardingCarousel = ({ onSkip }: { onSkip: () => void, key?: strin
       <div className="flex w-full items-center justify-between mb-auto absolute top-10 left-0 px-10">
         <div className="flex gap-1 items-center">
           {[0, 1].map(i => (
-            <div key={i} className={`h-[3px] w-8 rounded-full transition-colors ${slide === i ? 'bg-gold-primary' : 'bg-[#2A2A2A]'}`} />
+            <div key={i} className={`h-[3px] w-8 rounded-full transition-colors ${slide === i ? 'gold-gradient' : 'bg-white/10'}`} />
           ))}
         </div>
         <button onClick={onSkip} className="text-white opacity-50 text-[14px] font-medium hover:opacity-100 transition-opacity">
@@ -71,38 +110,38 @@ export const OnboardingCarousel = ({ onSkip }: { onSkip: () => void, key?: strin
       <div className="flex-1 flex flex-col py-8 mt-12 w-full max-w-[400px] mx-auto overflow-y-auto custom-scrollbar">
         {slide === 0 && (
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }} className="flex flex-col items-center text-center">
-            <SaturnLogo size={140} className="mb-10" />
-            <h1 className="text-[40px] font-bold text-white tracking-[-1px] leading-[1.1] mb-2">MIDAS</h1>
-            <h2 className="text-[20px] font-semibold text-gold-primary tracking-[-0.5px] leading-[1.2] mb-6">la solución financiera a todos tus problemas.</h2>
-            <p className="text-[15px] font-normal text-[#A0A0A0] leading-[1.5] max-w-[280px]">Cuida tus finanzas con agentes especializados impulsados por IA</p>
+            <SaturnLogo size={128} className="mb-9" />
+            <h1 className="text-[38px] font-bold text-white tracking-[-1.2px] leading-[1.08] mb-5 font-display">
+              Cuida tu dinero,
+              <br />
+              <span className="gold-text-gradient">sin esfuerzo.</span>
+            </h1>
+            <p className="text-[15.5px] font-normal text-[#B9B4A6] leading-[1.6] max-w-[310px]">
+              Recibe asesoría financiera personalizada 24/7 con el poder de agentes de IA
+              y expertos en finanzas, economía, ahorro e inversión.
+            </p>
           </motion.div>
         )}
 
         {slide === 1 && (
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }}>
-            <h2 className="text-[32px] font-bold text-white leading-[1.1] mb-10">Ecosistema digital financiero</h2>
-            <div className="space-y-7">
-              <div className="flex items-start gap-4">
-                <LineChart className="text-gold-primary flex-shrink-0" size={24} />
-                <div>
-                  <h3 className="font-semibold text-white text-[17px] mb-1">Análisis profesional</h3>
-                  <p className="font-normal text-[#A0A0A0] text-[15px] leading-[1.4]">Diagnóstico financiero completo en minutos.</p>
+            <h2 className="text-[32px] font-bold text-white leading-[1.12] mb-8 font-display tracking-[-0.5px]">Tu ecosistema financiero</h2>
+            <div className="space-y-4">
+              {[
+                { Icon: LineChart, title: 'Análisis profesional', desc: 'Diagnóstico financiero completo en minutos.' },
+                { Icon: TrendingUp, title: 'Inversión inteligente', desc: 'Estrategias de agentes de IA expertos en mercados financieros.' },
+                { Icon: PiggyBank, title: 'Ahorro optimizado', desc: 'Tu Bóveda crece sola con reglas automáticas a tu medida.' },
+              ].map(({ Icon, title, desc }) => (
+                <div key={title} className="glass-panel rounded-[18px] p-4 flex items-start gap-4">
+                  <div className="w-11 h-11 rounded-[13px] gold-gradient flex items-center justify-center flex-shrink-0">
+                    <Icon size={22} strokeWidth={2.2} />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-white text-[16px] mb-0.5">{title}</h3>
+                    <p className="font-normal text-[#B9B4A6] text-[14.5px] leading-[1.45]">{desc}</p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <TrendingUp className="text-gold-primary flex-shrink-0" size={24} />
-                <div>
-                  <h3 className="font-semibold text-white text-[17px] mb-1">Inversión Inteligente</h3>
-                  <p className="font-normal text-[#A0A0A0] text-[15px] leading-[1.4]">Inversión algoritmica de agentes de IA expertos en mercados financieros.</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <PiggyBank className="text-gold-primary flex-shrink-0" size={24} />
-                <div>
-                  <h3 className="font-semibold text-white text-[17px] mb-1">Ahorro optimizado</h3>
-                  <p className="font-normal text-[#A0A0A0] text-[15px] leading-[1.4]">Asistencia Algorítmica de ahorro eficiente.</p>
-                </div>
-              </div>
+              ))}
             </div>
           </motion.div>
         )}
@@ -113,7 +152,7 @@ export const OnboardingCarousel = ({ onSkip }: { onSkip: () => void, key?: strin
           if (slide < 1) setSlide(s => s + 1);
           else onSkip();
         }}
-        className="w-full h-[56px] bg-gold-primary text-black rounded-[16px] font-semibold text-[16px] hover:bg-gold-bright transition-colors shadow-lg mt-8 mb-4 max-w-[400px] mx-auto flex items-center justify-center"
+        className="w-full h-[56px] gold-gradient gold-glow rounded-[16px] font-semibold text-[16px] transition-all mt-8 mb-4 max-w-[400px] mx-auto flex items-center justify-center"
       >
         {slide === 0 ? 'Continuar' : 'Comenzar'}
       </button>
@@ -279,7 +318,7 @@ export const FacialKYCScreen = ({ onBack, onComplete }: { onBack: () => void, on
         onClick={startScan}
         disabled={active}
         className={`w-full h-[56px] rounded-[16px] font-semibold text-[16px] transition-all
-          ${active ? 'bg-gray-100 text-gray-400' : 'bg-gold-primary text-black hover:bg-gold-bright'}
+          ${active ? 'bg-gray-100 text-gray-400' : 'gold-gradient gold-glow'}
         `}
       >
         {step >= 2 ? 'Completado' : 'Iniciar verificación'}
@@ -307,7 +346,7 @@ export const UserDataScreen = ({ onComplete }: { onComplete: (name: string, age?
       <div className="mt-auto mb-4">
         <button 
           onClick={() => onComplete(name.trim() || 'Amigo', Number(age) > 0 ? Number(age) : undefined)}
-          className="w-full h-[56px] bg-gold-primary text-black rounded-[16px] font-semibold text-[16px] hover:bg-gold-bright transition-colors flex items-center justify-center"
+          className="w-full h-[56px] gold-gradient gold-glow rounded-[16px] font-semibold text-[16px] transition-all flex items-center justify-center"
         >
           Continuar
         </button>

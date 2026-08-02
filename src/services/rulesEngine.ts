@@ -9,7 +9,20 @@ import { useAgentAutonomyStore } from '../store/agentAutonomyStore';
 //   autonomo → ejecuta de inmediato si el monto ≤ límite; si lo supera,
 //              cae a modo 'aprobar' automáticamente.
 
-export const SAVINGS_RATE = 0.15;
+export const DEFAULT_SAVINGS_RATE = 0.15;
+
+// El % de "Págate Primero" es configurable desde la pantalla del Ahorrador
+// y persiste en el dispositivo. Acotado a [1%, 90%] para evitar absurdos.
+export function getSavingsRate(): number {
+  const raw = parseFloat(localStorage.getItem('midas_savings_rate') || '');
+  if (Number.isFinite(raw) && raw >= 0.01 && raw <= 0.9) return raw;
+  return DEFAULT_SAVINGS_RATE;
+}
+
+export function setSavingsRate(rate: number) {
+  const clean = Math.min(0.9, Math.max(0.01, Number(rate) || DEFAULT_SAVINGS_RATE));
+  localStorage.setItem('midas_savings_rate', String(clean));
+}
 
 export type SavingsRuleOutcome =
   | { action: 'none' }
@@ -21,7 +34,8 @@ export function applySavingsRule(incomeAmount: number): SavingsRuleOutcome {
   const income = Number(incomeAmount) || 0;
   if (income <= 0) return { action: 'none' };
 
-  const amount = Math.round(income * SAVINGS_RATE * 100) / 100;
+  const rate = getSavingsRate();
+  const amount = Math.round(income * rate * 100) / 100;
   if (amount <= 0) return { action: 'none' };
 
   const autonomy = useAgentAutonomyStore.getState();
@@ -29,23 +43,23 @@ export function applySavingsRule(incomeAmount: number): SavingsRuleOutcome {
   const limit = autonomy.limits['ahorrador'] ?? 100;
 
   if (level === 'sugerir') {
-    return { action: 'suggest', amount, rate: SAVINGS_RATE };
+    return { action: 'suggest', amount, rate };
   }
 
   if (level === 'autonomo') {
     if (amount <= limit) {
       const result = useUserProfileStore
         .getState()
-        .transferToVault(amount, `Regla Págate Primero (${SAVINGS_RATE * 100}% del ingreso)`);
-      return { action: 'executed', amount, rate: SAVINGS_RATE, ...result };
+        .transferToVault(amount, `Regla Págate Primero (${Math.round(rate * 100)}% del ingreso)`);
+      return { action: 'executed', amount, rate, ...result };
     }
     return {
       action: 'propose',
       amount,
-      rate: SAVINGS_RATE,
+      rate,
       reason: `El apartado ($${amount}) supera tu límite autónomo ($${limit}); requiere tu aprobación.`,
     };
   }
 
-  return { action: 'propose', amount, rate: SAVINGS_RATE };
+  return { action: 'propose', amount, rate };
 }

@@ -22,8 +22,10 @@ import {
 import { SaturnLogo } from './components/SaturnLogo';
 import { SplashScreen, OnboardingCarousel, LoginScreen, FacialKYCScreen, UserDataScreen } from './components/OnboardingScreens';
 import { MonitoreoScreen, PagadorScreen, AhorradorScreen, InversorScreen, NegociadorScreen, AntiInflacionScreen, MetasScreen, RecordatorioScreen, AgentHubScreen } from './components/ServiceScreens';
+import { SecuritySection, PaymentsSection, EducationSection, HelpSection, PIN_KEY, ProfileSectionId } from './components/ProfileSections';
 import { useUserProfileStore } from './store/userProfileStore';
 import { useAgentAutonomyStore } from './store/agentAutonomyStore';
+import { useNotificationsStore } from './store/notificationsStore';
 import { applySavingsRule } from './services/rulesEngine';
 
 import Markdown from 'react-markdown';
@@ -43,13 +45,12 @@ export default function App() {
       setServiceScreen('none');
     }
   };
-  // Tema: recordamos la elección del usuario; si nunca eligió, seguimos la
-  // preferencia del sistema operativo.
+  // Tema: recordamos la elección del usuario; por defecto la app abre en
+  // claro (lienzo blanco editorial), su cara de presentación.
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const saved = localStorage.getItem('midas_theme');
     if (saved === 'dark') return true;
-    if (saved === 'light') return false;
-    return window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
+    return false;
   });
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -57,12 +58,25 @@ export default function App() {
   const [showProfile, setShowProfile] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [isEditingProfile, setIsEditingProfile] = useState(false);
-  const [bankConnected, setBankConnected] = useState(false);
+  const [bankConnected, setBankConnected] = useState(() => localStorage.getItem('midas_bank') !== null);
+  const [bankName, setBankName] = useState(() => localStorage.getItem('midas_bank') || 'Banesco');
   const [showBankModal, setShowBankModal] = useState(false);
   const [isConnectingBank, setIsConnectingBank] = useState(false);
-  const [avatarUrl, setAvatarUrl] = useState<string | null>('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop');
+  // Avatar: solo la foto que el usuario suba, persistida en el dispositivo.
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(() => localStorage.getItem('midas_avatar'));
+  const [profileSection, setProfileSection] = useState<ProfileSectionId | null>(null);
+  const [isListening, setIsListening] = useState(false);
+  const speechRef = useRef<any>(null);
+  // Bloqueo con PIN: si el usuario lo activó, la app abre bloqueada.
+  const [appLocked, setAppLocked] = useState(() => !!localStorage.getItem(PIN_KEY));
+  const [pinAttempt, setPinAttempt] = useState('');
+  const [pinError, setPinError] = useState(false);
+  const notify = useNotificationsStore((s) => s.add);
+  const notifications = useNotificationsStore((s) => s.items);
+  const unreadCount = notifications.filter((n) => !n.read).length;
   const [onboardingStep, setOnboardingStep] = useState<number>(0);
-  const [agents, setAgents] = useState<Agent[]>([
+  // Estado de los agentes: el encendido/apagado sobrevive a la recarga.
+  const AGENT_DEFAULTS: Agent[] = [
     { id: '1', name: 'Agente Pagador', description: 'Ejecutor de Transferencias e Inteligencia enrutadora.', status: 'active', type: 'bill_payer', nextRun: '15 Mayo' },
     { id: '2', name: 'Agente Ahorrador', description: 'Optimizador de Flujo. Algoritmo de retención', status: 'active', type: 'saver', nextRun: 'Diario' },
     { id: '3', name: 'Agente Inversor', description: 'Motor de Crecimiento Algorítmico y Analista.', status: 'paused', type: 'investor', nextRun: '-' },
@@ -71,7 +85,13 @@ export default function App() {
     { id: '6', name: 'Anti-Inflación', description: 'Escudo Monetario Soberano.', status: 'active', type: 'anti_inflation', nextRun: 'Continuo' },
     { id: '7', name: 'Metas', description: 'Trazador de Trayectorias de Vida predictivo.', status: 'active', type: 'goals', nextRun: '1 Junio' },
     { id: '8', name: 'Recordatorio', description: 'Supervisa Fechas críticas de vida y financieras.', status: 'active', type: 'reminder', nextRun: 'Mañana' },
-  ]);
+  ];
+  const [agents, setAgents] = useState<Agent[]>(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('midas_agents_status') || '{}');
+      return AGENT_DEFAULTS.map(a => saved[a.id] ? { ...a, status: saved[a.id] } : a);
+    } catch { return AGENT_DEFAULTS; }
+  });
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesInitialized = useRef(false);
 
@@ -199,13 +219,18 @@ export default function App() {
     }, 800);
   };
 
-  const handleActionPlanAccept = () => {
+  const handleActionPlanAccept = (planTitle?: string) => {
     setMessages(prev => [...prev, { id: Date.now().toString(), role: 'user', content: 'Aceptar el Reto', timestamp: new Date() }]);
+    // El reto aceptado queda persistido como meta activa del perfil.
+    if (planTitle && !getProfile().goals.longTerm) {
+      updateField('goals.longTerm', planTitle);
+    }
+    notify('Plan de acción', `Aceptaste el reto${planTitle ? `: ${planTitle}` : ''}. Quedó guardado en tus metas.`);
     setIsTyping(true);
     setTimeout(() => {
       setIsTyping(false);
-      addJarvisMessage("¡Excelente decisión! Empieza a registrar cada gasto o ingreso que tengas simplemente escribiéndolo aquí en nuestro chat. Por ejemplo: 'Me pagaron $500 de un proyecto' o 'Gasté $20 en café'. Yo lo organizaré todo en tu panel automáticamente. También estoy aquí para darte consejos cuando lo necesites. ¿Qué te parece si registramos algo ahora?");
-    }, 1500);
+      addJarvisMessage("¡Excelente decisión! Tu reto quedó guardado en el perfil. Empieza a registrar cada gasto o ingreso escribiéndolo aquí: 'Me pagaron $500 de un proyecto' o 'Gasté $20 en café'. Yo lo organizo todo en tu panel automáticamente. ¿Registramos algo ahora?");
+    }, 1200);
   };
 
   const handleSend = async (text: string = input) => {
@@ -325,9 +350,10 @@ export default function App() {
               const outcome = applySavingsRule(args.amount);
               funcResponse.savingsRule = outcome;
               if (outcome.action === 'executed') {
+                notify('Agente Ahorrador', `Aparté $${outcome.amount} a tu Bóveda automáticamente. Nuevo total: $${outcome.newVaultTotal}.`);
                 embedded = { type: 'InsightCard', data: {
                   title: 'Agente Ahorrador · Ejecutado',
-                  text: `Aparté $${outcome.amount} (15% de tu ingreso) a la Bóveda automáticamente. Nuevo total en Bóveda: $${outcome.newVaultTotal}.`
+                  text: `Aparté $${outcome.amount} (${Math.round(outcome.rate * 100)}% de tu ingreso) a la Bóveda automáticamente. Nuevo total en Bóveda: $${outcome.newVaultTotal}.`
                 } };
               } else if (outcome.action === 'propose') {
                 embedded = { type: 'TransactionConfirmCard', data: {
@@ -517,18 +543,34 @@ export default function App() {
     if (!embedded) return null;
     switch (embedded.type) {
       case 'BalanceCard': return <BalanceCard {...embedded.data} />;
-      case 'ScenarioCard': return <ScenarioCard {...embedded.data} />;
+      case 'ScenarioCard': return <ScenarioCard {...embedded.data} onSelect={(label: string, monthly: number) => {
+        handleSend(`Elijo el plan ${label}, con aporte de $${monthly} al mes. Ayúdame a ponerlo en marcha.`);
+      }} />;
       case 'QuickReplyChips': return <QuickReplyChips chips={embedded.data} onSelect={(chip: string) => handleSend(chip)} />;
       case 'AgentCard': return <AgentCard {...embedded.data} />;
-      case 'TransactionConfirmCard': return <TransactionConfirmCard {...embedded.data} onConfirm={() => handleSend(`Confirmo: transfiere $${embedded.data.amount} a la Bóveda.`)} />;
+      case 'TransactionConfirmCard': return <TransactionConfirmCard {...embedded.data} onConfirm={() => {
+        // Ejecución real e inmediata: el dinero se mueve en el store ANTES de
+        // mostrar "Enviado"; no dependemos de que el modelo llame la función.
+        const amount = Number(embedded.data.amount) || 0;
+        const result = useUserProfileStore.getState().transferToVault(amount, 'Aprobado por el usuario');
+        notify('Bóveda de Ahorro', `Recibiste $${amount}. Nuevo total: $${result.newVaultTotal}.`);
+        addJarvisMessage(`Hecho. Transferí **$${amount}** a tu Bóveda. Nuevo total: **$${result.newVaultTotal}** · Disponible: $${Math.round(result.available * 100) / 100}.`);
+      }} />;
       case 'InsightCard': return <InsightCard {...embedded.data} />;
-      case 'InvestmentCard': return <InvestmentCard {...embedded.data} />;
+      case 'InvestmentCard': return <InvestmentCard {...embedded.data} onInvest={() => {
+        const amount = Number(embedded.data.amount) || 0;
+        const product = embedded.data.product || 'Portafolio MIDAS';
+        if (amount <= 0) return;
+        const result = useUserProfileStore.getState().addInvestment(product, amount);
+        notify('Agente Inversor', `Inversión de $${amount} en ${product} registrada.`);
+        addJarvisMessage(`Inversión registrada: **$${amount}** en **${product}**. Total invertido: $${result.totalInvested} · Disponible: $${Math.round(result.available * 100) / 100}. Puedes verla en la pantalla del Inversor.`);
+      }} />;
       case 'MoneyInput': return onboardingStep >= 1 && onboardingStep <= 11 ? <MoneyInput {...embedded.data} onConfirm={(val: number) => handleEmbeddedConfirm(val, onboardingStep)} /> : null;
       case 'ChipSelector': return onboardingStep >= 1 && onboardingStep <= 11 ? <ChipSelector {...embedded.data} onSelect={(val: string) => handleEmbeddedConfirm(val, onboardingStep)} /> : null;
       case 'DebtInput': return onboardingStep === 10.5 ? <DebtInput {...embedded.data} onConfirm={(val: any) => handleEmbeddedConfirm(val, 10.5)} /> : null;
       case 'GoalInput': return onboardingStep === 12 ? <GoalInput {...embedded.data} onConfirm={(val: any) => handleEmbeddedConfirm(val, 12)} /> : null;
       case 'FinancialProfileCard': return <FinancialProfileCard profile={getProfile()} />;
-      case 'ActionPlanCard': return <ActionPlanCard {...embedded.data} onAccept={() => handleActionPlanAccept()} />;
+      case 'ActionPlanCard': return <ActionPlanCard {...embedded.data} onAccept={() => handleActionPlanAccept(embedded.data?.title)} />;
       case 'BigActionButtons': return <BigActionButtons {...embedded.data} onSelect={handleSend} />;
       default: return null;
     }
@@ -536,13 +578,79 @@ export default function App() {
 
   // Handlers for profile
   const handleToggleAgent = (id: string) => {
-    setAgents(prev => prev.map(a => a.id === id ? { ...a, status: a.status === 'active' ? 'paused' : 'active' } : a));
+    setAgents(prev => {
+      const next = prev.map(a => a.id === id ? { ...a, status: (a.status === 'active' ? 'paused' : 'active') as Agent['status'] } : a);
+      const statusMap = Object.fromEntries(next.map(a => [a.id, a.status]));
+      localStorage.setItem('midas_agents_status', JSON.stringify(statusMap));
+      const toggled = next.find(a => a.id === id);
+      if (toggled) {
+        notify(toggled.name, toggled.status === 'active' ? 'Agente activado. Ya está trabajando para ti.' : 'Agente pausado. No ejecutará acciones hasta que lo reactives.');
+      }
+      return next;
+    });
   };
 
+  // La foto se comprime a 256px y se guarda en el dispositivo: sobrevive a
+  // recargas y nunca sale del teléfono.
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const url = URL.createObjectURL(e.target.files[0]);
-      setAvatarUrl(url);
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const img = new Image();
+    const objectUrl = URL.createObjectURL(file);
+    img.onload = () => {
+      const side = Math.min(img.width, img.height);
+      const canvas = document.createElement('canvas');
+      canvas.width = 256;
+      canvas.height = 256;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.drawImage(img, (img.width - side) / 2, (img.height - side) / 2, side, side, 0, 0, 256, 256);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+        setAvatarUrl(dataUrl);
+        try { localStorage.setItem('midas_avatar', dataUrl); } catch { /* cuota llena: queda solo en memoria */ }
+      }
+      URL.revokeObjectURL(objectUrl);
+    };
+    img.src = objectUrl;
+  };
+
+  // Dictado por voz real (Web Speech API). Si el navegador no lo soporta,
+  // Jarvis lo explica en el chat en lugar de fingir.
+  const handleMic = () => {
+    if (isListening) {
+      speechRef.current?.stop();
+      setIsListening(false);
+      return;
+    }
+    const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SR) {
+      addJarvisMessage('Tu navegador no soporta dictado por voz todavía. En iPhone puedes usar el micrófono del teclado nativo: mantén presionada la tecla del micrófono y habla.');
+      return;
+    }
+    const rec = new SR();
+    speechRef.current = rec;
+    rec.lang = 'es-ES';
+    rec.interimResults = true;
+    rec.continuous = false;
+    rec.onresult = (event: any) => {
+      let transcript = '';
+      for (let i = 0; i < event.results.length; i++) transcript += event.results[i][0].transcript;
+      setInput(transcript);
+    };
+    rec.onend = () => setIsListening(false);
+    rec.onerror = () => setIsListening(false);
+    setIsListening(true);
+    rec.start();
+  };
+
+  const handlePinSubmit = () => {
+    if (pinAttempt === localStorage.getItem(PIN_KEY)) {
+      setAppLocked(false);
+      setPinAttempt('');
+      setPinError(false);
+    } else {
+      setPinError(true);
+      setPinAttempt('');
     }
   };
 
@@ -551,6 +659,9 @@ export default function App() {
     setTimeout(() => {
       setIsConnectingBank(false);
       setBankConnected(true);
+      // La vinculación persiste en el dispositivo y queda registrada.
+      localStorage.setItem('midas_bank', bankName);
+      notify('Conexión Bancaria', `${bankName} vinculado (modo demostración). Tus agentes ya pueden leer tus balances.`);
       setTimeout(() => setShowBankModal(false), 1000);
     }, 2500);
   };
@@ -558,6 +669,30 @@ export default function App() {
   return (
     <div className="bg-bg-canvas min-h-[100dvh] flex items-center justify-center font-sans w-screen p-0 sm:py-8">
       <div className="flex flex-col h-[100dvh] sm:h-[850px] w-full max-w-[420px] rounded-[32px] mx-auto bg-bg-main relative premium-shadow sm:border border-border-subtle overflow-hidden shadow-2xl">
+        {/* Candado de PIN: si el usuario lo activó en Seguridad, la app abre bloqueada */}
+        {appLocked && (
+          <div className="absolute inset-0 z-[200] crystal-bg flex flex-col items-center justify-center px-10">
+            <SaturnLogo size={88} className="rounded-[24px] mb-8" />
+            <p className="text-[#E9E4D4] text-sm font-semibold mb-1">MIDAS está bloqueada</p>
+            <p className="text-[#8A8578] text-xs mb-6">Ingresa tu PIN de 4 dígitos</p>
+            <input
+              type="password" inputMode="numeric" maxLength={4} value={pinAttempt} autoFocus
+              onChange={(e) => { setPinError(false); setPinAttempt(e.target.value.replace(/\D/g, '').slice(0, 4)); }}
+              onKeyDown={(e) => e.key === 'Enter' && pinAttempt.length === 4 && handlePinSubmit()}
+              className={`w-40 h-14 glass-panel rounded-2xl text-center text-2xl tracking-[10px] text-white outline-none ${pinError ? 'border-red-500' : ''}`}
+              placeholder="••••"
+              aria-label="PIN de desbloqueo"
+            />
+            {pinError && <p className="text-red-400 text-xs mt-3">PIN incorrecto, intenta de nuevo.</p>}
+            <button
+              onClick={handlePinSubmit}
+              disabled={pinAttempt.length !== 4}
+              className="mt-6 w-40 h-12 gold-gradient gold-glow rounded-2xl font-bold text-sm disabled:opacity-40"
+            >
+              Desbloquear
+            </button>
+          </div>
+        )}
         {currentScreen !== 'chat' ? (
           <div className="flex-1 w-full h-full relative">
             <AnimatePresence mode="wait">
@@ -581,23 +716,47 @@ export default function App() {
             <Cpu size={20} />
           </button>
           <div className="relative">
-            <button className="text-gold-deep relative" aria-label="Notificaciones" onClick={() => setShowNotifications(!showNotifications)}>
+            <button className="text-gold-deep relative" aria-label="Notificaciones" onClick={() => {
+              const opening = !showNotifications;
+              setShowNotifications(opening);
+              if (opening) useNotificationsStore.getState().markAllRead();
+            }}>
               <Bell size={20} />
-              <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full" />
+              {unreadCount > 0 && (
+                <span className="absolute -top-1 -right-1 min-w-[14px] h-[14px] px-0.5 bg-red-500 rounded-full text-[9px] font-black text-white flex items-center justify-center">
+                  {unreadCount > 9 ? '9+' : unreadCount}
+                </span>
+              )}
             </button>
             {showNotifications && (
               <>
               <div className="fixed inset-0 z-40" onClick={() => setShowNotifications(false)} />
-              <div className="absolute right-0 mt-2 w-64 bg-bg-chat border border-border-subtle rounded-2xl shadow-xl p-3 z-50">
-                <div className="text-[10px] uppercase font-bold text-text-secondary mb-2">Notificaciones (2)</div>
-                <div className="space-y-2">
-                  <div className="p-2 bg-bg-bubble-jarvis rounded-xl text-xs">
-                    <span className="font-bold">Agente Ahorrador</span> apartó $25 a tu fondo de emergencia.
-                  </div>
-                  <div className="p-2 bg-bg-bubble-jarvis rounded-xl text-xs">
-                    <span className="font-bold">Agente Inversor</span> detectó una oportunidad en S&P 500.
-                  </div>
+              <div className="absolute right-0 mt-2 w-72 bg-bg-chat border border-border-subtle rounded-2xl shadow-xl p-3 z-50">
+                <div className="text-[10px] uppercase font-bold text-text-secondary mb-2">
+                  Notificaciones{notifications.length > 0 ? ` (${notifications.length})` : ''}
                 </div>
+                <div className="space-y-2 max-h-72 overflow-y-auto">
+                  {notifications.length > 0 ? notifications.map(n => (
+                    <div key={n.id} className="p-2.5 bg-bg-bubble-jarvis rounded-xl text-xs">
+                      <span className="font-bold">{n.title}</span>{' '}{n.text}
+                      <div className="text-[9px] text-text-secondary mt-1">
+                        {new Date(n.date).toLocaleString('es', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
+                      </div>
+                    </div>
+                  )) : (
+                    <div className="py-6 text-center text-xs text-text-secondary">
+                      Sin novedades. Aquí verás lo que tus agentes hagan por ti.
+                    </div>
+                  )}
+                </div>
+                {notifications.length > 0 && (
+                  <button
+                    onClick={() => useNotificationsStore.getState().clear()}
+                    className="w-full mt-2 pt-2 border-t border-border-subtle text-[10px] font-bold text-text-secondary hover:text-text-primary transition-colors"
+                  >
+                    Limpiar todo
+                  </button>
+                )}
               </div>
               </>
             )}
@@ -649,7 +808,11 @@ export default function App() {
       {/* Input Bar */}
       <div className="absolute bottom-0 left-0 right-0 px-4 pt-2 bg-gradient-to-t from-bg-main via-bg-main to-transparent z-10 w-full pb-[calc(1.5rem+env(safe-area-inset-bottom))]">
         <div className="flex items-center gap-3 bg-bg-chat border border-gold-pale rounded-full p-2 shadow-xl ring-1 ring-gold-pale/20">
-          <button className="p-2 text-gold-deep hover:bg-bg-main rounded-full transition-colors" aria-label="Dictar por voz (próximamente)">
+          <button
+            onClick={handleMic}
+            className={`p-2 rounded-full transition-colors ${isListening ? 'bg-red-500 text-white animate-pulse' : 'text-gold-deep hover:bg-bg-main'}`}
+            aria-label={isListening ? 'Detener dictado' : 'Dictar por voz'}
+          >
             <Mic size={20} />
           </button>
           <input
@@ -665,7 +828,7 @@ export default function App() {
             onClick={() => handleSend()}
             disabled={!input.trim()}
             aria-label="Enviar mensaje"
-            className="w-10 h-10 bg-gold-primary rounded-full flex items-center justify-center text-text-gold hover:bg-gold-bright active:scale-95 transition-all shadow-md disabled:opacity-50"
+            className="w-10 h-10 gold-gradient gold-glow rounded-full flex items-center justify-center active:scale-95 transition-all disabled:opacity-50"
           >
             <ArrowUp size={20} strokeWidth={3} />
           </button>
@@ -785,7 +948,7 @@ export default function App() {
                      </div>
                      <div>
                         <div className="text-sm font-bold text-text-primary">Conexión Bancaria</div>
-                        <div className="text-[10px] text-text-secondary mt-0.5">Acceso para los agentes</div>
+                        <div className="text-[10px] text-text-secondary mt-0.5">{bankConnected ? `${bankName} · vinculado (demo)` : 'Acceso para los agentes'}</div>
                      </div>
                   </div>
                   <button 
@@ -860,18 +1023,18 @@ export default function App() {
                     <div className={`absolute top-0.5 bg-white w-4 h-4 rounded-full shadow-sm transition-transform ${isDarkMode ? 'right-0.5' : 'left-0.5'}`} />
                   </div>
                 </button>
-                {[
-                  { icon: Shield, label: 'Seguridad y Privacidad' },
-                  { icon: CreditCard, label: 'Métodos de Pago' },
-                  { icon: GraduationCap, label: 'Educación Financiera' },
-                  { icon: Info, label: 'Ayuda y Soporte' },
-                ].map((item, i) => (
-                  <button key={i} className="w-full flex items-center justify-between p-4 bg-bg-chat border border-gold-pale rounded-2xl hover:bg-gold-pale transition-colors">
+                {([
+                  { icon: Shield, label: 'Seguridad y Privacidad', section: 'security' },
+                  { icon: CreditCard, label: 'Métodos de Pago', section: 'payments' },
+                  { icon: GraduationCap, label: 'Educación Financiera', section: 'education' },
+                  { icon: Info, label: 'Ayuda y Soporte', section: 'help' },
+                ] as { icon: any; label: string; section: ProfileSectionId }[]).map((item, i) => (
+                  <button key={i} onClick={() => setProfileSection(item.section)} className="w-full flex items-center justify-between p-4 bg-bg-chat border border-gold-pale rounded-2xl hover:bg-gold-pale transition-colors">
                     <div className="flex items-center gap-3">
                       <item.icon size={20} className="text-gold-deep" />
                       <span className="text-sm font-bold text-text-primary">{item.label}</span>
                     </div>
-                    <ChevronRight size={18} className="text-gold-pale" />
+                    <ChevronRight size={18} className="text-text-secondary" />
                   </button>
                 ))}
                 <button
@@ -890,6 +1053,26 @@ export default function App() {
               </div>
             </motion.div>
         )}
+      </AnimatePresence>
+
+      {/* Secciones del perfil (Seguridad, Pagos, Educación, Ayuda) */}
+      <AnimatePresence>
+        {profileSection === 'security' && <SecuritySection key="sec" onClose={() => setProfileSection(null)} />}
+        {profileSection === 'payments' && <PaymentsSection key="pay" onClose={() => setProfileSection(null)} />}
+        {profileSection === 'education' && (
+          <EducationSection
+            key="edu"
+            onClose={() => setProfileSection(null)}
+            onAskJarvis={(prompt) => {
+              // Cierra el perfil y lleva la pregunta directo a Jarvis con los
+              // datos reales del usuario.
+              setProfileSection(null);
+              setShowProfile(false);
+              handleSend(prompt);
+            }}
+          />
+        )}
+        {profileSection === 'help' && <HelpSection key="help" onClose={() => setProfileSection(null)} />}
       </AnimatePresence>
 
       {/* Bank Integration Modal */}
@@ -923,7 +1106,7 @@ export default function App() {
                   <div className="space-y-4 mb-6">
                     <div className="bg-bg-bubble-jarvis p-3 rounded-xl border border-border-subtle">
                       <div className="text-[10px] uppercase font-bold text-text-secondary mb-1 tracking-wider">Institución Bancaria</div>
-                      <select className="w-full bg-transparent text-sm font-semibold outline-none text-text-primary appearance-none cursor-pointer">
+                      <select value={bankName} onChange={(e) => setBankName(e.target.value)} className="w-full bg-transparent text-sm font-semibold outline-none text-text-primary appearance-none cursor-pointer">
                         <option>Banesco</option>
                         <option>Mercantil</option>
                         <option>Provincial</option>

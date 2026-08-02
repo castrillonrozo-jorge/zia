@@ -12,6 +12,7 @@ export function AutonomySelector({ agentType, compact = false }: { agentType: st
   const level = useAgentAutonomyStore((s) => s.levels[agentType] ?? 'aprobar');
   const limit = useAgentAutonomyStore((s) => s.limits[agentType] ?? 100);
   const setLevel = useAgentAutonomyStore((s) => s.setLevel);
+  const setLimit = useAgentAutonomyStore((s) => s.setLimit);
 
   const active = LEVELS.find((l) => l.value === level)!;
 
@@ -42,6 +43,28 @@ export function AutonomySelector({ agentType, compact = false }: { agentType: st
         <p className="text-[10px] text-text-secondary mt-1.5 text-center leading-tight">
           {level === 'autonomo' ? `${active.hint} · máx $${limit} por operación` : active.hint}
         </p>
+      )}
+      {!compact && level === 'autonomo' && (
+        <div className="mt-2 flex items-center justify-center gap-2">
+          <label htmlFor={`limite-${agentType}`} className="text-[10px] text-text-secondary font-bold uppercase tracking-wide">
+            Límite autónomo por operación
+          </label>
+          <div className="flex items-center gap-1 bg-bg-bubble-jarvis border border-border-subtle rounded-full px-2.5 py-1">
+            <span className="text-[11px] font-bold text-text-secondary">$</span>
+            <input
+              id={`limite-${agentType}`}
+              type="number"
+              inputMode="decimal"
+              min={0}
+              value={limit}
+              onChange={(e) => {
+                const n = Number(e.target.value);
+                if (Number.isFinite(n)) setLimit(agentType, n);
+              }}
+              className="w-16 bg-transparent border-none outline-none text-[11px] font-bold text-text-primary"
+            />
+          </div>
+        </div>
       )}
     </div>
   );

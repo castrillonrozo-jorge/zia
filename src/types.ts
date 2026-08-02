@@ -36,6 +36,15 @@ export type EmbeddedComponentType =
 
 export type AutonomyLevel = 'sugerir' | 'aprobar' | 'autonomo';
 
+// Posición de inversión real registrada por el usuario (o por el Escudo
+// Anti-Inflación al ejecutar una cobertura).
+export interface InvestmentPosition {
+  id: string;
+  name: string;
+  amount: number;
+  date: string; // ISO
+}
+
 export interface Agent {
   id: string;
   name: string;
@@ -81,7 +90,7 @@ export interface UserProfile {
 
   savings: {
     currentTotal: number;
-    currentInvestments: string[];
+    currentInvestments: InvestmentPosition[];
   };
 
   transactions: {

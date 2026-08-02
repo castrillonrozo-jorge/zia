@@ -41,7 +41,8 @@ export const ActionPlanCard = ({ title, steps = [], onAccept }: any) => (
   </div>
 );
 
-export const BalanceCard = ({ balance = 342.18, available = 120.50, vaults = 221.68 }) => (
+// Defaults en 0: nunca inventamos saldos si el llamador no los pasa.
+export const BalanceCard = ({ balance = 0, available = 0, vaults = 0 }) => (
   <motion.div 
     initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
     className="bg-bg-chat border-2 border-gold-primary rounded-[20px] p-5 my-3 premium-shadow"
@@ -63,12 +64,17 @@ export const BalanceCard = ({ balance = 342.18, available = 120.50, vaults = 221
   </motion.div>
 );
 
-export const AgentCard = ({ name, type, status = 'active', nextRun = 'Mañana' }: any) => (
-  <motion.div 
+export const AgentCard = ({ name, type, status = 'active', nextRun = 'Mañana' }: any) => {
+  // Estado real del agente: reflejamos la prop en vez de un literal fijo.
+  const isActive = status === 'active' || status === 'Activo' || status === 'activo';
+  return (
+  <motion.div
     initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
     className="bg-bg-chat border-2 border-gold-primary rounded-[20px] p-4 my-3 flex items-start gap-4 relative overflow-hidden premium-shadow"
   >
-    <div className="absolute top-0 right-0 bg-gold-primary text-black text-[9px] font-black px-3 py-1 rounded-bl-xl uppercase tracking-widest">Activo</div>
+    <div className={`absolute top-0 right-0 text-[9px] font-black px-3 py-1 rounded-bl-xl uppercase tracking-widest ${isActive ? 'bg-gold-primary text-black' : 'bg-border-subtle text-text-secondary'}`}>
+      {isActive ? 'Activo' : 'Pausado'}
+    </div>
     <div className="bg-gold-pale p-3 text-gold-deep rounded-full mt-1 border border-gold-primary/20">
       <Cpu size={20} className="text-gold-deep" />
     </div>
@@ -80,15 +86,19 @@ export const AgentCard = ({ name, type, status = 'active', nextRun = 'Mañana' }
       </div>
     </div>
   </motion.div>
-);
+  );
+};
 
-export const ScenarioCard = ({ income = 500, goal = 5000 }: any) => {
+export const ScenarioCard = ({ income = 500, goal = 5000, onSelect }: { income?: number; goal?: number; onSelect?: (label: string, monthly: number) => void }) => {
   // Si el disponible es 0 o negativo, no hay escenario que calcular:
   // usamos una base mínima para no mostrar "Infinity meses".
   const base = Math.max(Number(income) || 0, 1);
   const conservative = base * 0.3;
   const moderate = base * 0.5;
   const aggressive = base * 0.8;
+
+  // Guardamos cuál eligió el usuario para marcarlo visualmente.
+  const [chosen, setChosen] = useState<string | null>(null);
 
   const scenarios = [
     { name: 'Conservador', monthly: conservative, apy: 6, time: Math.ceil(goal / conservative) },
@@ -98,21 +108,32 @@ export const ScenarioCard = ({ income = 500, goal = 5000 }: any) => {
 
   return (
     <div className="flex gap-3 overflow-x-auto pb-4 -mx-1 px-1 mt-3 snap-x scrollbar-hide w-[100%] max-w-[400px]">
-      {scenarios.map((s, i) => (
-        <div key={s.name} className="min-w-[220px] bg-bg-chat border border-border-subtle rounded-[20px] p-5 snap-start premium-shadow border-b-[6px] border-b-gold-primary hover:border-gold-primary transition-colors flex-shrink-0">
+      {scenarios.map((s) => {
+        const isChosen = chosen === s.name;
+        return (
+        <div key={s.name} className={`min-w-[220px] bg-bg-chat rounded-[20px] p-5 snap-start premium-shadow border-b-[6px] border-b-gold-primary transition-colors flex-shrink-0 ${isChosen ? 'border-2 border-gold-primary gold-glow' : 'border border-border-subtle hover:border-gold-primary'}`}>
           <div className="text-[10px] text-text-secondary uppercase font-bold tracking-wider mb-3">{s.name}</div>
           <div className="text-2xl font-bold text-text-primary tracking-tight mb-2">${s.monthly.toFixed(2)} / mes</div>
           <div className="text-[11px] text-green-600 dark:text-green-400 font-bold flex items-center gap-1.5 mb-1">
-            <TrendingUp size={14} /> +{s.apy}% APY estimado
+            <TrendingUp size={14} /> +{s.apy}% APY (supuesto)
           </div>
           <div className="text-[11px] text-text-secondary font-medium mb-5">
             Meta en aproximado {s.time} meses
           </div>
-          <button className="w-full py-2.5 bg-bg-bubble-jarvis border border-border-subtle rounded-xl text-sm font-semibold text-text-primary hover:bg-gold-primary hover:border-gold-primary hover:text-black transition-all">
-            Elegir {s.name}
+          <button
+            onClick={() => {
+              if (chosen) return; // un solo plan elegido por tarjeta
+              setChosen(s.name);
+              onSelect?.(s.name, s.monthly);
+            }}
+            disabled={chosen !== null}
+            className={`w-full py-2.5 rounded-xl text-sm font-semibold transition-all ${isChosen ? 'gold-gradient' : 'bg-bg-bubble-jarvis border border-border-subtle text-text-primary hover:bg-gold-primary hover:border-gold-primary hover:text-black disabled:opacity-50 disabled:pointer-events-none'}`}
+          >
+            {isChosen ? 'Plan elegido ✓' : `Elegir ${s.name}`}
           </button>
         </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
@@ -145,7 +166,7 @@ export const QuickReplyChips = ({ chips, onSelect }: any) => (
   </div>
 );
 
-export const TransactionConfirmCard = ({ amount = 50, to = "Bóveda Emergencia", onConfirm }: any) => {
+export const TransactionConfirmCard = ({ amount = 50, to = "Bóveda de Ahorro", onConfirm }: any) => {
   // Una sola confirmación: si el usuario toca dos veces, se enviarían dos
   // transferencias idénticas a la Bóveda.
   const [confirmed, setConfirmed] = useState(false);
@@ -162,11 +183,13 @@ export const TransactionConfirmCard = ({ amount = 50, to = "Bóveda Emergencia",
       <button
         onClick={() => {
           if (confirmed) return;
-          setConfirmed(true);
+          // La ejecución es síncrona y real: primero se ejecuta, y solo
+          // entonces mostramos "Enviado". Si onConfirm lanza, no mentimos.
           onConfirm?.();
+          setConfirmed(true);
         }}
         disabled={confirmed}
-        className="w-full py-4 bg-gold-primary text-black font-bold rounded-xl shadow-lg hover:bg-gold-bright active:scale-95 transition-all text-center uppercase tracking-widest text-[13px] disabled:opacity-60 disabled:pointer-events-none flex items-center justify-center gap-2"
+        className="w-full py-4 gold-gradient font-bold rounded-xl shadow-lg active:scale-95 transition-all text-center uppercase tracking-widest text-[13px] disabled:opacity-60 disabled:pointer-events-none flex items-center justify-center gap-2"
       >
         {confirmed ? (<><CheckCircle2 size={16} /> Enviado</>) : 'Confirmar'}
       </button>
@@ -184,7 +207,11 @@ export const InsightCard = ({ title, text }: any) => (
   </div>
 );
 
-export const InvestmentCard = ({ product = "S&P 500 ETF", apy = "8.5%", amount = 100, onInvest }: any) => (
+export const InvestmentCard = ({ product = "S&P 500 ETF", apy = "8.5%", amount = 100, onInvest }: { product?: string; apy?: string; amount?: number; onInvest?: () => void }) => {
+  // Evitamos doble ejecución: tras registrar la inversión, el botón queda
+  // deshabilitado. Si nadie pasó onInvest, no hay acción real que ofrecer.
+  const [done, setDone] = useState(false);
+  return (
   <div className="bg-bg-chat border-2 border-gold-primary rounded-[20px] p-6 my-3 premium-shadow">
     <div className="flex items-center gap-4 mb-5">
       <div className="bg-gold-pale p-3 rounded-full text-gold-deep border border-gold-primary/20">
@@ -203,14 +230,22 @@ export const InvestmentCard = ({ product = "S&P 500 ETF", apy = "8.5%", amount =
       <span className="text-[13px] font-bold text-text-secondary">Sugerido:</span>
       <span className="text-lg font-bold text-text-primary">${amount}</span>
     </div>
-    <button 
-      onClick={onInvest}
-      className="w-full py-4 bg-gold-primary text-black font-bold rounded-xl shadow-lg hover:bg-gold-bright active:scale-95 transition-all text-center uppercase tracking-widest text-[13px]"
-    >
-      Ejecutar
-    </button>
+    {onInvest && (
+      <button
+        onClick={() => {
+          if (done) return;
+          onInvest();
+          setDone(true);
+        }}
+        disabled={done}
+        className="w-full py-4 gold-gradient font-bold rounded-xl shadow-lg active:scale-95 transition-all text-center uppercase tracking-widest text-[13px] disabled:opacity-60 disabled:pointer-events-none"
+      >
+        {done ? 'Inversión registrada ✓' : 'Ejecutar'}
+      </button>
+    )}
   </div>
-);
+  );
+};
 
 
 export const MoneyInput = ({ onConfirm, placeholder = "0.00" }: any) => {
