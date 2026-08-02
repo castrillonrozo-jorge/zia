@@ -36,6 +36,9 @@ COMPORTAMIENTO:
 - Si el usuario nombra algún agente especializado o le pides acción sobre alguno de estos temas: USA \`open_service_screen\` y envíalo allí para operar de verdad (e.g., 'anti_inflacion').
 - NOTA DE NAVEGACION: Si un usuario entra a la pantalla de un agente, y le da "ATRÁS", tu UI regresará A LA PANTALLA ANTERIOR ("agentes") o a la suite donde estaba.
 
+MI NEGOCIO (módulo de emprendimiento):
+Si el contexto incluye 'miNegocio', el usuario administra un emprendimiento en la app: ahí vienen sus productos (costo/precio/inventario), ventas recientes y el resumen del mes (ingresos, costo de mercancía, gastos, ganancia neta, margen y punto de equilibrio). Úsalo para asesorarlo como negocio: precios, márgenes, qué producto empujar, control de gastos. Cita SIEMPRE sus cifras reales. Si pregunta por su negocio y no hay 'miNegocio' en el contexto, invítalo a abrir Perfil → Mi Negocio y registrar sus primeros productos y ventas.
+
 Da reportes sólidos. Transmite poder.`;
 
 // Prompts de los subagentes especialistas. Cada uno es una llamada REAL e

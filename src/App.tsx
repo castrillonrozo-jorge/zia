@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { User, Bell, Mic, ArrowUp, X, Settings, LogOut, Shield, CreditCard, GraduationCap, Zap, Activity, Info, TrendingUp, ChevronLeft, Cpu, ChevronRight, Moon, Sun, Camera, Building, Lock, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { User, Bell, Mic, ArrowUp, X, Settings, LogOut, Shield, CreditCard, GraduationCap, Zap, Activity, Info, TrendingUp, ChevronLeft, Cpu, ChevronRight, Moon, Sun, Camera, Building, Lock, ShieldCheck, CheckCircle2, Briefcase } from 'lucide-react';
 import { chatWithJarvisStream } from './services/claudeService';
 import { Message, Agent, UserProfile, EmbeddedComponentType } from './types';
 import { 
@@ -23,6 +23,8 @@ import { SaturnLogo } from './components/SaturnLogo';
 import { SplashScreen, OnboardingCarousel, LoginScreen, FacialKYCScreen, UserDataScreen } from './components/OnboardingScreens';
 import { MonitoreoScreen, PagadorScreen, AhorradorScreen, InversorScreen, NegociadorScreen, AntiInflacionScreen, MetasScreen, RecordatorioScreen, AgentHubScreen } from './components/ServiceScreens';
 import { SecuritySection, PaymentsSection, EducationSection, HelpSection, PIN_KEY, ProfileSectionId } from './components/ProfileSections';
+import { BusinessScreen } from './components/BusinessScreen';
+import { useBusinessStore } from './store/businessStore';
 import { useUserProfileStore } from './store/userProfileStore';
 import { useAgentAutonomyStore } from './store/agentAutonomyStore';
 import { useNotificationsStore } from './store/notificationsStore';
@@ -294,6 +296,19 @@ export default function App() {
         const stream = chatWithJarvisStream(currentHistory, {
           ...getProfile(),
           agentAutonomy: useAgentAutonomyStore.getState().getSummary(),
+          // Si el usuario administra un emprendimiento en Mi Negocio, Jarvis
+          // recibe sus números reales para asesorarlo también como negocio.
+          miNegocio: (() => {
+            const biz = useBusinessStore.getState();
+            const s = biz.getSummary();
+            if (!s.hasData) return undefined;
+            return {
+              nombre: biz.businessName || 'Mi Negocio',
+              resumenDelMes: s,
+              productos: biz.products.map(p => ({ nombre: p.name, costo: p.cost, precio: p.price, inventario: p.stock })),
+              ultimasVentas: biz.sales.slice(0, 10).map(v => ({ producto: v.productName, cantidad: v.quantity, total: v.total, ganancia: v.profit, fecha: v.date.slice(0, 10) })),
+            };
+          })(),
         });
 
         for await (const chunk of stream) {
@@ -640,6 +655,84 @@ export default function App() {
     rec.onend = () => setIsListening(false);
     rec.onerror = () => setIsListening(false);
     setIsListening(true);
+    rec.start();
+  };
+
+  // --- Comandos de voz globales -------------------------------------------
+  // El botón flotante escucha una orden y la enruta: pantallas directas por
+  // palabra clave, o el chat de Jarvis para todo lo demás (que ya sabe
+  // registrar transacciones, abrir pantallas y responder).
+  const [isCommandListening, setIsCommandListening] = useState(false);
+  const commandRef = useRef<any>(null);
+
+  const closeAllOverlays = () => {
+    setServiceScreen('none');
+    setShowProfile(false);
+    setProfileSection(null);
+    setShowNotifications(false);
+  };
+
+  const routeVoiceCommand = (raw: string) => {
+    const t = raw.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    if (!t.trim()) return;
+
+    const wantsOpen = /(abre|abrir|muestra|muestrame|ensename|ve a|ir a|entra|llevame|quiero ver)/.test(t);
+    const shortPhrase = t.trim().split(/\s+/).length <= 4;
+
+    const screens: [RegExp, () => void][] = [
+      [/negocio|mis productos|mis ventas|inventario/, () => { closeAllOverlays(); setShowProfile(true); setProfileSection('business'); }],
+      [/inversor|inversion|invertir|portafolio/, () => { closeAllOverlays(); setServiceScreen('inversor'); }],
+      [/pagador|pagos|pagar/, () => { closeAllOverlays(); setServiceScreen('pagador'); }],
+      [/ahorrador|ahorro|boveda/, () => { closeAllOverlays(); setServiceScreen('ahorrador'); }],
+      [/vigilante|monitoreo|movimientos/, () => { closeAllOverlays(); setServiceScreen('monitoreo'); }],
+      [/negociador|suscripcion/, () => { closeAllOverlays(); setServiceScreen('negociador'); }],
+      [/inflacion|escudo|dolar/, () => { closeAllOverlays(); setServiceScreen('anti_inflacion'); }],
+      [/recordatorio|agenda|calendario/, () => { closeAllOverlays(); setServiceScreen('recordatorio'); }],
+      [/\bmetas?\b/, () => { closeAllOverlays(); setServiceScreen('metas'); }],
+      [/agentes|hub/, () => { closeAllOverlays(); setServiceScreen('agentes'); }],
+      [/perfil|mi cuenta/, () => { closeAllOverlays(); setShowProfile(true); }],
+    ];
+
+    if (/(cierra|cerrar|volver|regresa|atras|salir)/.test(t)) { closeAllOverlays(); return; }
+    if (/modo oscuro/.test(t)) { setIsDarkMode(true); return; }
+    if (/modo claro/.test(t)) { setIsDarkMode(false); return; }
+
+    if (wantsOpen || shortPhrase) {
+      for (const [rx, action] of screens) {
+        if (rx.test(t)) { action(); return; }
+      }
+    }
+
+    // Todo lo demás va a Jarvis con la frase tal cual (registrar gastos,
+    // preguntas, análisis): el chat es el cerebro universal de la app.
+    closeAllOverlays();
+    handleSend(raw);
+  };
+
+  const handleGlobalVoice = () => {
+    if (isCommandListening) {
+      commandRef.current?.stop();
+      setIsCommandListening(false);
+      return;
+    }
+    const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SR) {
+      closeAllOverlays();
+      addJarvisMessage('Tu navegador no soporta comandos de voz todavía. En iPhone puedes usar el micrófono del teclado nativo dentro del chat.');
+      return;
+    }
+    const rec = new SR();
+    commandRef.current = rec;
+    rec.lang = 'es-ES';
+    rec.interimResults = false;
+    rec.continuous = false;
+    rec.onresult = (event: any) => {
+      const transcript = Array.from(event.results).map((r: any) => r[0].transcript).join(' ');
+      routeVoiceCommand(transcript);
+    };
+    rec.onend = () => setIsCommandListening(false);
+    rec.onerror = () => setIsCommandListening(false);
+    setIsCommandListening(true);
     rec.start();
   };
 
@@ -1023,6 +1116,16 @@ export default function App() {
                     <div className={`absolute top-0.5 bg-white w-4 h-4 rounded-full shadow-sm transition-transform ${isDarkMode ? 'right-0.5' : 'left-0.5'}`} />
                   </div>
                 </button>
+                <button onClick={() => setProfileSection('business')} className="w-full flex items-center justify-between p-4 gold-gradient gold-glow rounded-2xl transition-all">
+                  <div className="flex items-center gap-3">
+                    <Briefcase size={20} />
+                    <div className="text-left">
+                      <span className="text-sm font-bold block">Mi Negocio</span>
+                      <span className="text-[10px] opacity-80">Productos, ventas, gastos y ganancia real</span>
+                    </div>
+                  </div>
+                  <ChevronRight size={18} />
+                </button>
                 {([
                   { icon: Shield, label: 'Seguridad y Privacidad', section: 'security' },
                   { icon: CreditCard, label: 'Métodos de Pago', section: 'payments' },
@@ -1073,6 +1176,17 @@ export default function App() {
           />
         )}
         {profileSection === 'help' && <HelpSection key="help" onClose={() => setProfileSection(null)} />}
+        {profileSection === 'business' && (
+          <BusinessScreen
+            key="biz"
+            onClose={() => setProfileSection(null)}
+            onAskJarvis={(prompt) => {
+              setProfileSection(null);
+              setShowProfile(false);
+              handleSend(prompt);
+            }}
+          />
+        )}
       </AnimatePresence>
 
       {/* Bank Integration Modal */}
@@ -1152,6 +1266,17 @@ export default function App() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Botón flotante de voz: disponible sobre cualquier pantalla de la app */}
+      <button
+        onClick={handleGlobalVoice}
+        aria-label={isCommandListening ? 'Escuchando… toca para detener' : 'Dar una instrucción por voz'}
+        className={`absolute bottom-28 right-4 z-[80] p-3.5 rounded-full shadow-xl transition-all active:scale-95 ${
+          isCommandListening ? 'bg-red-500 text-white animate-pulse' : 'gold-gradient gold-glow'
+        }`}
+      >
+        <Mic size={22} />
+      </button>
 
       {/* Service Screens */}
       <AnimatePresence>

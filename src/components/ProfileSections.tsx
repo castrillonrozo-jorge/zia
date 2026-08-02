@@ -10,7 +10,7 @@ import { useUserProfileStore } from '../store/userProfileStore';
 // Cada una hace trabajo verdadero sobre el dispositivo (persistencia local,
 // exportación de datos, bloqueo con PIN) o se integra con Jarvis.
 
-export type ProfileSectionId = 'security' | 'payments' | 'education' | 'help';
+export type ProfileSectionId = 'security' | 'payments' | 'education' | 'help' | 'business';
 
 const SectionShell = ({ title, icon: Icon, onClose, children }: any) => (
   <motion.div
