@@ -8,22 +8,32 @@ interface ExchangeCalculatorProps {
   onClose: () => void;
 }
 
+interface TasaBCV {
+  disponible: boolean;
+  usd?: number;
+  eur?: number;
+  fechaValor?: string;
+  fuente?: string;
+  motivo?: string;
+}
+
 export const ExchangeCalculator: React.FC<ExchangeCalculatorProps> = ({ isOpen, onClose }) => {
   const [amount, setAmount] = useState<string>('');
   const [rateType, setRateType] = useState<'BCV' | 'EUR'>('BCV');
   const [isRefreshing, setIsRefreshing] = useState(false);
-  
-  // Official rates
-  const tasas = {
-    BCV: 554.42,
-    EUR: 645.67
-  };
+  // La tasa nunca se escribe a mano: se consulta al BCV vía /api/rate.
+  const [tasa, setTasa] = useState<TasaBCV | null>(null);
 
-  const refreshRates = () => {
+  const refreshRates = async () => {
     setIsRefreshing(true);
-    setTimeout(() => {
+    try {
+      const res = await fetch('/api/rate');
+      setTasa(await res.json());
+    } catch {
+      setTasa({ disponible: false, motivo: 'Sin conexión con el servidor de tasas.' });
+    } finally {
       setIsRefreshing(false);
-    }, 600);
+    }
   };
 
   useEffect(() => {
@@ -32,8 +42,8 @@ export const ExchangeCalculator: React.FC<ExchangeCalculatorProps> = ({ isOpen, 
     }
   }, [isOpen]);
 
-  const currentRate = tasas[rateType];
-  const bsResult = amount ? (parseFloat(amount.replace(',', '.')) * currentRate).toLocaleString('es-VE', { minimumFractionDigits: 2 }) : '0,00';
+  const currentRate = tasa?.disponible ? (rateType === 'BCV' ? tasa.usd : tasa.eur) : undefined;
+  const bsResult = amount && currentRate ? (parseFloat(amount.replace(',', '.')) * currentRate).toLocaleString('es-VE', { minimumFractionDigits: 2 }) : '—';
 
   if (!isOpen) return null;
 
@@ -98,7 +108,7 @@ export const ExchangeCalculator: React.FC<ExchangeCalculatorProps> = ({ isOpen, 
                     className={`flex items-center gap-1 text-[10px] font-bold text-blue-500 ${isRefreshing ? 'animate-pulse' : ''}`}
                   >
                     <Icons.RefreshCw size={10} className={isRefreshing ? 'animate-spin' : ''} />
-                    Tasa {rateType}: {currentRate.toFixed(2)}
+                    Tasa {rateType}: {isRefreshing ? 'consultando…' : currentRate ? currentRate.toFixed(2) : 'no disponible'}
                   </button>
                 </div>
                 <div className="relative">
@@ -121,6 +131,13 @@ export const ExchangeCalculator: React.FC<ExchangeCalculatorProps> = ({ isOpen, 
                     <span className="text-3xl font-bold tracking-tighter">{bsResult}</span>
                     <span className="text-xs font-bold text-blue-500">Bs</span>
                   </div>
+                  <p className="text-[9px] font-bold text-slate-500 tracking-widest mt-2">
+                    {tasa?.disponible
+                      ? `Tasa oficial BCV${tasa.fechaValor ? ` · Fecha valor: ${tasa.fechaValor}` : ''}`
+                      : isRefreshing
+                        ? 'Consultando la tasa oficial del BCV…'
+                        : 'La tasa oficial del BCV no está disponible en este momento.'}
+                  </p>
                 </div>
                 <Icons.Zap size={80} className="absolute -right-4 -bottom-4 text-white/5 dark:text-black/5 rotate-12" />
               </div>
