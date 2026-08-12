@@ -99,10 +99,6 @@ const App: React.FC = () => {
   
   const [isAIChatOpen, setIsAIChatOpen] = useState(false);
   const [showApiSettings, setShowApiSettings] = useState(false);
-  const [customApiKey, setCustomApiKey] = useState(() => {
-    if (typeof localStorage !== 'undefined') return localStorage.getItem('custom_gemini_api_key') || '';
-    return '';
-  });
   const [selectedModel, setSelectedModel] = useState(() => {
     if (typeof localStorage !== 'undefined') return localStorage.getItem('venia_selected_model') || 'gemini-3.1-flash-lite';
     return 'gemini-3.1-flash-lite';
@@ -246,10 +242,9 @@ const App: React.FC = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ 
-          message: messageToSend, 
-          userName, 
-          apiKey: customApiKey,
+        body: JSON.stringify({
+          message: messageToSend,
+          userName,
           model: selectedModel,
           useSearch: useSearch
         })
@@ -329,12 +324,6 @@ Como tu asistente oficial VenIA, puedo seguir orientándote desde aquí. ¿Tiene
     } finally {
       setIsAiLoading(false);
     }
-  };
-
-  const saveApiKey = (key: string) => {
-    localStorage.setItem('custom_gemini_api_key', key);
-    setCustomApiKey(key);
-    setShowApiSettings(false);
   };
 
   if (currentView === 'splash') {

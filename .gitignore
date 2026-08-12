@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Secretos y despliegue
+.env
+.env.*
+!.env.example
+.vercel
