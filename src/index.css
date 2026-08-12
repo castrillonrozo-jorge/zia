@@ -13,7 +13,7 @@
   --color-blue-300: #8ebcd1;
   --color-blue-400: #599bb7;
   --color-blue-500: #3b81a1;
-  --color-blue-600: #4F84C4; /* Azul Petroleo */
+  --color-blue-600: #2d728e; /* Interpolado 500→700; el azul institucional es --color-gov-blue */
   --color-blue-700: #1f647c;
   --color-blue-800: #1b5266;
   --color-blue-900: #194556;

@@ -14,7 +14,14 @@
  *   app.post('/api/chat', chatRoute);
  */
 
-import type { Request, Response } from 'express';
+// Tipos estructurales mínimos del handler (req, res). Express ya no está
+// instalado; en Vercel la función recibe objetos compatibles con esta forma.
+type Request = { body?: any };
+type Response = {
+  status: (code: number) => Response;
+  json: (body: any) => Response;
+};
+
 import { GoogleGenAI, Type, type FunctionDeclaration } from '@google/genai';
 import { SYSTEM_INSTRUCTION } from './systemInstruction';
 import { obtenerTasaBCV } from './bcvRate';
