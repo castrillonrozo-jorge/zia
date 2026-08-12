@@ -1,5 +1,21 @@
 export const MOCK_NEWS = [
   {
+    id: 8,
+    fecha: "04 Ago 2026",
+    titulo: "Entregadas 87 viviendas a familias afectadas por el terremoto; la meta es 4.000 antes de fin de año",
+    descripcion: "58 apartamentos de cuatro habitaciones y 29 de dos, entregados en Ciudad Tiuna a familias que perdieron su hogar en los sismos del 24 de junio.",
+    contenidoCompleto: "El Ejecutivo entregó el 4 de agosto 87 viviendas nuevas a familias afectadas por el doble terremoto del 24 de junio: 58 apartamentos de cuatro habitaciones y 29 de dos habitaciones, en un acto realizado en Ciudad Tiuna, Caracas. En la ceremonia se ratificó el compromiso de entregar al menos 4.000 viviendas adicionales antes de fin de año. Las entregas comenzaron el 20 de julio, cuando se adjudicaron las primeras viviendas a más de 240 familias damnificadas. Fuente: Infobae / Telemundo, 04-08-2026.",
+    imagenUrl: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: 9,
+    fecha: "28 Jun 2026",
+    titulo: "CAF crea el Fondo para la Recuperación y Reconstrucción de Venezuela por hasta 200 millones de dólares",
+    descripcion: "El banco de desarrollo financia búsqueda y rescate, asistencia humanitaria y rehabilitación de infraestructura crítica tras los sismos.",
+    contenidoCompleto: "El banco de desarrollo de América Latina y el Caribe (CAF) anunció la creación del Fondo para la Recuperación y Reconstrucción de Venezuela, con capacidad de hasta 200 millones de dólares. El fondo contempla financiamiento para operaciones de búsqueda y rescate, asistencia humanitaria, suministro de insumos esenciales y rehabilitación de servicios en infraestructuras críticas: agua y saneamiento, energía eléctrica, salud, educación y conectividad. CAF realizó un aporte semilla de 1 millón de dólares y asume los costos de administración, de modo que el 100% de las contribuciones se destina a la atención de la emergencia. Fuente: CAF / Infobae, 28-06-2026.",
+    imagenUrl: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80"
+  },
+  {
     id: 1,
     titulo: "Histórico acuerdo con la corporación GE Vernova para optimizar el SEN",
     descripcion: "Acuerdo estratégico con la firma de General Electric sumará 1.000 MW en 24 meses y hasta 5.000 MW a mediano plazo.",

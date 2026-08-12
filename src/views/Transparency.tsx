@@ -20,18 +20,20 @@ export const Transparency: React.FC<{ selectedNewsId?: string | number | null, o
     setExpandedNews(prev => prev === id ? null : id);
   };
 
+  // Inversiones y alianzas reales, con su dato y su fecha.
+  // Fuentes: anuncios oficiales y prensa (CAF, Infobae, La Iguana), Jun-Ago 2026.
   const investments = [
-    { label: 'Ajuste Salarial', amount: '150M', percentage: 50, icon: Icons.TrendingUp, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
-    { label: 'Red Eléctrica Nacional', amount: '90M', percentage: 30, icon: Icons.Zap, color: 'text-amber-500', bg: 'bg-amber-500/10' },
-    { label: 'Salud y Educación', amount: '60M', percentage: 20, icon: Icons.HeartPulse, color: 'text-rose-500', bg: 'bg-rose-500/10' },
-    { label: 'Infraestructura Vial', amount: '45M', percentage: 15, icon: Icons.Map, color: 'text-blue-500', bg: 'bg-blue-500/10' },
-    { label: 'Seguridad Ciudadana', amount: '35M', percentage: 12, icon: Icons.ShieldCheck, color: 'text-indigo-500', bg: 'bg-indigo-500/10' },
+    { label: 'GE Vernova — Sistema Eléctrico', dato: '1.000 MW', detalle: 'Memorando · 24 meses · Jun 2026', icon: Icons.Zap },
+    { label: 'IMPSA — Central Tocoma', dato: '672 MW', detalle: 'Reactivación · 19 meses · Jun 2026', icon: Icons.Activity },
+    { label: 'Shell — Campo de gas Loran', dato: 'Fase I', detalle: 'Licencia de exploración · Jun 2026', icon: Icons.TrendingUp },
+    { label: 'CAF — Fondo de Reconstrucción', dato: 'Hasta $200M', detalle: 'Creado el 28 Jun 2026', icon: Icons.Landmark },
+    { label: 'Viviendas Post-Terremoto', dato: '87 / 4.000', detalle: 'Entregadas · meta fin de año', icon: Icons.Home },
   ];
 
   const budgetStats = [
-    { label: 'Presupuesto Asignado', value: '$1.2B', icon: Icons.Landmark },
-    { label: 'Ejecución Trimestral', value: '85%', icon: Icons.Activity },
-    { label: 'Proyectos Activos', value: '1,240', icon: Icons.Layers },
+    { label: 'Fondo CAF Reconstrucción', value: 'Hasta $200M', icon: Icons.Landmark },
+    { label: 'Viviendas Entregadas 04 Ago', value: '87', icon: Icons.Home },
+    { label: 'Meta Viviendas 2026', value: '4.000', icon: Icons.Layers },
   ];
 
   return (
@@ -60,14 +62,15 @@ export const Transparency: React.FC<{ selectedNewsId?: string | number | null, o
               <div className="absolute -left-6 md:-left-12 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-amber-300/40 to-transparent shadow-none"></div>
               <div className="flex items-center gap-3 text-amber-200/80">
                 <Icons.BarChart3 size={16} />
-                <p className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500/80">Ingreso Petrolero (Metodología)</p>
+                <p className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500/80">Fondo CAF · Recuperación y Reconstrucción</p>
               </div>
               <div className="flex items-baseline gap-2">
-                <span className="text-5xl md:text-6xl font-black tracking-tighter leading-none inline-block text-transparent bg-clip-text bg-gradient-to-br from-white via-amber-50 to-amber-200/50 drop-shadow-none">300<span className="text-3xl md:text-4xl text-amber-100/50 px-1">M</span>$</span>
+                <span className="text-2xl md:text-3xl font-black text-amber-100/60 pr-1">hasta</span>
+                <span className="text-5xl md:text-6xl font-black tracking-tighter leading-none inline-block text-transparent bg-clip-text bg-gradient-to-br from-white via-amber-50 to-amber-200/50 drop-shadow-none">200<span className="text-3xl md:text-4xl text-amber-100/50 px-1">M</span>$</span>
               </div>
               <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 px-4 py-2 rounded-xl backdrop-blur-sm mt-4 shadow-none">
                 <Icons.TrendingUp size={14} className="text-amber-400" />
-                <span className="text-[10px] font-black tracking-widest text-amber-100/90">Recaudación Transparente 2026</span>
+                <span className="text-[10px] font-black tracking-widest text-amber-100/90">Fuente: CAF · 28 Jun 2026</span>
               </div>
             </div>
 
@@ -77,8 +80,8 @@ export const Transparency: React.FC<{ selectedNewsId?: string | number | null, o
                   <Icons.ShieldCheck size={22} className="text-blue-400" />
                 </div>
                 <div>
-                  <p className="text-[9px] font-black uppercase tracking-widest text-white/50">Estado de Gestión</p>
-                  <p className="text-xs md:text-sm font-black text-white tracking-tight mt-0.5">Datos de demostración</p>
+                  <p className="text-[9px] font-black uppercase tracking-widest text-white/50">Última Actualización</p>
+                  <p className="text-xs md:text-sm font-black text-white tracking-tight mt-0.5">12 Ago 2026 · Fuentes públicas</p>
                 </div>
               </div>
             </div>
@@ -112,7 +115,7 @@ export const Transparency: React.FC<{ selectedNewsId?: string | number | null, o
       {/* Investment Distribution */}
       <section className="px-6 space-y-8">
         <div className="flex items-center justify-between px-4">
-          <h3 className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.3em]">Distribución de Inversión</h3>
+          <h3 className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.3em]">Inversiones y Alianzas</h3>
           <div className="flex items-center gap-3">
             <Icons.PieChart size={18} className="text-slate-400 dark:text-slate-500" />
           </div>
@@ -137,30 +140,12 @@ export const Transparency: React.FC<{ selectedNewsId?: string | number | null, o
                   <div className="space-y-1">
                     <h4 className="text-sm font-black text-[#FFFFFF] tracking-tight">{item.label}</h4>
                     <div className="flex items-center gap-3">
-                      <p className="text-[10px] font-black text-[#FFFFFF] opacity-80 uppercase tracking-widest">{item.percentage}% del total</p>
-                      <span className="text-[9px] font-mono text-[#FFFFFF] opacity-60">TX-{(idx + 1) * 1024}</span>
+                      <p className="text-[10px] font-black text-[#FFFFFF] opacity-80 uppercase tracking-widest">{item.detalle}</p>
                     </div>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-2xl font-black text-[#FFFFFF] tracking-tighter">${item.amount}</p>
-                </div>
-              </div>
-              
-              <div className="space-y-3 relative z-10">
-                <div className="relative h-2.5 bg-white/10 rounded-full overflow-hidden border border-white/5">
-                  <motion.div 
-                    initial={{ width: 0 }}
-                    animate={{ width: `${item.percentage}%` }}
-                    transition={{ duration: 1.5, ease: "easeOut", delay: idx * 0.2 }}
-                    className={`h-full bg-white relative rounded-full`}
-                  >
-                    <div className={`absolute inset-0 blur-md opacity-40 bg-white`}></div>
-                  </motion.div>
-                </div>
-                <div className="flex justify-between items-center px-1">
-                  <span className="text-[9px] font-black text-[#FFFFFF] opacity-80 uppercase tracking-widest">Asignación Presupuestaria</span>
-                  <span className={`text-[9px] font-black text-[#FFFFFF] uppercase tracking-widest`}>Ejecutado</span>
+                  <p className="text-2xl font-black text-[#FFFFFF] tracking-tighter">{item.dato}</p>
                 </div>
               </div>
             </div>
@@ -174,10 +159,10 @@ export const Transparency: React.FC<{ selectedNewsId?: string | number | null, o
           <div className="w-6 h-6 rounded-lg bg-emerald-500/10 flex items-center justify-center">
             <Icons.ShieldCheck size={14} className="text-emerald-600 dark:text-emerald-400" />
           </div>
-          <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Auditoría Digital Activa</span>
+          <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Fuentes Públicas</span>
         </div>
         <p className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.3em] leading-relaxed max-w-[280px] mx-auto">
-          Datos auditados por el sistema nacional de transparencia pública • 2026
+          Datos compilados de anuncios oficiales y prensa • Actualizado 12 Ago 2026
         </p>
       </section>
 
@@ -212,9 +197,11 @@ export const Transparency: React.FC<{ selectedNewsId?: string | number | null, o
                   <div className="p-5 flex flex-col justify-center relative z-10">
                     <div className="flex items-start justify-between gap-4">
                       <div className="space-y-2">
-                        <span style={{ background: 'rgba(255, 255, 255, 0.15)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.2)' }} className="inline-block text-[#FFFFFF] text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full">
-                          {index === 0 ? 'Hoy' : `Hace ${index * 2} Días`}
-                        </span>
+                        {(news as any).fecha && (
+                          <span style={{ background: 'rgba(255, 255, 255, 0.15)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.2)' }} className="inline-block text-[#FFFFFF] text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full">
+                            {(news as any).fecha}
+                          </span>
+                        )}
                         <h4 className="text-[15px] font-black text-[#FFFFFF] leading-snug">
                           {news.titulo}
                         </h4>
