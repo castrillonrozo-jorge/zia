@@ -11,5 +11,5 @@ import { chatRoute } from '../arreglos/chatRoute';
 export default chatRoute;
 
 export const config = {
-  maxDuration: 30, // El modelo puede tardar; el default de 10s se queda corto.
+  maxDuration: 60, // El modelo puede tardar; el default de 10s se queda corto.
 };

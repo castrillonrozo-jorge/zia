@@ -60,7 +60,22 @@ export function useAgentChat({
           }),
         });
 
-        const data = await res.json();
+        let data: any = null;
+        try {
+          data = await res.json();
+        } catch {
+          // El servidor respondió, pero no con JSON: función ausente (404),
+          // caída (500) o cortada por tiempo (504). Mostrar el código real.
+          setError(
+            `El servidor del chat respondió ${res.status} sin datos. ` +
+            (res.status === 404
+              ? 'La función /api/chat no está desplegada.'
+              : res.status === 504
+                ? 'La respuesta tardó demasiado y el servidor la cortó.'
+                : 'Revisa los Logs del proyecto en Vercel.'),
+          );
+          return;
+        }
 
         if (!res.ok) {
           setError(data?.error ?? 'No se pudo contactar al asistente.');
