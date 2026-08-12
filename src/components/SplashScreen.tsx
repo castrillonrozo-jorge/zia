@@ -7,9 +7,9 @@ interface SplashScreenProps {
 /**
  * Splash "Todo converge, y el reloj se acelera" (disenos/Splash.dc.html).
  *
- * - Primera apertura: secuencia completa (3,7 s) — las doce siglas convergen,
- *   el reloj acelerado, el nombre letra a letra.
- * - Aperturas siguientes: versión corta (1,4 s), con bandera en localStorage.
+ * - Secuencia completa (3,7 s) en cada apertura: las doce siglas convergen,
+ *   el reloj acelerado, el nombre letra a letra. (El documento proponía una
+ *   versión corta para aperturas repetidas; se descartó a pedido del dueño.)
  * - prefers-reduced-motion: icono y nombre fijos 600 ms, sin animación.
  * - Solo transform/opacity; las siglas se colocan en cqmin para escalar solas.
  */
@@ -18,8 +18,6 @@ const ACCENT = '#4F84C4';
 const SIGLAS = ['SAIME', 'SAREN', 'INTT', 'SENIAT', 'IVSS', 'SALUD', 'EMPLEO', 'BANCA', 'PAGOS', 'CITAS', 'RIF', 'INTI'];
 const RADIOS = [39, 29.7, 36.4, 27.7, 38, 30.8, 39.5, 28.2, 36.9, 30.3, 38.5, 28.7];
 const BANDERA = ['#FFCE00', '#2C6FE0', '#DC1B33'];
-const VISTO_KEY = 'agiliza_splash_visto';
-
 const KEYFRAMES = `
 @keyframes spl-tileIn {
   0%   { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.62); }
@@ -73,9 +71,6 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
     if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       return 'reducido';
     }
-    if (typeof localStorage !== 'undefined' && localStorage.getItem(VISTO_KEY)) {
-      return 'corto';
-    }
     return 'completo';
   }, []);
 
@@ -88,7 +83,6 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
     : { glow: 0, ring: 120, clockIn: -1, clockOut: -1, hands: -1, icon: 80, sweep: 320, word: 480 };
 
   useEffect(() => {
-    try { localStorage.setItem(VISTO_KEY, '1'); } catch { /* modo privado */ }
     const timer = setTimeout(onComplete, total);
     return () => clearTimeout(timer);
   }, [onComplete, total]);
