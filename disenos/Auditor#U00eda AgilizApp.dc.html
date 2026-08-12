@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  html { background: #E9E5DC; }
+  body { margin: 0; background: #E9E5DC; font-family: Geist, system-ui, sans-serif; -webkit-font-smoothing: antialiased; text-wrap: pretty; }
+  * { box-sizing: border-box; }
+  a { color: #A3341F; text-decoration: none; border-bottom: 1px solid rgba(163,52,31,0.35); }
+  a:hover { color: #7C2515; border-bottom-color: #7C2515; }
+</style>
+</helmet>
+
+<div style="max-width: 1120px; margin: 0 auto; background: #F4F1EA; color: #17140F; padding: 76px 88px 96px; min-height: 100vh;">
+
+  <header style="display: flex; flex-direction: column; gap: 30px; border-bottom: 2px solid #17140F; padding-bottom: 34px;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 40px;">
+      <div style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #6E675E;">Revisión de código y producto</div>
+      <div style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #6E675E;">11 ago 2026</div>
+    </div>
+    <h1 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 78px; line-height: 0.94; letter-spacing: -0.02em; margin: 0; max-width: 15ch;">AgilizApp, mirada de cerca</h1>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; padding-top: 8px;">
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #6E675E;">Alcance</span>
+        <span style="font-size: 14px; font-weight: 500; line-height: 1.35;">63 archivos · 17 vistas · ~7.600 líneas</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #6E675E;">Stack</span>
+        <span style="font-size: 14px; font-weight: 500; line-height: 1.35;">React 18 · Vite · Express 5 · Gemini</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #6E675E;">Nombres en uso</span>
+        <span style="font-size: 14px; font-weight: 500; line-height: 1.35;">Dubai AgilizApp / VenInfo / Agiliza / VenIA</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #6E675E;">Hallazgos</span>
+        <span style="font-size: 14px; font-weight: 500; line-height: 1.35;">6 críticos · 12 de deuda · 9 de UX</span>
+      </div>
+    </div>
+  </header>
+
+  <section style="display: grid; grid-template-columns: 1fr 340px; gap: 64px; padding: 56px 0 60px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <div style="display: flex; flex-direction: column; gap: 22px;">
+      <div style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #A3341F;">Veredicto</div>
+      <p style="font-family: 'Instrument Serif', serif; font-size: 31px; line-height: 1.32; margin: 0; letter-spacing: -0.01em;">Es un prototipo con oficio visual real y una ambición desproporcionada frente a lo que está implementado. Lo que se ve, funciona. Casi nada de lo que promete, existe.</p>
+      <p style="font-size: 15.5px; line-height: 1.62; color: #46403A; margin: 0; max-width: 62ch;">El problema de fondo no es la deuda técnica —eso se paga. Es que la app <strong style="font-weight: 600; color: #17140F;">afirma</strong>. Dice «Verificado 2026», «Auditoría 100%» y «Seguridad de Nivel Gubernamental» encima de datos que el propio código marca como falsos: hay noticias con el id <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px; background: rgba(163,52,31,0.09); padding: 1px 5px; border-radius: 3px;">not_real_2</span> renderizadas en el carrusel de inicio igual que las demás.</p>
+      <p style="font-size: 15.5px; line-height: 1.62; color: #46403A; margin: 0; max-width: 62ch;">Mi recomendación es una sola y antecede a todas las demás: <strong style="font-weight: 600; color: #17140F;">decide qué es esto.</strong> Si es una demo, dilo en pantalla y te queda un prototipo sólido y presentable. Si apunta a producción, hay que sacar todo dato inventado y toda promesa no implementada antes de tocar una línea de CSS.</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 18px; padding: 26px; background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10);">
+      <div style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #6E675E;">Lectura rápida</div>
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="display: flex; gap: 12px; align-items: baseline;">
+          <span style="font-family: 'Instrument Serif', serif; font-size: 22px; color: #3E6B4B; min-width: 28px;">Sí</span>
+          <span style="font-size: 14px; line-height: 1.5; color: #46403A;">Como demo de diseño y como pitch de visión.</span>
+        </div>
+        <div style="height: 1px; background: rgba(23,20,15,0.10);"></div>
+        <div style="display: flex; gap: 12px; align-items: baseline;">
+          <span style="font-family: 'Instrument Serif', serif; font-size: 22px; color: #7E5C09; min-width: 28px;">Aún</span>
+          <span style="font-size: 14px; line-height: 1.5; color: #46403A;">No como MVP: no hay backend de datos ni autenticación.</span>
+        </div>
+        <div style="height: 1px; background: rgba(23,20,15,0.10);"></div>
+        <div style="display: flex; gap: 12px; align-items: baseline;">
+          <span style="font-family: 'Instrument Serif', serif; font-size: 22px; color: #A3341F; min-width: 28px;">No</span>
+          <span style="font-size: 14px; line-height: 1.5; color: #46403A;">No en manos de un ciudadano real con la copy actual.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <sc-if value="{{ showScores }}" hint-placeholder-val="{{ true }}">
+  <section style="padding: 54px 0 58px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <div style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #6E675E; margin-bottom: 30px;">Dónde está fuerte y dónde no</div>
+    <div style="display: flex; flex-direction: column; gap: 0;">
+
+      <div style="display: grid; grid-template-columns: 230px 1fr 54px; gap: 24px; align-items: center; padding: 15px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-size: 15px; font-weight: 500;">Ambición de producto</span>
+        <div style="height: 7px; background: rgba(23,20,15,0.07); position: relative;"><div style="position: absolute; inset: 0 auto 0 0; width: 90%; background: #3E6B4B;"></div></div>
+        <span style="font-family: 'Geist Mono', monospace; font-size: 13px; text-align: right; color: #3E6B4B;">9/10</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 230px 1fr 54px; gap: 24px; align-items: center; padding: 15px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-size: 15px; font-weight: 500;">Oficio visual</span>
+        <div style="height: 7px; background: rgba(23,20,15,0.07); position: relative;"><div style="position: absolute; inset: 0 auto 0 0; width: 78%; background: #3E6B4B;"></div></div>
+        <span style="font-family: 'Geist Mono', monospace; font-size: 13px; text-align: right; color: #3E6B4B;">8/10</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 230px 1fr 54px; gap: 24px; align-items: center; padding: 15px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-size: 15px; font-weight: 500;">Ingeniería de la capa IA</span>
+        <div style="height: 7px; background: rgba(23,20,15,0.07); position: relative;"><div style="position: absolute; inset: 0 auto 0 0; width: 65%; background: #7E5C09;"></div></div>
+        <span style="font-family: 'Geist Mono', monospace; font-size: 13px; text-align: right; color: #7E5C09;">6.5/10</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 230px 1fr 54px; gap: 24px; align-items: center; padding: 15px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-size: 15px; font-weight: 500;">Claridad de producto</span>
+        <div style="height: 7px; background: rgba(23,20,15,0.07); position: relative;"><div style="position: absolute; inset: 0 auto 0 0; width: 42%; background: #7E5C09;"></div></div>
+        <span style="font-family: 'Geist Mono', monospace; font-size: 13px; text-align: right; color: #7E5C09;">4/10</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 230px 1fr 54px; gap: 24px; align-items: center; padding: 15px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-size: 15px; font-weight: 500;">Arquitectura de código</span>
+        <div style="height: 7px; background: rgba(23,20,15,0.07); position: relative;"><div style="position: absolute; inset: 0 auto 0 0; width: 40%; background: #7E5C09;"></div></div>
+        <span style="font-family: 'Geist Mono', monospace; font-size: 13px; text-align: right; color: #7E5C09;">4/10</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 230px 1fr 54px; gap: 24px; align-items: center; padding: 15px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-size: 15px; font-weight: 500;">Seguridad</span>
+        <div style="height: 7px; background: rgba(23,20,15,0.07); position: relative;"><div style="position: absolute; inset: 0 auto 0 0; width: 18%; background: #A3341F;"></div></div>
+        <span style="font-family: 'Geist Mono', monospace; font-size: 13px; text-align: right; color: #A3341F;">2/10</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 230px 1fr 54px; gap: 24px; align-items: center; padding: 15px 0; border-top: 1px solid rgba(23,20,15,0.10); border-bottom: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-size: 15px; font-weight: 500;">Veracidad del contenido</span>
+        <div style="height: 7px; background: rgba(23,20,15,0.07); position: relative;"><div style="position: absolute; inset: 0 auto 0 0; width: 15%; background: #A3341F;"></div></div>
+        <span style="font-family: 'Geist Mono', monospace; font-size: 13px; text-align: right; color: #A3341F;">1.5/10</span>
+      </div>
+
+    </div>
+  </section>
+  </sc-if>
+
+  <section style="padding: 56px 0 58px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <div style="display: flex; align-items: baseline; gap: 18px; margin-bottom: 34px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F;">01</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 40px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Lo que está genuinamente bien</h2>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px 44px;">
+
+      <div style="display: flex; flex-direction: column; gap: 9px;">
+        <h3 style="font-size: 16px; font-weight: 600; margin: 0; letter-spacing: -0.005em;">La IA que navega la app</h3>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">El <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">navigateApp</span> con function calling es la mejor idea del proyecto. El usuario dice «quiero renovar el pasaporte» y aterriza en SAIME con el enlace oficial. Eso resuelve el problema real de una súper-app de trámites: nadie encuentra nada en un menú de 20 organismos.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 9px;">
+        <h3 style="font-size: 16px; font-weight: 600; margin: 0; letter-spacing: -0.005em;">La cascada de modelos del servidor</h3>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Reintentos con backoff, degradación de <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">googleSearch</span> cuando se agota la cuota, y errores traducidos a mensajes que un ciudadano entiende. Es el código más maduro del repo, con diferencia.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 9px;">
+        <h3 style="font-size: 16px; font-weight: 600; margin: 0; letter-spacing: -0.005em;">Las píldoras de estado en las tarjetas</h3>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">«Cita en 12 días», «Vence mañana», «Sin deudas». Convierte un menú en un tablero: el usuario ve qué le urge sin entrar. Es diseño de información de verdad, no decoración.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 9px;">
+        <h3 style="font-size: 16px; font-weight: 600; margin: 0; letter-spacing: -0.005em;">Haptics y Dynamic Island</h3>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">El <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">useVibration</span> aplicado con criterio (medio al navegar, fuerte al enviar, alerta en pánico) y las confirmaciones no bloqueantes dan una sensación de app nativa que casi ningún portal público logra.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 9px;">
+        <h3 style="font-size: 16px; font-weight: 600; margin: 0; letter-spacing: -0.005em;">El módulo de Protección</h3>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Los teléfonos reales del Ministerio Público, CICPC, CONAS, INAMUJER y bomberos en un solo lugar, con el pánico detrás de un hold de 1,5 s para evitar falsos positivos. La intención es correcta; la implementación es el hallazgo crítico n.º 5.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 9px;">
+        <h3 style="font-size: 16px; font-weight: 600; margin: 0; letter-spacing: -0.005em;">El material acrílico de las tarjetas</h3>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Especular arriba-izquierda, luz de estudio difusa, ruido al 3%, aurora en rotación lenta. Está construido a mano y se ve caro. El problema no es la calidad, es que se aplica igual a los diez servicios.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section style="padding: 56px 0 58px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <div style="display: flex; align-items: baseline; gap: 18px; margin-bottom: 12px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F;">02</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 40px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Seis cosas que arreglaría esta semana</h2>
+    </div>
+    <p style="font-size: 15px; line-height: 1.6; color: #6B645C; margin: 0 0 38px 30px; max-width: 60ch;">Ninguna es de diseño. Todas son de riesgo: exposición de credenciales, datos falsos presentados como verificados, y promesas de seguridad que el código no cumple.</p>
+
+    <div style="display: flex; flex-direction: column; gap: 2px;">
+
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-left: 3px solid #A3341F; padding: 26px 30px; display: flex; flex-direction: column; gap: 13px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #FFFDF8; background: #A3341F; padding: 4px 8px;">Crítico 01</span>
+          <h3 style="font-size: 19px; font-weight: 600; margin: 0; letter-spacing: -0.01em;">La clave de API de Gemini está escrita en el código</h3>
+        </div>
+        <p style="font-size: 15px; line-height: 1.6; color: #46403A; margin: 0; max-width: 78ch;">En <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">server.ts</span> la clave está como literal dentro de la cadena de <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">||</span>. Dos problemas de golpe: cualquiera con acceso al repo puede facturar con tu cuenta, y como el literal va <em>antes</em> de <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">process.env</span>, la variable de entorno nunca se lee. El <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">.env.example</span> es decorativo.</p>
+        <sc-if value="{{ evidence }}" hint-placeholder-val="{{ true }}">
+        <div style="font-family: 'Geist Mono', monospace; font-size: 12.5px; line-height: 1.7; color: #6B645C; background: rgba(23,20,15,0.04); padding: 12px 14px; overflow-x: auto; white-space: pre;">server.ts — const apiKey = clientApiKey || "AIzaSy…wP638" || process.env.GEMINI_API_KEY;</div>
+        </sc-if>
+        <p style="font-size: 14.5px; line-height: 1.55; color: #17140F; margin: 0; font-weight: 500;">Qué hacer: revoca esa clave hoy, lee solo de entorno y falla cerrado si no está. Y revisa el historial de git, porque queda ahí.</p>
+      </div>
+
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-left: 3px solid #A3341F; padding: 26px 30px; display: flex; flex-direction: column; gap: 13px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #FFFDF8; background: #A3341F; padding: 4px 8px;">Crítico 02</span>
+          <h3 style="font-size: 19px; font-weight: 600; margin: 0; letter-spacing: -0.01em;">Datos inventados con sello de «Verificado»</h3>
+        </div>
+        <p style="font-size: 15px; line-height: 1.6; color: #46403A; margin: 0; max-width: 78ch;">Esto es lo que más me preocupa de toda la app. La vista de Transparencia muestra $1.2B de presupuesto, 300M$ de ingreso petrolero, 85% de ejecución y 1.240 proyectos activos bajo una insignia verde que dice «Verificado 2026» y un pie que dice «Auditoría 100%». Hay incluso un «Latency: 24ms» puramente ornamental. Y el archivo de noticias contiene entradas con id <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">not_real_2</span> y <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">not_real_3</span> —el propio código admite que son falsas— que se renderizan en el carrusel de inicio exactamente igual que las demás, con fotos de medios reales.</p>
+        <sc-if value="{{ evidence }}" hint-placeholder-val="{{ true }}">
+        <div style="font-family: 'Geist Mono', monospace; font-size: 12.5px; line-height: 1.7; color: #6B645C; background: rgba(23,20,15,0.04); padding: 12px 14px;">src/data/news.ts · src/views/Transparency.tsx · ROADMAP.md («100% de trazabilidad, Verificado 2026»)</div>
+        </sc-if>
+        <p style="font-size: 14.5px; line-height: 1.55; color: #17140F; margin: 0; font-weight: 500;">Qué hacer: quita las entradas <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">not_real</span>, borra las insignias de verificación y pon un rótulo fijo «Datos de demostración» en todo el módulo hasta que haya una fuente. Una cifra inventada con sello de auditada destruye más confianza que diez bugs.</p>
+      </div>
+
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-left: 3px solid #A3341F; padding: 26px 30px; display: flex; flex-direction: column; gap: 13px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #FFFDF8; background: #A3341F; padding: 4px 8px;">Crítico 03</span>
+          <h3 style="font-size: 19px; font-weight: 600; margin: 0; letter-spacing: -0.01em;">El prompt del sistema hace política</h3>
+        </div>
+        <p style="font-size: 15px; line-height: 1.6; color: #46403A; margin: 0; max-width: 78ch;">El <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">systemInstruction</span> incluye una regla que ordena al modelo nombrar y elogiar a dirigentes concretos si se le pregunta, otra que prohíbe cuatro palabras del vocabulario («burocrática», «soberano», «patria», «pueblo»), y otra que oculta a la empresa desarrolladora salvo pregunta directa. Además fija tasas del BCV como texto («554.42 VED/USD… vigente el día de hoy»), que el asistente repetirá como verdad de hoy dentro de seis meses.</p>
+        <p style="font-size: 15px; line-height: 1.6; color: #46403A; margin: 0; max-width: 78ch;">Aparte del juicio que cada uno tenga, es un riesgo operativo: son afirmaciones que el modelo no puede verificar, que envejecen mal, y que en una captura de pantalla se leen como posición oficial de la app. Un asistente de trámites no necesita ninguna de las tres reglas para hacer su trabajo.</p>
+        <sc-if value="{{ evidence }}" hint-placeholder-val="{{ true }}">
+        <div style="font-family: 'Geist Mono', monospace; font-size: 12.5px; line-height: 1.7; color: #6B645C; background: rgba(23,20,15,0.04); padding: 12px 14px;">server.ts — reglas 4, 5 y 6 del systemInstruction · tasa BCV literal en server.ts y App.tsx</div>
+        </sc-if>
+        <p style="font-size: 14.5px; line-height: 1.55; color: #17140F; margin: 0; font-weight: 500;">Qué hacer: saca todo lo político y toda cifra con fecha del prompt. Las tasas se piden a una fuente; no se escriben a mano.</p>
+      </div>
+
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-left: 3px solid #A3341F; padding: 26px 30px; display: flex; flex-direction: column; gap: 13px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #FFFDF8; background: #A3341F; padding: 4px 8px;">Crítico 04</span>
+          <h3 style="font-size: 19px; font-weight: 600; margin: 0; letter-spacing: -0.01em;">No hay autenticación, y la pantalla dice que sí</h3>
+        </div>
+        <p style="font-size: 15px; line-height: 1.6; color: #46403A; margin: 0; max-width: 78ch;">«Ingresar al Portal» llama a <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">onLogin()</span> sin leer la cédula ni la clave. Los botones de Google y Facebook llaman a la misma función. La biometría es un <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">setTimeout</span> de 2.500 ms con una animación de escaneo. Debajo, la pantalla afirma «Seguridad de Nivel Gubernamental», y el manifiesto ya pide permisos de cámara, micrófono y geolocalización.</p>
+        <sc-if value="{{ evidence }}" hint-placeholder-val="{{ true }}">
+        <div style="font-family: 'Geist Mono', monospace; font-size: 12.5px; line-height: 1.7; color: #6B645C; background: rgba(23,20,15,0.04); padding: 12px 14px;">src/views/Login.tsx — handleBiometric() → setTimeout(onLogin, 2500) · metadata.json — camera, microphone, geolocation</div>
+        </sc-if>
+        <p style="font-size: 14.5px; line-height: 1.55; color: #17140F; margin: 0; font-weight: 500;">Qué hacer: si sigue siendo demo, cambia esa línea por «Prototipo · datos simulados» y quita los permisos que no se usan. Un prototipo honesto no pierde nada; uno que miente pierde todo.</p>
+      </div>
+
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-left: 3px solid #A3341F; padding: 26px 30px; display: flex; flex-direction: column; gap: 13px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #FFFDF8; background: #A3341F; padding: 4px 8px;">Crítico 05</span>
+          <h3 style="font-size: 19px; font-weight: 600; margin: 0; letter-spacing: -0.01em;">El botón de pánico anuncia lo que no hace</h3>
+        </div>
+        <p style="font-size: 15px; line-height: 1.6; color: #46403A; margin: 0; max-width: 78ch;">Al mantenerlo pulsado, la pantalla dice «Localizando tu posición GPS», luego «Notificando a contactos de emergencia», luego «Ubicación compartida». No se lee la geolocalización, no hay contactos de emergencia en ninguna parte del código, y no se comparte nada. La secuencia termina en <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">tel:911</span> —número que la propia app contradice, porque lista el 171 como línea del CICPC.</p>
+        <p style="font-size: 15px; line-height: 1.6; color: #46403A; margin: 0; max-width: 78ch;">Es el único hallazgo de esta lista con consecuencias físicas: alguien podría confiar en eso en una situación real.</p>
+        <sc-if value="{{ evidence }}" hint-placeholder-val="{{ true }}">
+        <div style="font-family: 'Geist Mono', monospace; font-size: 12.5px; line-height: 1.7; color: #6B645C; background: rgba(23,20,15,0.04); padding: 12px 14px;">src/views/Security.tsx — executePanic() · sin navigator.geolocation en todo el repo</div>
+        </sc-if>
+        <p style="font-size: 14.5px; line-height: 1.55; color: #17140F; margin: 0; font-weight: 500;">Qué hacer: o lo implementas de verdad (geolocalización + contactos configurables + confirmación de envío) o reduces la copy a lo único que ocurre: «Llamar a emergencias». Y verifica el número correcto.</p>
+      </div>
+
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-left: 3px solid #A3341F; padding: 26px 30px; display: flex; flex-direction: column; gap: 13px;">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #FFFDF8; background: #A3341F; padding: 4px 8px;">Crítico 06</span>
+          <h3 style="font-size: 19px; font-weight: 600; margin: 0; letter-spacing: -0.01em;">Las herramientas de la IA son escenografía</h3>
+        </div>
+        <p style="font-size: 15px; line-height: 1.6; color: #46403A; margin: 0; max-width: 78ch;">Se declaran cuatro funciones a Gemini —<span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">getExchangeRate</span>, <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">getProcedureStatus</span>, <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">calculateTax</span>, <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">navigateApp</span>— pero tres de ellas se responden en el cliente con un texto fijo. Pregunte lo que pregunte el usuario, el estado del trámite es «en revisión final, aprobación en 48 horas». Hay además un bypass: cualquier mensaje que contenga «cv» o «currículum» devuelve un párrafo enlatado dirigido a «Jorge Eduardo», sea quien sea el usuario.</p>
+        <sc-if value="{{ evidence }}" hint-placeholder-val="{{ true }}">
+        <div style="font-family: 'Geist Mono', monospace; font-size: 12.5px; line-height: 1.7; color: #6B645C; background: rgba(23,20,15,0.04); padding: 12px 14px;">src/App.tsx — handleSendAiMessage(): bypass de currículum + respuestas literales por functionCall</div>
+        </sc-if>
+        <p style="font-size: 14.5px; line-height: 1.55; color: #17140F; margin: 0; font-weight: 500;">Qué hacer: conéctalas a endpoints reales o quítalas de la declaración. Una herramienta declarada que miente es peor que no tenerla, porque el modelo la invoca con confianza.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <sc-if value="{{ isFull }}" hint-placeholder-val="{{ true }}">
+  <section style="padding: 56px 0 58px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <div style="display: flex; align-items: baseline; gap: 18px; margin-bottom: 12px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #7E5C09;">03</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 40px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Deuda técnica</h2>
+    </div>
+    <p style="font-size: 15px; line-height: 1.6; color: #6B645C; margin: 0 0 34px 30px; max-width: 60ch;">Nada aquí bloquea una demo. Todo esto te va a frenar en cuanto entre una segunda persona a trabajar en el repo.</p>
+
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px 44px;">
+
+      <div style="display: flex; flex-direction: column; gap: 8px; padding-left: 16px; border-left: 2px solid rgba(153,112,11,0.4);">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">App.tsx hace de todo</h3>
+        <p style="font-size: 14.5px; line-height: 1.56; color: #46403A; margin: 0;">676 líneas: router, estado global, saldo, y la interfaz completa del chat con sus ajustes de modelo. El chat solo son ~250. Extráelo a <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">VeniaChat.tsx</span> y el archivo se vuelve legible.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px; padding-left: 16px; border-left: 2px solid rgba(153,112,11,0.4);">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Todo el estado vive en el cliente</h3>
+        <p style="font-size: 14.5px; line-height: 1.56; color: #46403A; margin: 0;">El saldo es un <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">useState(12450)</span>: recargas la página y las transferencias nunca ocurrieron. La identidad (nombre, cédula, teléfono, correo) se guarda en <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">localStorage</span> en texto plano.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px; padding-left: 16px; border-left: 2px solid rgba(153,112,11,0.4);">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Diez scripts de un solo uso en la raíz</h3>
+        <p style="font-size: 14.5px; line-height: 1.56; color: #46403A; margin: 0;"><span style="font-family: 'Geist Mono', monospace; font-size: 13px;">fix_home.ts</span>, <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">fix_home2.ts</span>, <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">move_insight.ts</span>, <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">move_insight_back.ts</span>, <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">replace_bg.ts</span>, <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">replace_buttons.ts</span>, <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">remove_insight_action.ts</span>, <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">script.ts</span>, <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">test-lucide.js/.ts</span>. Son parches de búsqueda-y-reemplazo ya aplicados. Bórralos.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px; padding-left: 16px; border-left: 2px solid rgba(153,112,11,0.4);">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Rastros de edición automática</h3>
+        <p style="font-size: 14.5px; line-height: 1.56; color: #46403A; margin: 0;"><span style="font-family: 'Geist Mono', monospace; font-size: 13px;">boxShadow: 'none'</span>, <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">shadow-none</span> y <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">drop-shadow-none</span> aparecen decenas de veces: las sombras se eliminaron con un script, no con una decisión. Hay <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">shadow-xl rounded-none</span> en la misma clase y <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">hover:bg-white/95</span> sobre un fondo transparente en la nav.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px; padding-left: 16px; border-left: 2px solid rgba(153,112,11,0.4);">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Tres sistemas de estilo compitiendo</h3>
+        <p style="font-size: 14.5px; line-height: 1.56; color: #46403A; margin: 0;">Un <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">&lt;style&gt;</span> en el index.html, el tema de Tailwind en index.css, y estilos inline por componente. <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">.bento-card</span> está definida dos veces con valores distintos, y el index.html declara <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">font-family: Inter</span> mientras la app carga Geist.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px; padding-left: 16px; border-left: 2px solid rgba(153,112,11,0.4);">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">La paleta no cierra</h3>
+        <p style="font-size: 14.5px; line-height: 1.56; color: #46403A; margin: 0;"><span style="font-family: 'Geist Mono', monospace; font-size: 13px;">--color-blue-600: #4F84C4</span> rompe la escala (es más claro que el 500) y está comentado como «Azul Petróleo». Los ocho tokens «Pantone 2026» no se usan en ningún sitio. Y el ROADMAP promete un «azul presidencial #003893» que no aparece en el código.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px; padding-left: 16px; border-left: 2px solid rgba(153,112,11,0.4);">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Dos lockfiles</h3>
+        <p style="font-size: 14.5px; line-height: 1.56; color: #46403A; margin: 0;"><span style="font-family: 'Geist Mono', monospace; font-size: 13px;">bun.lock</span> y <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">package-lock.json</span> conviven, así que dos personas pueden instalar versiones distintas. Elige uno y borra el otro.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px; padding-left: 16px; border-left: 2px solid rgba(153,112,11,0.4);">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Código muerto en Home</h3>
+        <p style="font-size: 14.5px; line-height: 1.56; color: #46403A; margin: 0;"><span style="font-family: 'Geist Mono', monospace; font-size: 13px;">getServiceSVG()</span> (diez iconos SVG a mano) y todo el bloque <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">veniaAlerts</span> con su temporizador están definidos y nunca se renderizan. Las alertas proactivas eran buena idea: recupéralas o bórralas.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px; padding-left: 16px; border-left: 2px solid rgba(153,112,11,0.4);">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Vistas fantasma en los tipos</h3>
+        <p style="font-size: 14.5px; line-height: 1.56; color: #46403A; margin: 0;"><span style="font-family: 'Geist Mono', monospace; font-size: 13px;">AppView</span> declara <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">onboarding</span> y <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">credits</span>, que no existen. Si la IA devuelve una de ellas en <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">navigateApp</span>, el usuario cae en Home sin explicación.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px; padding-left: 16px; border-left: 2px solid rgba(153,112,11,0.4);">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Verifica los IDs de modelo</h3>
+        <p style="font-size: 14.5px; line-height: 1.56; color: #46403A; margin: 0;">Si <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">gemini-3.1-flash-lite</span> o <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">gemini-3.5-flash</span> no existen en tu proyecto, la cascada gasta hasta nueve intentos con backoff antes de rendirse: el usuario espera medio minuto para leer un error.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px; padding-left: 16px; border-left: 2px solid rgba(153,112,11,0.4);">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Sin pruebas y sin lint real</h3>
+        <p style="font-size: 14.5px; line-height: 1.56; color: #46403A; margin: 0;">El script <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">lint</span> es <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">tsc --noEmit</span> y no hay un solo test. Empieza por los flujos que tocan dinero: recarga, transferencia, pago QR.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 8px; padding-left: 16px; border-left: 2px solid rgba(153,112,11,0.4);">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">El README no es de esta app</h3>
+        <p style="font-size: 14.5px; line-height: 1.56; color: #46403A; margin: 0;">Sigue siendo la plantilla de AI Studio, con banner genérico incluido, mientras el paquete se llama <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">febrero-mvp-veninfo-new---portal-ciudadano-new</span> y la app se llama Agiliza. Cuatro nombres para un producto es tres de más.</p>
+      </div>
+
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ isFull }}" hint-placeholder-val="{{ true }}">
+  <section style="padding: 56px 0 58px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <div style="display: flex; align-items: baseline; gap: 18px; margin-bottom: 12px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52;">04</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 40px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Diseño y experiencia</h2>
+    </div>
+    <p style="font-size: 15px; line-height: 1.6; color: #6B645C; margin: 0 0 34px 30px; max-width: 62ch;">El material está bien hecho. Lo que falta es jerarquía: cuando todo brilla igual, nada guía.</p>
+
+    <div style="display: flex; flex-direction: column; gap: 0;">
+
+      <div style="display: grid; grid-template-columns: 200px 1fr; gap: 34px; padding: 22px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0; line-height: 1.35;">La tarjeta que rota bajo el dedo</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #46403A; margin: 0;">En Home hay cuatro servicios fijos y una quinta tarjeta que cambia de servicio cada 3 segundos. El usuario apunta a Empleo y aterriza en Seniat. Un destino de toque no debe moverse nunca: pasa esos seis servicios a la rejilla completa o a un carrusel que se desplace, no que se sustituya.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 200px 1fr; gap: 34px; padding: 22px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0; line-height: 1.35;">Diez servicios, un solo azul</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #46403A; margin: 0;">Todas las tarjetas comparten el mismo degradado <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">#3A69A3 → #4F84C4</span>. El resultado es elegante y completamente plano en jerarquía: Saime, Pagos y Protección pesan lo mismo que «Lo Nuestro». Da peso visual a los dos o tres servicios que la gente abre de verdad y deja el resto en un nivel más silencioso.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 200px 1fr; gap: 34px; padding: 22px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0; line-height: 1.35;">Tipografía por debajo del mínimo</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #46403A; margin: 0;">Etiquetas a 9-11 px, en mayúsculas, con <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">letter-spacing: 0.1em</span>, y el título se encoge a 9 px cuando pasa de diez caracteres. En un teléfono, al sol, eso no se lee —y menos con «SAIME» en versalitas apretadas. Sube a 13-15 px y quita las mayúsculas: los nombres de organismos ya son siglas.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 200px 1fr; gap: 34px; padding: 22px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0; line-height: 1.35;">Texto blanco sobre fondo casi blanco</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #46403A; margin: 0;">La cabecera del chat de VenIA usa <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">text-white</span> con sombra de texto sobre un panel <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">#F2F2F7</span>. En modo claro, «VenIA» y «Asistente Inteligente» quedan blanco sobre blanco. Es un bug de contraste, no una decisión.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 200px 1fr; gap: 34px; padding: 22px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0; line-height: 1.35;">La billetera no está en la navegación</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #46403A; margin: 0;">La barra inferior es Inicio · Pagos · Protección · Salud · Perfil. La Billetera —donde está el saldo, la recarga, la transferencia y el QR— solo se alcanza entrando por Pagos. Y el botón atrás tiene una regla invisible: desde Billetera vuelve a Pagos, desde cualquier otra cosa vuelve a Inicio.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 200px 1fr; gap: 34px; padding: 22px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0; line-height: 1.35;">Emoji donde hay sistema de iconos</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #46403A; margin: 0;">Protección usa ⚖️ 🚔 🛡️ 🆘 mientras las otras dieciséis vistas usan Lucide. En el módulo más serio de la app, el emoji le quita exactamente lo que necesita: autoridad.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 200px 1fr; gap: 34px; padding: 22px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0; line-height: 1.35;">Home está medio vacía</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #46403A; margin: 0;">Cinco tarjetas, un botón «Otros» y el carrusel de noticias. Quedaron dos huecos de sección con comentarios vacíos donde antes había contenido. Las <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">veniaAlerts</span> muertas —«Tu cédula vence en 12 días. He pre-llenado tu solicitud»— son justo lo que le falta a esa pantalla.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 200px 1fr; gap: 34px; padding: 22px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0; line-height: 1.35;">Ruido de datos decorativo</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #46403A; margin: 0;">«Latency: 24ms», «Auditoría 100%», «Verificado», puntitos verdes que palpitan. Cada número inventado que añades le resta credibilidad a los que sí son ciertos. Menos cifras, todas reales.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 200px 1fr; gap: 34px; padding: 22px 0; border-top: 1px solid rgba(23,20,15,0.10); border-bottom: 1px solid rgba(23,20,15,0.10);">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0; line-height: 1.35;">El chat asume un ancho fijo</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #46403A; margin: 0;">El overlay fija <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">max-w-[430px]</span> y <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">top-16</span> a mano, con <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">h-[85vh]</span> dentro. En un iPhone SE o con la barra de direcciones visible, la caja de entrada se sale de la pantalla.</p>
+      </div>
+
+    </div>
+  </section>
+  </sc-if>
+
+  <section style="padding: 56px 0 0;">
+    <div style="display: flex; align-items: baseline; gap: 18px; margin-bottom: 34px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #3E6B4B;">05</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 40px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">En qué orden lo haría</h2>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
+
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-top: 3px solid #A3341F; padding: 28px; display: flex; flex-direction: column; gap: 16px;">
+        <div style="display: flex; flex-direction: column; gap: 5px;">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #A3341F;">Tanda 1 · esta semana</span>
+          <h3 style="font-family: 'Instrument Serif', serif; font-size: 25px; font-weight: 400; margin: 0; line-height: 1.15;">Dejar de afirmar cosas falsas</h3>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <div style="display: grid; grid-template-columns: 16px 1fr; gap: 10px; font-size: 14px; line-height: 1.5; color: #46403A;"><span style="color: #A3341F;">→</span><span>Revocar la clave de API y leerla solo del entorno.</span></div>
+          <div style="display: grid; grid-template-columns: 16px 1fr; gap: 10px; font-size: 14px; line-height: 1.5; color: #46403A;"><span style="color: #A3341F;">→</span><span>Borrar las noticias <span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">not_real</span> y las insignias de «Verificado».</span></div>
+          <div style="display: grid; grid-template-columns: 16px 1fr; gap: 10px; font-size: 14px; line-height: 1.5; color: #46403A;"><span style="color: #A3341F;">→</span><span>Quitar del prompt lo político y las cifras con fecha.</span></div>
+          <div style="display: grid; grid-template-columns: 16px 1fr; gap: 10px; font-size: 14px; line-height: 1.5; color: #46403A;"><span style="color: #A3341F;">→</span><span>Reescribir la copy del botón de pánico.</span></div>
+          <div style="display: grid; grid-template-columns: 16px 1fr; gap: 10px; font-size: 14px; line-height: 1.5; color: #46403A;"><span style="color: #A3341F;">→</span><span>Rótulo «Prototipo · datos simulados» visible.</span></div>
+        </div>
+      </div>
+
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-top: 3px solid #7E5C09; padding: 28px; display: flex; flex-direction: column; gap: 16px;">
+        <div style="display: flex; flex-direction: column; gap: 5px;">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #7E5C09;">Tanda 2 · dos semanas</span>
+          <h3 style="font-family: 'Instrument Serif', serif; font-size: 25px; font-weight: 400; margin: 0; line-height: 1.15;">Que el repo aguante a otra persona</h3>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <div style="display: grid; grid-template-columns: 16px 1fr; gap: 10px; font-size: 14px; line-height: 1.5; color: #46403A;"><span style="color: #7E5C09;">→</span><span>Extraer el chat de App.tsx a su propio componente.</span></div>
+          <div style="display: grid; grid-template-columns: 16px 1fr; gap: 10px; font-size: 14px; line-height: 1.5; color: #46403A;"><span style="color: #7E5C09;">→</span><span>Borrar los diez scripts de parche y un lockfile.</span></div>
+          <div style="display: grid; grid-template-columns: 16px 1fr; gap: 10px; font-size: 14px; line-height: 1.5; color: #46403A;"><span style="color: #7E5C09;">→</span><span>Conectar las cuatro herramientas o eliminarlas.</span></div>
+          <div style="display: grid; grid-template-columns: 16px 1fr; gap: 10px; font-size: 14px; line-height: 1.5; color: #46403A;"><span style="color: #7E5C09;">→</span><span>Un solo nombre de producto en todo el proyecto.</span></div>
+          <div style="display: grid; grid-template-columns: 16px 1fr; gap: 10px; font-size: 14px; line-height: 1.5; color: #46403A;"><span style="color: #7E5C09;">→</span><span>Arreglar el contraste del chat y la nav inferior.</span></div>
+        </div>
+      </div>
+
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-top: 3px solid #3E6B4B; padding: 28px; display: flex; flex-direction: column; gap: 16px;">
+        <div style="display: flex; flex-direction: column; gap: 5px;">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #3E6B4B;">Tanda 3 · el mes</span>
+          <h3 style="font-family: 'Instrument Serif', serif; font-size: 25px; font-weight: 400; margin: 0; line-height: 1.15;">Convertir la demo en producto</h3>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <div style="display: grid; grid-template-columns: 16px 1fr; gap: 10px; font-size: 14px; line-height: 1.5; color: #46403A;"><span style="color: #3E6B4B;">→</span><span>Rehacer Home: rejilla fija, jerarquía, tipografía legible.</span></div>
+          <div style="display: grid; grid-template-columns: 16px 1fr; gap: 10px; font-size: 14px; line-height: 1.5; color: #46403A;"><span style="color: #3E6B4B;">→</span><span>Recuperar las alertas proactivas de VenIA.</span></div>
+          <div style="display: grid; grid-template-columns: 16px 1fr; gap: 10px; font-size: 14px; line-height: 1.5; color: #46403A;"><span style="color: #3E6B4B;">→</span><span>Autenticación real y estado en servidor.</span></div>
+          <div style="display: grid; grid-template-columns: 16px 1fr; gap: 10px; font-size: 14px; line-height: 1.5; color: #46403A;"><span style="color: #3E6B4B;">→</span><span>Un único sistema de tokens de estilo.</span></div>
+          <div style="display: grid; grid-template-columns: 16px 1fr; gap: 10px; font-size: 14px; line-height: 1.5; color: #46403A;"><span style="color: #3E6B4B;">→</span><span>Pruebas en los flujos que mueven dinero.</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top: 52px; padding: 34px 38px; background: #17140F; color: #F4F1EA; display: flex; flex-direction: column; gap: 14px;">
+      <div style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(244,241,234,0.5);">Lo único que de verdad importa</div>
+      <p style="font-family: 'Instrument Serif', serif; font-size: 26px; line-height: 1.36; margin: 0; max-width: 68ch;">Tienes la parte difícil resuelta: una visión clara y un producto que se ve bien. Lo que falta es honestidad de interfaz. Una demo que admite ser demo es respetable; una demo que se presenta como servicio del Estado con cifras inventadas no tiene salida buena.</p>
+    </div>
+  </section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1120, &quot;height&quot;: 900}, &quot;mode&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;completo&quot;, &quot;ejecutivo&quot;], &quot;default&quot;: &quot;completo&quot;, &quot;tsType&quot;: &quot;'completo' | 'ejecutivo'&quot;, &quot;section&quot;: &quot;Alcance del informe&quot;}, &quot;showScores&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Alcance del informe&quot;}, &quot;showEvidence&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Alcance del informe&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const isFull = (this.props.mode ?? 'completo') === 'completo';
+    return {
+      isFull,
+      showScores: this.props.showScores ?? true,
+      evidence: isFull && (this.props.showEvidence ?? true)
+    };
+  }
+}
+</script>
+</body>
+</html>

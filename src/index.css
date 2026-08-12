@@ -1,38 +1,119 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Inter", sans-serif;
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-serif: "Cormorant Garamond", serif;
   
-  --color-klarna: #FFB3C7;
-  --color-ven-purple: #9333ea;
-  --color-ven-green: #22c55e;
-  --color-ven-dark: #111827;
-  --color-glass: rgba(255, 255, 255, 0.8);
+  --color-blue-50: #f0f7f9;
+  --color-blue-100: #dcecef;
+  --color-blue-200: #bcdae3;
+  --color-blue-300: #8ebcd1;
+  --color-blue-400: #599bb7;
+  --color-blue-500: #3b81a1;
+  --color-blue-600: #4F84C4; /* Azul Petroleo */
+  --color-blue-700: #1f647c;
+  --color-blue-800: #1b5266;
+  --color-blue-900: #194556;
+  --color-blue-950: #102d39;
+
+  /* Custom Dark Mode Colors - Governmental Palette */
+  --color-dark-bg: #05070A;
+  --color-dark-card: #0D1117;
+  --color-dark-border: rgba(255, 255, 255, 0.1);
+  --color-dark-text-primary: #FFFFFF;
+  --color-dark-text-secondary: #F8FAFC; 
+  --color-dark-text-muted: #CBD5E1; 
+  
+  --color-gov-blue: #4F84C4;
+  --color-gov-gold: #D4AF37;
+  --color-gov-red: #C8102E;
+
+  /* Pantone 2026 Palette - Expanded Pastels */
+  --color-aura-blue: #4F84C4;
+  --color-amber-glow: #FFBF00;
+  --color-pastel-pink: #FFD1DC;
+  --color-mint-fresh: #B5EAD7;
+  --color-lavender-dream: #E2CFEA;
+  --color-peach-fuzz: #FFD8B1;
+  --color-sky-soft: #A0E7E5;
+  --color-lemon-chiffon: #FFF9C4;
 }
 
 @layer base {
   body {
-    @apply font-sans antialiased bg-gray-50 text-gray-900;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-sans font-bold tracking-tight text-gray-900;
-  }
-  p {
-    @apply text-gray-700;
+    @apply bg-[#FAFAFA] dark:bg-[#05070A] antialiased selection:bg-blue-500/30 transition-colors duration-300;
   }
 }
 
-.glass {
-  @apply backdrop-blur-xl bg-white/80 border border-gray-200 shadow-lg;
-}
+@layer utilities {
+  .noise-bg {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
 
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
+  .view-transition {
+    animation: view-fade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
 
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  @keyframes view-fade {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-scan {
+    animation: scan 3s linear infinite;
+  }
+
+  @keyframes scan {
+    0% { top: 0%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+  }
+
+  @keyframes marquee {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
+  }
+
+  .animate-marquee {
+    animation: marquee 40s linear infinite;
+    display: inline-flex;
+    white-space: nowrap;
+  }
+
+  @keyframes marquee-vertical {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+  }
+
+  .animate-marquee-vertical {
+    animation: marquee-vertical 5s linear infinite;
+  }
+
+  .bento-card {
+    @apply bg-white dark:bg-[#0D1117] border border-black/[0.05] dark:border-white/[0.1] shadow-[0_2px_10px_rgba(0,0,0,0.04)] dark:shadow-none hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_10px_30px_rgba(0,0,0,0.2)] hover:border-blue-500/20 dark:hover:border-blue-400/30 transition-all duration-500;
+  }
+
+  .iphone-card {
+    @apply bg-white/80 dark:bg-white/[0.05] backdrop-blur-2xl border border-black/[0.05] dark:border-white/[0.1] shadow-xl rounded-none;
+  }
+
+  .text-contrast {
+    @apply text-slate-900 dark:text-white font-bold;
+  }
+
+  .text-contrast-muted {
+    @apply text-slate-500 dark:text-slate-200;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }

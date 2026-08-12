@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  html { background: #E9E5DC; }
+  body { margin: 0; background: #E9E5DC; font-family: Geist, system-ui, sans-serif; -webkit-font-smoothing: antialiased; text-wrap: pretty; }
+  * { box-sizing: border-box; }
+  a { color: #A3341F; text-decoration: none; border-bottom: 1px solid rgba(163,52,31,0.35); }
+  a:hover { color: #7C2515; border-bottom-color: #7C2515; }
+</style>
+</helmet>
+
+<div style="max-width: 1120px; margin: 0 auto; background: #F4F1EA; color: #17140F; padding: 76px 88px 96px; min-height: 100vh;">
+
+  <header style="display: flex; flex-direction: column; gap: 26px; border-bottom: 2px solid #17140F; padding-bottom: 34px;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 40px;">
+      <div style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8A8278;">Documento 11 · Guía completa</div>
+      <div style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8A8278;">11 ago 2026</div>
+    </div>
+    <h1 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 74px; line-height: 0.95; letter-spacing: -0.02em; margin: 0; max-width: 15ch;">De la clave a la app publicada</h1>
+    <p style="font-size: 15.5px; line-height: 1.62; color: #46403A; margin: 0; max-width: 84ch;">Seis partes, en orden. No te saltes ninguna y no cambies el orden: cada una deja lista la siguiente. Calcula hora y media la primera vez, tranquilo y sin prisa. Después de esto, publicar un cambio son dos minutos y una sola línea.</p>
+    <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; padding-top: 6px;">
+      <div style="display: flex; flex-direction: column; gap: 5px;"><span style="font-family: 'Geist Mono', monospace; font-size: 10px; color: #A3341F;">A</span><span style="font-size: 13px; font-weight: 500; line-height: 1.3;">La clave nueva</span></div>
+      <div style="display: flex; flex-direction: column; gap: 5px;"><span style="font-family: 'Geist Mono', monospace; font-size: 10px; color: #2A3A52;">B</span><span style="font-size: 13px; font-weight: 500; line-height: 1.3;">Arreglar el código</span></div>
+      <div style="display: flex; flex-direction: column; gap: 5px;"><span style="font-family: 'Geist Mono', monospace; font-size: 10px; color: #2A3A52;">C</span><span style="font-size: 13px; font-weight: 500; line-height: 1.3;">Probar en tu máquina</span></div>
+      <div style="display: flex; flex-direction: column; gap: 5px;"><span style="font-family: 'Geist Mono', monospace; font-size: 10px; color: #2A3A52;">D</span><span style="font-size: 13px; font-weight: 500; line-height: 1.3;">Subir a GitHub</span></div>
+      <div style="display: flex; flex-direction: column; gap: 5px;"><span style="font-family: 'Geist Mono', monospace; font-size: 10px; color: #2A3A52;">E</span><span style="font-size: 13px; font-weight: 500; line-height: 1.3;">Publicar en Vercel</span></div>
+      <div style="display: flex; flex-direction: column; gap: 5px;"><span style="font-family: 'Geist Mono', monospace; font-size: 10px; color: #3E6B4B;">F</span><span style="font-size: 13px; font-weight: 500; line-height: 1.3;">Comprobar</span></div>
+    </div>
+  </header>
+
+  <section style="padding: 44px 0 46px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 32px; line-height: 1.05; margin: 0 0 22px; letter-spacing: -0.01em;">Cuatro palabras que van a salir todo el rato</h2>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 40px;">
+      <div style="display: flex; flex-direction: column; gap: 6px; padding-left: 15px; border-left: 2px solid rgba(23,20,15,0.18);">
+        <h3 style="font-size: 15px; font-weight: 600; margin: 0;">Terminal</h3>
+        <p style="font-size: 14.5px; line-height: 1.55; color: #46403A; margin: 0;">La ventana negra donde se escriben órdenes. En Windows se llama PowerShell, en Mac se llama Terminal. Tiene que estar abierta <em>dentro de la carpeta de tu proyecto</em>: en VS Code se abre con <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">Ctrl + Ñ</span> y ya se abre en el sitio correcto.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px; padding-left: 15px; border-left: 2px solid rgba(23,20,15,0.18);">
+        <h3 style="font-size: 15px; font-weight: 600; margin: 0;">Rama</h3>
+        <p style="font-size: 14.5px; line-height: 1.55; color: #46403A; margin: 0;">Una copia paralela de tu código donde puedes romper cosas sin miedo. Tu versión buena se queda quieta en <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">main</span> mientras tú trabajas en otra. Si algo sale mal, vuelves y no pasó nada.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px; padding-left: 15px; border-left: 2px solid rgba(23,20,15,0.18);">
+        <h3 style="font-size: 15px; font-weight: 600; margin: 0;">Variable de entorno</h3>
+        <p style="font-size: 14.5px; line-height: 1.55; color: #46403A; margin: 0;">Un dato secreto que vive <em>fuera</em> del código: tú lo escribes en el panel de Vercel y el programa lo lee al arrancar. Así el secreto nunca viaja dentro de los archivos. Tu clave de Gemini es exactamente esto.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px; padding-left: 15px; border-left: 2px solid rgba(23,20,15,0.18);">
+        <h3 style="font-size: 15px; font-weight: 600; margin: 0;">Build</h3>
+        <p style="font-size: 14.5px; line-height: 1.55; color: #46403A; margin: 0;">El momento en que tu código se convierte en la app que ve el usuario. Si el build falla, no se publica nada —lo cual es bueno: prefieres que se caiga ahí y no delante del funcionario.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 44px 0 46px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 10px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #FFFDF8; background: #A3341F; padding: 5px 11px;">Parte A</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 34px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Sacar la clave nueva</h2>
+    </div>
+    <p style="font-size: 15px; line-height: 1.6; color: #6B645C; margin: 0 0 26px; max-width: 74ch;">Creamos la nueva primero y borramos la vieja al final, así nunca te quedas sin ninguna.</p>
+
+    <div style="display: flex; flex-direction: column; gap: 0; margin-bottom: 24px;">
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 20px; padding: 17px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F; padding-top: 3px;">A1</span>
+        <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0;">Abre <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">aistudio.google.com/apikey</span> con la misma cuenta de Google con la que creaste la app.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 20px; padding: 17px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F; padding-top: 3px;">A2</span>
+        <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0;">Pulsa <strong style="font-weight: 600; color: #17140F;">Create API key</strong>. Te da una cadena larga que empieza por <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">AIzaSy…</span></p>
+      </div>
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 20px; padding: 17px 0; border-top: 1px solid rgba(23,20,15,0.10); border-bottom: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F; padding-top: 3px;">A3</span>
+        <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0;">Cópiala y pégala en un bloc de notas. La vas a usar dos veces: una en la parte C y otra en la parte E. <strong style="font-weight: 600; color: #17140F;">No la pegues en ningún archivo del proyecto.</strong></p>
+      </div>
+    </div>
+
+    <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-left: 3px solid #3E6B4B; padding: 20px 24px;">
+      <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0; max-width: 84ch;"><strong style="font-weight: 600; color: #17140F;">Ya está.</strong> La vieja sigue viva y tu app sigue funcionando. La borraremos en la parte F, cuando la nueva ya esté probada.</p>
+    </div>
+  </section>
+
+  <section style="padding: 44px 0 46px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 10px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #FFFDF8; background: #2A3A52; padding: 5px 11px;">Parte B</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 34px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Arreglar el código</h2>
+    </div>
+    <p style="font-size: 15px; line-height: 1.6; color: #6B645C; margin: 0 0 26px; max-width: 76ch;">Aquí es donde más se tarda. Ve despacio y guarda cada archivo al terminarlo.</p>
+
+    <div style="display: flex; flex-direction: column; gap: 0; margin-bottom: 26px;">
+
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 20px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52; padding-top: 3px;">B1</span>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Copia la carpeta de arreglos</h3>
+          <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0;">Descarga <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">arreglos/</span> de este proyecto y arrástrala dentro de tu carpeta de AgilizApp, al mismo nivel que <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">server.ts</span> y <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">package.json</span>.</p>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 20px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52; padding-top: 3px;">B2</span>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Mueve dos archivos a su sitio</h3>
+          <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0;">Crea una carpeta nueva llamada <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">api</span> en la raíz. Luego:</p>
+          <div style="background: #17140F; color: #E8E4DC; padding: 18px 22px; font-family: 'Geist Mono', monospace; font-size: 13px; line-height: 1.9; white-space: pre-wrap;">arreglos/api-chat.ts   →   api/chat.ts
+arreglos/vercel.json   →   vercel.json   (en la raíz)</div>
+          <p style="font-size: 14.5px; line-height: 1.55; color: #6B645C; margin: 0;">Fíjate que el primero además cambia de nombre: pasa de <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">api-chat.ts</span> a <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">chat.ts</span>.</p>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 20px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10); background: rgba(163,52,31,0.045);">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F; padding-top: 3px; padding-left: 10px;">B3</span>
+        <div style="display: flex; flex-direction: column; gap: 10px; padding-right: 12px;">
+          <div style="display: flex; align-items: center; gap: 11px;">
+            <span style="font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #FFFDF8; background: #A3341F; padding: 4px 8px;">No te saltes este</span>
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Quita la clave de vite.config.ts</h3>
+          </div>
+          <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0;">Tu <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">vite.config.ts</span> tiene un bloque <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">define</span> que <strong style="font-weight: 600; color: #17140F;">copia tu clave dentro del JavaScript que descarga el navegador</strong>. Cualquiera que abra la app y mire el código fuente la ve. Y al desplegar es peor: Vercel construye con la variable puesta, así que la clave nueva acabaría publicada igual que la vieja.</p>
+          <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0;">Sustituye el archivo entero por <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">arreglos/vite.config.ts</span>, que ya viene sin ese bloque. Y en <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">App.tsx</span> quita el <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">apiKey: customApiKey</span> que se manda al servidor y el panel de ajustes que lo guarda en el navegador: la clave la pone el servidor, no el usuario.</p>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 20px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52; padding-top: 3px;">B4</span>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Cambia los comandos de package.json</h3>
+          <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0;">Tu <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">"dev"</span> arranca el servidor viejo, que en un momento vas a borrar. Abre <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">package.json</span> y deja el bloque <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">scripts</span> así:</p>
+          <div style="background: #17140F; color: #E8E4DC; padding: 18px 22px; font-family: 'Geist Mono', monospace; font-size: 13px; line-height: 1.9; white-space: pre-wrap;">"dev":     "vercel dev"
+"dev:ui":  "vite"
+"build":   "vite build"
+"preview": "vite preview"
+"lint":    "tsc --noEmit"</div>
+          <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0;">Y una vez en tu vida, para que <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">vercel dev</span> exista:</p>
+          <div style="background: #17140F; color: #E8E4DC; padding: 18px 22px; font-family: 'Geist Mono', monospace; font-size: 13px; line-height: 1.9; white-space: pre-wrap;">npm i -g vercel
+vercel login</div>
+          <p style="font-size: 14.5px; line-height: 1.55; color: #6B645C; margin: 0;">Los detalles están en <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">arreglos/PACKAGE.md</span>.</p>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 20px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F; padding-top: 3px;">B5</span>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Limpia server.ts</h3>
+          <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0;">Ábrelo y busca la línea que tiene la clave escrita. Bórrala junto con <strong style="font-weight: 600; color: #17140F;">toda la ruta <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">app.post('/api/chat', …)</span></strong>, desde esa línea hasta la llave que la cierra. Sí, son varios cientos de líneas: van fuera enteras, porque ese trabajo ahora lo hace <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">api/chat.ts</span>.</p>
+          <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0;">Borra también el <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">app.listen(...)</span> del final. Vercel no lo usa.</p>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 20px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F; padding-top: 3px;">B6</span>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Limpia App.tsx</h3>
+          <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0;">Busca con <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">Ctrl + F</span> la palabra <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">curriculo</span>. Vas a caer en el bloque que responde «¡Excelente, Jorge Eduardo!». Bórralo entero.</p>
+          <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0;">Busca ahora <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">getExchangeRate</span> y <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">getProcedureStatus</span>: son los dos bloques que devuelven la tasa vieja y el «48 horas». Fuera los dos. Y sustituye el resto de <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">handleSendAiMessage</span> por el hook <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">useAgentChat</span> que te dejé.</p>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 20px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10); border-bottom: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52; padding-top: 3px;">B7</span>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">El resto de la lista</h3>
+          <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0;">Abre <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">arreglos/LEEME.md</span> y ve tachando la tabla: las noticias falsas, los sellos de «Verificado», lo del petro en el INTT, los diez scripts sueltos de la raíz. Son borrados, no hay que escribir nada.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section style="padding: 44px 0 46px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 10px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #FFFDF8; background: #2A3A52; padding: 5px 11px;">Parte C</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 34px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Probarlo en tu máquina</h2>
+    </div>
+    <p style="font-size: 15px; line-height: 1.6; color: #6B645C; margin: 0 0 24px; max-width: 76ch;">Nunca subas algo que no has visto funcionar en tu computadora. Arreglar aquí cuesta un minuto; arreglarlo en Vercel, veinte.</p>
+
+    <div style="display: flex; flex-direction: column; gap: 22px;">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">C1 · Crea el archivo de secretos local</h3>
+        <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0; max-width: 82ch;">En la raíz del proyecto crea un archivo llamado exactamente <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">.env</span> —con el punto delante— y escribe dentro una sola línea:</p>
+        <div style="background: #17140F; color: #E8E4DC; padding: 18px 22px; font-family: 'Geist Mono', monospace; font-size: 13px; line-height: 1.9; white-space: pre-wrap;">GEMINI_API_KEY=aqui-pegas-tu-clave-nueva</div>
+        <p style="font-size: 14.5px; line-height: 1.55; color: #6B645C; margin: 0;">Sin comillas y sin espacios alrededor del igual.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">C2 · Asegúrate de que ese archivo no se sube</h3>
+        <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0; max-width: 82ch;">Abre <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">.gitignore</span> y comprueba que aparecen las líneas <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">.env</span> y <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">.vercel</span>. Si falta alguna, añádela y guarda. <strong style="font-weight: 600; color: #17140F;">Este paso es el que evita repetir el problema que tenemos ahora.</strong></p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">C3 · Compila</h3>
+        <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0; max-width: 82ch;">En la terminal, dentro de la carpeta del proyecto:</p>
+        <div style="background: #17140F; color: #E8E4DC; padding: 18px 22px; font-family: 'Geist Mono', monospace; font-size: 13px; line-height: 1.9; white-space: pre-wrap;">npm install
+npm run build</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-left: 3px solid #3E6B4B; padding: 18px 20px;">
+            <p style="font-size: 14.5px; line-height: 1.55; color: #46403A; margin: 0;"><strong style="font-weight: 600; color: #17140F;">Si termina sin rojo</strong> y aparece una carpeta <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">dist</span>, vas bien. Sigue.</p>
+          </div>
+          <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-left: 3px solid #A3341F; padding: 18px 20px;">
+            <p style="font-size: 14.5px; line-height: 1.55; color: #46403A; margin: 0;"><strong style="font-weight: 600; color: #17140F;">Si sale rojo</strong>, párate aquí. Cópiame el error completo. Suele ser un import que apunta a algo que borraste en B3 o B4.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">C4 · Comprueba que la clave no está en el paquete</h3>
+        <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0; max-width: 82ch;">Esta es la prueba de que el paso B3 quedó bien. Busca tu clave dentro de lo que se acaba de construir:</p>
+        <div style="background: #17140F; color: #E8E4DC; padding: 18px 22px; font-family: 'Geist Mono', monospace; font-size: 13px; line-height: 1.9; white-space: pre-wrap;">grep -r "AIzaSy" dist/     · en Mac o Linux
+findstr /s "AIzaSy" dist\*  · en Windows</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-left: 3px solid #3E6B4B; padding: 18px 20px;">
+            <p style="font-size: 14.5px; line-height: 1.55; color: #46403A; margin: 0;"><strong style="font-weight: 600; color: #17140F;">Si no encuentra nada</strong>, perfecto. La clave se quedó en el servidor, que es donde debe estar.</p>
+          </div>
+          <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-left: 3px solid #A3341F; padding: 18px 20px;">
+            <p style="font-size: 14.5px; line-height: 1.55; color: #46403A; margin: 0;"><strong style="font-weight: 600; color: #17140F;">Si la encuentra</strong>, párate. Quedó el <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">define</span> en <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">vite.config.ts</span>. Vuelve a B3 antes de subir nada.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">C5 · Ábrela y habla con el chat</h3>
+        <div style="background: #17140F; color: #E8E4DC; padding: 18px 22px; font-family: 'Geist Mono', monospace; font-size: 13px; line-height: 1.9; white-space: pre-wrap;">npm run dev</div>
+        <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0; max-width: 82ch;">La primera vez te preguntará a qué proyecto de Vercel enlazar: elige <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">agiliza-mvp</span> cuando ya lo hayas creado, o salta esta prueba hasta después de la parte E. Te dará una dirección tipo <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">localhost:3000</span>.</p>
+        <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0; max-width: 82ch;">Ábrela y hazle al chat las dos preguntas seguidas: «¿qué necesito para el pasaporte?» y después «¿y cuánto cuesta?». Si la segunda respuesta sabe que hablas del pasaporte, el arreglo grande funcionó.</p>
+        <p style="font-size: 14.5px; line-height: 1.55; color: #6B645C; margin: 0;">Si solo quieres ver la interfaz sin el chat, <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">npm run dev:ui</span> arranca más rápido y no necesita nada de Vercel.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 44px 0 46px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 10px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #FFFDF8; background: #2A3A52; padding: 5px 11px;">Parte D</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 34px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Subirlo a GitHub</h2>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 22px">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">D1 · Pon el repositorio en privado</h3>
+        <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0; max-width: 82ch;">En GitHub, dentro de tu repositorio: <strong style="font-weight: 600; color: #17140F;">Settings</strong>, baja del todo hasta <em>Danger Zone</em>, y pulsa <strong style="font-weight: 600; color: #17140F;">Change visibility → Private</strong>. Te pide escribir el nombre del repositorio para confirmar. No pierdes nada: sigue siendo tuyo y Vercel lo lee igual.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">D2 · Crea la rama y sube</h3>
+        <div style="background: #17140F; color: #E8E4DC; padding: 18px 22px; font-family: 'Geist Mono', monospace; font-size: 13px; line-height: 1.9; white-space: pre-wrap;">git checkout -b version-mvp
+git add .
+git commit -m "MVP: IA con memoria, tasa BCV en vivo, sin datos falsos"
+git push -u origin version-mvp</div>
+        <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0; max-width: 82ch;">Línea por línea: la primera crea la rama nueva y te mueve a ella; la segunda recoge todos tus cambios; la tercera les pone nombre; la cuarta los sube. Tu rama <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">main</span> queda intacta.</p>
+      </div>
+
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-left: 3px solid #99700B; padding: 20px 24px;">
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0; max-width: 84ch;"><strong style="font-weight: 600; color: #17140F;">Comprobación importante:</strong> entra a tu repositorio en GitHub, ábrelo en la rama <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">version-mvp</span> y busca si aparece un archivo <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">.env</span>. <strong style="font-weight: 600; color: #17140F;">No debe aparecer.</strong> Si lo ves, bórralo del repositorio y revisa el <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">.gitignore</span> antes de seguir.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 44px 0 46px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 10px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #FFFDF8; background: #2A3A52; padding: 5px 11px;">Parte E</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 34px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Publicarlo en Vercel</h2>
+    </div>
+    <p style="font-size: 15px; line-height: 1.6; color: #6B645C; margin: 0 0 24px; max-width: 76ch;">Proyecto nuevo, no el que ya tienes. Así el actual sigue en pie mientras pruebas.</p>
+
+    <div style="display: flex; flex-direction: column; gap: 0;">
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 20px; padding: 17px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52; padding-top: 3px;">E1</span>
+        <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0;">Entra a <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">vercel.com</span>. Arriba a la derecha, <strong style="font-weight: 600; color: #17140F;">Add New</strong> → <strong style="font-weight: 600; color: #17140F;">Project</strong>.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 20px; padding: 17px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52; padding-top: 3px;">E2</span>
+        <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0;">Busca tu repositorio en la lista y pulsa <strong style="font-weight: 600; color: #17140F;">Import</strong>. Si no aparece —porque acabas de ponerlo en privado— usa el enlace <em>Adjust GitHub App Permissions</em> y dale acceso.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 20px; padding: 17px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52; padding-top: 3px;">E3</span>
+        <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0;"><strong style="font-weight: 600; color: #17140F;">Project Name:</strong> <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">agiliza-mvp</span>. Distinto al que ya tienes, para no confundirlos.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 20px; padding: 17px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52; padding-top: 3px;">E4</span>
+        <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0;">Busca dónde dice <strong style="font-weight: 600; color: #17140F;">Branch</strong> y elige <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">version-mvp</span>. Si no ves la opción, no pasa nada: se cambia después en Settings → Git.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 20px; padding: 17px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52; padding-top: 3px;">E5</span>
+        <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0;">Framework Preset: <strong style="font-weight: 600; color: #17140F;">Vite</strong>. Build Command <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">npm run build</span>, Output Directory <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">dist</span>. Normalmente ya viene así.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 20px; padding: 17px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F; padding-top: 3px;">E6</span>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0;">Despliega <strong style="font-weight: 600; color: #17140F;">Environment Variables</strong> y añade esta, con tu clave de la parte A:</p>
+          <div style="background: #17140F; color: #E8E4DC; padding: 18px 22px; font-family: 'Geist Mono', monospace; font-size: 13px; line-height: 1.9; white-space: pre-wrap;">Name    GEMINI_API_KEY
+Value   AIzaSy...</div>
+          <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0;">Déjala marcada para Production, Preview y Development. Pulsa <strong style="font-weight: 600; color: #17140F;">Add</strong>.</p>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: 40px 1fr; gap: 20px; padding: 17px 0; border-top: 1px solid rgba(23,20,15,0.10); border-bottom: 1px solid rgba(23,20,15,0.10);">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #3E6B4B; padding-top: 3px;">E7</span>
+        <p style="font-size: 15px; line-height: 1.58; color: #46403A; margin: 0;">Ahora sí: <strong style="font-weight: 600; color: #17140F;">Deploy</strong>. Uno o dos minutos. Cuando termine te da la dirección nueva.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 24px; background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-left: 3px solid #A3341F; padding: 20px 24px;">
+      <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0; max-width: 84ch;"><strong style="font-weight: 600; color: #17140F;">Si el build falla</strong>, verás mucho texto rojo. No intentes descifrarlo: copia las últimas veinte líneas y pásamelas diciéndome que fue en E7. Se arregla rápido casi siempre.</p>
+    </div>
+  </section>
+
+  <section style="padding: 44px 0 0;">
+    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 10px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #FFFDF8; background: #3E6B4B; padding: 5px 11px;">Parte F</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 34px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Comprobar y cerrar</h2>
+    </div>
+    <p style="font-size: 15px; line-height: 1.6; color: #6B645C; margin: 0 0 24px; max-width: 76ch;">Abre la dirección nueva <strong style="font-weight: 600; color: #17140F;">en tu teléfono</strong>. Estas cinco son las que va a hacer el funcionario.</p>
+
+    <div style="display: flex; flex-direction: column; gap: 0; margin-bottom: 28px;">
+      <div style="display: grid; grid-template-columns: 34px 296px 1fr; gap: 22px; padding: 17px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #3E6B4B; padding-top: 3px;">F1</span>
+        <span style="font-size: 15px; font-weight: 500; line-height: 1.4;">«¿Qué necesito para el pasaporte?» y luego «¿y cuánto cuesta?»</span>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">La segunda tiene que saber de qué hablas. Es la prueba que decide si tienes un agente.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: 34px 296px 1fr; gap: 22px; padding: 17px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #3E6B4B; padding-top: 3px;">F2</span>
+        <span style="font-size: 15px; font-weight: 500; line-height: 1.4;">«¿En qué va mi trámite 4471?»</span>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Debe decir que no tiene esa integración. Si contesta «48 horas», quedó código viejo.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: 34px 296px 1fr; gap: 22px; padding: 17px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #3E6B4B; padding-top: 3px;">F3</span>
+        <span style="font-size: 15px; font-weight: 500; line-height: 1.4;">«¿A cómo está el dólar?»</span>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Compáralo con <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">bcv.org.ve</span> abierto al lado. Si sale 554,42, quedó la cifra vieja.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: 34px 296px 1fr; gap: 22px; padding: 17px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #3E6B4B; padding-top: 3px;">F4</span>
+        <span style="font-size: 15px; font-weight: 500; line-height: 1.4;">«Ayúdame con mi CV»</span>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Si aparece «¡Excelente, Jorge Eduardo!», el atajo sigue vivo en <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">App.tsx</span>.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: 34px 296px 1fr; gap: 22px; padding: 17px 0; border-top: 1px solid rgba(23,20,15,0.10); border-bottom: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #3E6B4B; padding-top: 3px;">F5</span>
+        <span style="font-size: 15px; font-weight: 500; line-height: 1.4;">«Llévame a pagar la luz»</span>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Tiene que abrir Pagos. Es el momento que vas a enseñar: pruébalo con varias palabras distintas.</p>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-bottom: 30px;">
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-top: 3px solid #A3341F; padding: 24px; display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #A3341F;">Ahora sí</span>
+        <h3 style="font-size: 16.5px; font-weight: 600; margin: 0;">Borra la clave vieja</h3>
+        <p style="font-size: 14px; line-height: 1.56; color: #46403A; margin: 0;">Con las cinco pruebas pasadas, vuelve a <span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">aistudio.google.com/apikey</span> y elimina la que empieza por <span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">AIzaSyBKcG…</span>. La app no se entera: ya está usando la nueva.</p>
+      </div>
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-top: 3px solid #3E6B4B; padding: 24px; display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #3E6B4B;">De aquí en adelante</span>
+        <h3 style="font-size: 16.5px; font-weight: 600; margin: 0;">Publicar son tres líneas</h3>
+        <p style="font-size: 14px; line-height: 1.56; color: #46403A; margin: 0;"><span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">git add .</span>, <span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">git commit -m "lo que cambiaste"</span>, <span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">git push</span>. Vercel lo detecta y publica solo en dos minutos. Nunca más tienes que volver al panel.</p>
+      </div>
+    </div>
+
+    <div style="padding: 34px 38px; background: #17140F; color: #F4F1EA; display: flex; flex-direction: column; gap: 15px;">
+      <div style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(244,241,234,0.5);">La regla de oro mientras haces esto</div>
+      <p style="font-family: 'Instrument Serif', serif; font-size: 26px; line-height: 1.36; margin: 0; max-width: 74ch;">Si algo no funciona, no toques cinco cosas a la vez buscando cuál era. Deshaz lo último, comprueba que vuelve a funcionar, y avanza otra vez de uno en uno. Es más lento durante diez minutos y más rápido durante toda la tarde.</p>
+      <p style="font-size: 15.5px; line-height: 1.6; margin: 0; max-width: 80ch; color: rgba(244,241,234,0.78);">Y cuando te atasques: pégame el error tal cual, sin resumirlo, y dime en qué paso ibas. Con la letra y el número me basta.</p>
+    </div>
+  </section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1120, &quot;height&quot;: 900}}"></script>
+</body>
+</html>

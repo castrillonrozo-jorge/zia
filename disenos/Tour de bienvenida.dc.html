@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500&family=Rubik:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  html { background: #E9E5DC; }
+  body { margin: 0; background: #E9E5DC; font-family: Geist, system-ui, sans-serif; -webkit-font-smoothing: antialiased; text-wrap: pretty; }
+  * { box-sizing: border-box; }
+  a { color: #A3341F; text-decoration: none; border-bottom: 1px solid rgba(163,52,31,0.35); }
+  a:hover { color: #7C2515; border-bottom-color: #7C2515; }
+</style>
+</helmet>
+
+<div style="max-width: 1120px; margin: 0 auto; background: #F4F1EA; color: #17140F; padding: 76px 88px 96px; min-height: 100vh;">
+
+  <header style="display: flex; flex-direction: column; gap: 26px; border-bottom: 2px solid #17140F; padding-bottom: 32px;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 40px;">
+      <div style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #6E675E;">Documento 6 · Tour de bienvenida</div>
+      <div style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #6E675E;">Interactivo · haz clic</div>
+    </div>
+    <h1 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 76px; line-height: 0.95; letter-spacing: -0.02em; margin: 0; max-width: 15ch;">Sobre tu diseño, no sobre el mío</h1>
+    <p style="font-size: 16px; line-height: 1.62; color: #46403A; margin: 0; max-width: 74ch;">Tus tarjetas acrílicas, tu degradado, tus mayúsculas, tus cinco iconos. Encima, la capa de bienvenida con el lenguaje visual de Dubái: velo claro, tarjetón azul traslúcido y anillo turquesa idénticos en los seis pasos. <strong style="font-weight: 600; color: #17140F;">Funciona de verdad: usa las flechas del teléfono</strong> y recórrelos.</p>
+  </header>
+
+  <section style="padding: 50px 0 54px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+
+    <div style="display: grid; grid-template-columns: 402px 1fr; gap: 56px; align-items: start;">
+
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+        <div style="font-family: Geist, system-ui, sans-serif; background: #FAFAFA; height: 874px; position: relative; overflow: hidden;">
+
+          <div style="position: absolute; inset: 0; padding: 56px 0 46px; display: flex; flex-direction: column;">
+
+            <div style="height: 80px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; position: relative; border-bottom: 1px solid rgba(20,22,28,0.03);">
+              <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                <span style="font-size: 22px; font-weight: 900; letter-spacing: -0.04em; line-height: 1;"><span style="color: #4F84C4;">Agil</span><span style="color: #14161C;">iza</span></span>
+                <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #6B7280; margin-top: 3px;">Ecosistema Digital</span>
+              </div>
+              <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 46px; height: 46px; border-radius: 23px; background: radial-gradient(circle at 32% 26%, #7FB0E4 0%, #3A73B8 44%, #1C4880 100%); box-shadow: 0 5px 14px rgba(28,72,128,0.45), inset 0 1px 2px rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: center;">
+                <div style="position: absolute; inset: 5px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.2);"></div>
+                <div style="position: absolute; inset: 9px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.13);"></div>
+                <span style="position: relative; font-size: 13px; font-weight: 800; letter-spacing: 0.06em; color: #FFFFFF;">IA</span>
+                <span style="position: absolute; top: 0px; right: 0px; width: 11px; height: 11px; border-radius: 6px; background: #00FF66; border: 2px solid #FAFAFA;"></span>
+              </div>
+              <div style="height: 40px; display: flex; align-items: center; padding: 4px; border-radius: 20px; background: #F1F2F4; border: 1px solid rgba(20,22,28,0.05);">
+                <div style="width: 32px; height: 32px; border-radius: 16px; display: flex; align-items: center; justify-content: center;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5A606E" stroke-width="2"><path d="M20 14.5A8.5 8.5 0 019.5 4a8.5 8.5 0 1010.5 10.5z"/></svg>
+                </div>
+                <div style="width: 32px; height: 32px; border-radius: 16px; display: flex; align-items: center; justify-content: center; position: relative;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5A606E" stroke-width="2"><path d="M18 8.5A6 6 0 006 8.5c0 6-2.5 7.5-2.5 7.5h17S18 14.5 18 8.5z"/><path d="M13.7 19.5a2 2 0 01-3.4 0"/></svg>
+                  <span style="position: absolute; top: 6px; right: 6px; width: 6px; height: 6px; border-radius: 3px; background: #4F84C4; border: 1.5px solid #F1F2F4;"></span>
+                </div>
+                <div style="width: 32px; height: 32px; border-radius: 16px; display: flex; align-items: center; justify-content: center;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5A606E" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <div style="height: 14px;"></div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 24px;">
+
+              <div style="aspect-ratio: 1; border-radius: 28px; background: linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%); border: 1px solid rgba(255,255,255,0.15); box-shadow: inset 0 1px 1px rgba(255,255,255,0.2); position: relative; overflow: hidden; padding: 14px; display: flex; flex-direction: column;">
+                <div style="position: absolute; top: 0; left: 0; width: 65%; height: 65%; background: radial-gradient(circle at 12% 12%, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.05) 50%, transparent 100%); pointer-events: none;"></div>
+                <div style="position: absolute; top: 0; left: 0; right: 0; height: 42%; background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 100%); pointer-events: none;"></div>
+                <div style="position: relative; display: flex; justify-content: flex-end;">
+                  <div style="width: 36px; height: 36px; border-radius: 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(0,0,0,0.2); box-shadow: inset 0 1px 4px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"><path d="M12 10.5v4.5a6 6 0 01-.6 2.6"/><path d="M8.6 12a3.4 3.4 0 016.8 0v2.4a9 9 0 01-.5 3"/><path d="M5.6 13.4V12a6.4 6.4 0 0112.8 0v2.2a13 13 0 01-.5 3.6"/><path d="M3.4 9.2a9.4 9.4 0 0117.2 0"/><path d="M6.2 19.6a11 11 0 001-3.2"/></svg>
+                  </div>
+                </div>
+                <div style="position: relative; margin-top: auto; display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                  <span style="font-size: 12px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.1em; text-shadow: 0 1px 2px rgba(0,0,0,0.4);">Saime</span>
+                  <div style="display: flex; align-items: center; gap: 5px; background: rgba(0,0,0,0.22); padding: 3px 8px; border-radius: 9px; border: 1px solid rgba(255,255,255,0.12);">
+                    <div style="width: 6px; height: 6px; border-radius: 3px; background: #00FF66;"></div>
+                    <span style="font-size: 10.5px; font-weight: 700; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.05em;">Cita en 12 d.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="aspect-ratio: 1; border-radius: 28px; background: linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%); border: 1px solid rgba(255,255,255,0.15); box-shadow: inset 0 1px 1px rgba(255,255,255,0.2); position: relative; overflow: hidden; padding: 14px; display: flex; flex-direction: column;">
+                <div style="position: absolute; top: 0; left: 0; width: 65%; height: 65%; background: radial-gradient(circle at 12% 12%, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.05) 50%, transparent 100%); pointer-events: none;"></div>
+                <div style="position: absolute; top: 0; left: 0; right: 0; height: 42%; background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 100%); pointer-events: none;"></div>
+                <div style="position: relative; display: flex; justify-content: flex-end;">
+                  <div style="width: 36px; height: 36px; border-radius: 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(0,0,0,0.2); box-shadow: inset 0 1px 4px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M8.5 13h7M8.5 17h4"/></svg>
+                  </div>
+                </div>
+                <div style="position: relative; margin-top: auto; display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                  <span style="font-size: 12px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.1em; text-shadow: 0 1px 2px rgba(0,0,0,0.4);">Saren</span>
+                  <div style="display: flex; align-items: center; gap: 5px; background: rgba(0,0,0,0.22); padding: 3px 8px; border-radius: 9px; border: 1px solid rgba(255,255,255,0.12);">
+                    <div style="width: 6px; height: 6px; border-radius: 3px; background: #FFA000;"></div>
+                    <span style="font-size: 10.5px; font-weight: 700; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.05em;">Firma pend.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="aspect-ratio: 1; border-radius: 28px; background: linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%); border: 1px solid rgba(255,255,255,0.15); box-shadow: inset 0 1px 1px rgba(255,255,255,0.2); position: relative; overflow: hidden; padding: 14px; display: flex; flex-direction: column;">
+                <div style="position: absolute; top: 0; left: 0; width: 65%; height: 65%; background: radial-gradient(circle at 12% 12%, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.05) 50%, transparent 100%); pointer-events: none;"></div>
+                <div style="position: absolute; top: 0; left: 0; right: 0; height: 42%; background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 100%); pointer-events: none;"></div>
+                <div style="position: relative; display: flex; justify-content: flex-end;">
+                  <div style="width: 36px; height: 36px; border-radius: 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(0,0,0,0.2); box-shadow: inset 0 1px 4px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5"><rect x="2.5" y="6" width="19" height="12.5" rx="2.5"/><path d="M2.5 10.5h19"/></svg>
+                  </div>
+                </div>
+                <div style="position: relative; margin-top: auto; display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                  <span style="font-size: 12px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.1em; text-shadow: 0 1px 2px rgba(0,0,0,0.4);">Pagos</span>
+                  <div style="display: flex; align-items: center; gap: 5px; background: rgba(0,0,0,0.22); padding: 3px 8px; border-radius: 9px; border: 1px solid rgba(255,255,255,0.12);">
+                    <div style="width: 6px; height: 6px; border-radius: 3px; background: #00FF66;"></div>
+                    <span style="font-size: 10.5px; font-weight: 700; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.05em;">Sin deudas</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="aspect-ratio: 1; border-radius: 28px; background: linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%); border: 1px solid rgba(255,255,255,0.15); box-shadow: inset 0 1px 1px rgba(255,255,255,0.2); position: relative; overflow: hidden; padding: 14px; display: flex; flex-direction: column;">
+                <div style="position: absolute; top: 0; left: 0; width: 65%; height: 65%; background: radial-gradient(circle at 12% 12%, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.05) 50%, transparent 100%); pointer-events: none;"></div>
+                <div style="position: absolute; top: 0; left: 0; right: 0; height: 42%; background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 100%); pointer-events: none;"></div>
+                <div style="position: relative; display: flex; justify-content: flex-end;">
+                  <div style="width: 36px; height: 36px; border-radius: 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(0,0,0,0.2); box-shadow: inset 0 1px 4px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5"><path d="M5 17H3.5v-4.5L5.5 8h13l2 4.5V17H19"/><circle cx="7.5" cy="17" r="1.6"/><circle cx="16.5" cy="17" r="1.6"/></svg>
+                  </div>
+                </div>
+                <div style="position: relative; margin-top: auto; display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                  <span style="font-size: 12px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.1em; text-shadow: 0 1px 2px rgba(0,0,0,0.4);">Intt</span>
+                  <div style="display: flex; align-items: center; gap: 5px; background: rgba(0,0,0,0.22); padding: 3px 8px; border-radius: 9px; border: 1px solid rgba(255,255,255,0.12);">
+                    <div style="width: 6px; height: 6px; border-radius: 3px; background: #FF9F0A;"></div>
+                    <span style="font-size: 10.5px; font-weight: 700; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.05em;">Vence mañana</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="aspect-ratio: 1; border-radius: 28px; background: linear-gradient(135deg, #2E5C4A 0%, #3E7E63 100%); border: 1px solid rgba(255,255,255,0.15); box-shadow: inset 0 1px 1px rgba(255,255,255,0.2); position: relative; overflow: hidden; padding: 14px; display: flex; flex-direction: column;">
+                <div style="position: absolute; top: 0; left: 0; width: 65%; height: 65%; background: radial-gradient(circle at 12% 12%, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.05) 50%, transparent 100%); pointer-events: none;"></div>
+                <div style="position: absolute; top: 0; left: 0; right: 0; height: 42%; background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 100%); pointer-events: none;"></div>
+                <div style="position: relative; display: flex; justify-content: flex-end;">
+                  <div style="width: 36px; height: 36px; border-radius: 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(0,0,0,0.2); box-shadow: inset 0 1px 4px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5"><path d="M3.5 11L12 4.5l8.5 6.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5.5h4V20"/></svg>
+                  </div>
+                </div>
+                <div style="position: relative; margin-top: auto; display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                  <span style="font-size: 12px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.1em; text-shadow: 0 1px 2px rgba(0,0,0,0.4);">Renacer</span>
+                  <div style="display: flex; align-items: center; gap: 5px; background: rgba(0,0,0,0.22); padding: 3px 8px; border-radius: 9px; border: 1px solid rgba(255,255,255,0.12);">
+                    <div style="width: 6px; height: 6px; border-radius: 3px; background: #00FF66;"></div>
+                    <span style="font-size: 10.5px; font-weight: 700; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.05em;">Tu vivienda</span>
+                  </div>
+                </div>
+              </div>
+
+              <div style="aspect-ratio: 1; border-radius: 28px; background: linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%); border: 1px solid rgba(255,255,255,0.15); box-shadow: inset 0 1px 1px rgba(255,255,255,0.2); position: relative; overflow: hidden; padding: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <div style="position: absolute; top: 0; left: 0; width: 65%; height: 65%; background: radial-gradient(circle at 12% 12%, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.05) 50%, transparent 100%); pointer-events: none;"></div>
+                <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 28%; background: linear-gradient(0deg, rgba(0,0,0,0.35) 0%, transparent 100%); pointer-events: none;"></div>
+                <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.2" style="position: relative; filter: drop-shadow(0 0 10px rgba(255,255,255,0.4));"><rect x="3" y="3" width="7.5" height="7.5" rx="1.6"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.6"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.6"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.6"/></svg>
+                <span style="position: relative; font-size: 12px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.1em; text-shadow: 0 1px 2px rgba(0,0,0,0.4); margin-top: auto;">Otros</span>
+              </div>
+
+            </div>
+
+            <div style="margin-top: auto; padding: 0 12px;">
+              <div style="background: #FFFFFF; border-radius: 32px; height: 64px; display: flex; align-items: center; padding: 0 4px; box-shadow: 0 4px 18px rgba(20,22,28,0.12);">
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;">
+                  <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#4F84C4" stroke-width="2.4"><path d="M4 10.5L12 4l8 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1z"/></svg>
+                  <span style="font-size: 11px; font-weight: 700; color: #4F84C4;">Inicio</span>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;">
+                  <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#666C7A" stroke-width="2"><rect x="3" y="6" width="18" height="13" rx="2.6"/><path d="M3 10.5h18"/></svg>
+                  <span style="font-size: 11px; font-weight: 500; color: #666C7A;">Pagos</span>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;">
+                  <div style="width: 40px; height: 40px; border-radius: 20px; background: rgba(200,16,46,0.1); display: flex; align-items: center; justify-content: center; margin-bottom: -4px;">
+                    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#C8102E" stroke-width="2.4"><path d="M12 3.5l7 3v5.5c0 4-3 7-7 8.5-4-1.5-7-4.5-7-8.5V6.5z"/><path d="M12 9v4M12 15.6v.1"/></svg>
+                  </div>
+                  <span style="font-size: 11px; font-weight: 600; color: #C8102E;">Protección</span>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;">
+                  <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#666C7A" stroke-width="2"><path d="M3.5 12h4l2-4 3 8 2.5-5 1.5 2.5h4"/></svg>
+                  <span style="font-size: 11px; font-weight: 500; color: #666C7A;">Salud</span>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;">
+                  <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#666C7A" stroke-width="2"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>
+                  <span style="font-size: 11px; font-weight: 500; color: #666C7A;">Perfil</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <sc-if value="{{ touring }}" hint-placeholder-val="{{ true }}">
+          <div style="position: absolute; inset: 0; z-index: 40; pointer-events: none;">
+
+            <sc-if value="{{ s1 }}" hint-placeholder-val="{{ true }}">
+              <div style="position: absolute; left: 268px; top: 70px; width: 116px; height: 52px; border-radius: 26px; border: 3px solid #5FD9D2; box-shadow: 0 0 0 9999px rgba(205,216,231,0.7), 0 0 0 5px rgba(95,217,210,0.32), 0 10px 30px rgba(47,94,158,0.28);"></div>
+              <div style="position: absolute; left: 20px; top: 150px; right: 20px; border-radius: 16px; padding: 22px 24px; background: rgba(37,93,166,0.86); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); font-family: Rubik, Geist, sans-serif; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 9px;">
+                <span style="font-size: 22px; font-weight: 600; color: #FFFFFF; letter-spacing: -0.005em;">Buscar y avisos</span>
+                <span style="font-size: 16px; line-height: 1.46; color: #FFFFFF;">Escribe lo que necesitas —«pasaporte», «licencia»— y te llevo directo al trámite. La campana avisa de cada cambio de estado, y al lado cambias a modo oscuro.</span>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ s2 }}" hint-placeholder-val="{{ true }}">
+              <div style="position: absolute; left: 18px; top: 144px; width: 366px; height: 184px; border-radius: 32px; border: 3px solid #5FD9D2; box-shadow: 0 0 0 9999px rgba(205,216,231,0.7), 0 0 0 5px rgba(95,217,210,0.32), 0 10px 30px rgba(47,94,158,0.28);"></div>
+              <div style="position: absolute; left: 20px; top: 344px; right: 20px; border-radius: 16px; padding: 22px 24px; background: rgba(37,93,166,0.86); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); font-family: Rubik, Geist, sans-serif; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 9px;">
+                <span style="font-size: 22px; font-weight: 600; color: #FFFFFF; letter-spacing: -0.005em;">Tus trámites</span>
+                <span style="font-size: 16px; line-height: 1.46; color: #FFFFFF;">SAIME, SAREN, INTT, SENIAT y el resto de organismos, cada uno a un toque. Sin colas, sin gestores, sin ir a la oficina.</span>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ s3 }}" hint-placeholder-val="{{ true }}">
+              <div style="position: absolute; left: 18px; top: 326px; width: 184px; height: 184px; border-radius: 32px; border: 3px solid #5FD9D2; box-shadow: 0 0 0 9999px rgba(205,216,231,0.7), 0 0 0 5px rgba(95,217,210,0.32), 0 10px 30px rgba(47,94,158,0.28);"></div>
+              <div style="position: absolute; left: 20px; top: 518px; right: 20px; border-radius: 16px; padding: 22px 24px; background: rgba(37,93,166,0.86); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); font-family: Rubik, Geist, sans-serif; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 9px;">
+                <span style="font-size: 22px; font-weight: 600; color: #FFFFFF; letter-spacing: -0.005em;">Todos tus pagos y transferencias a un solo clic</span>
+                <span style="font-size: 16px; line-height: 1.46; color: #FFFFFF;">Servicios, tributos e impuestos, pago móvil y envíos a otros ciudadanos. Todo desde aquí.</span>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ s4 }}" hint-placeholder-val="{{ true }}">
+              <div style="position: absolute; left: 18px; top: 508px; width: 184px; height: 184px; border-radius: 32px; border: 3px solid #5FD9D2; box-shadow: 0 0 0 9999px rgba(205,216,231,0.7), 0 0 0 5px rgba(95,217,210,0.32), 0 10px 30px rgba(47,94,158,0.28);"></div>
+              <div style="position: absolute; left: 20px; top: 274px; right: 20px; border-radius: 16px; padding: 22px 24px; background: rgba(37,93,166,0.86); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); font-family: Rubik, Geist, sans-serif; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 9px;">
+                <span style="font-size: 22px; font-weight: 600; color: #FFFFFF; letter-spacing: -0.005em;">Renacer</span>
+                <span style="font-size: 16px; line-height: 1.46; color: #FFFFFF;">Consulta el marcaje oficial de tu edificio, sigue el avance de las viviendas y resuelve los trámites: reponer los documentos perdidos, recuperar el título de propiedad y solicitar el crédito de vivienda.</span>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ s5 }}" hint-placeholder-val="{{ true }}">
+              <div style="position: absolute; left: 171px; top: 66px; width: 60px; height: 60px; border-radius: 30px; border: 3px solid #5FD9D2; box-shadow: 0 0 0 9999px rgba(205,216,231,0.7), 0 0 0 5px rgba(95,217,210,0.32), 0 10px 30px rgba(47,94,158,0.28);"></div>
+              <div style="position: absolute; left: 20px; top: 150px; right: 20px; border-radius: 16px; padding: 22px 24px; background: rgba(37,93,166,0.86); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); font-family: Rubik, Geist, sans-serif; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 9px;">
+                <span style="font-size: 22px; font-weight: 600; color: #FFFFFF; letter-spacing: -0.005em;">Agentes de IA</span>
+                <span style="font-size: 16px; line-height: 1.46; color: #FFFFFF;">Especializados en todo sobre Venezuela: leyes, gacetas, requisitos, plazos y costos de cada organismo. Pregunta en tus palabras y ellos resuelven y simplifican la gestión completa por ti.</span>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ s6 }}" hint-placeholder-val="{{ true }}">
+              <div style="position: absolute; left: 156px; top: 752px; width: 90px; height: 84px; border-radius: 42px; border: 3px solid #5FD9D2; box-shadow: 0 0 0 9999px rgba(205,216,231,0.7), 0 0 0 5px rgba(95,217,210,0.32), 0 10px 30px rgba(47,94,158,0.28);"></div>
+              <div style="position: absolute; left: 20px; top: 480px; right: 20px; border-radius: 16px; padding: 22px 24px; background: rgba(37,93,166,0.86); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); font-family: Rubik, Geist, sans-serif; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 9px;">
+                <span style="font-size: 22px; font-weight: 600; color: #FFFFFF; letter-spacing: -0.005em;">Protección</span>
+                <span style="font-size: 16px; line-height: 1.46; color: #FFFFFF;">Botón de pánico con envío de ubicación, denuncias en tiempo real al Ministerio Público y al CICPC, y el Botón Fucsia de atención inmediata a la mujer. A un toque desde cualquier pantalla.</span>
+              </div>
+            </sc-if>
+
+            <div style="position: absolute; left: 16px; right: 16px; top: 700px; height: 54px; border-radius: 27px; background: rgba(255,255,255,0.78); border: 1px solid rgba(20,22,28,0.06); box-shadow: 0 6px 20px rgba(30,52,84,0.12); display: flex; align-items: center; justify-content: space-between; padding: 0 8px 0 18px; pointer-events: auto;">
+
+              <button onClick="{{ skip }}" style="background: transparent; border: none; font-family: Geist, sans-serif; font-size: 14.5px; font-weight: 600; color: #35506F; cursor: pointer; padding: 0;">Saltar</button>
+
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <sc-if value="{{ s1 }}" hint-placeholder-val="{{ true }}"><div style="width: 18px; height: 5px; border-radius: 3px; background: #2F5E9E;"></div></sc-if>
+                <sc-if value="{{ n1 }}" hint-placeholder-val="{{ false }}"><div style="width: 5px; height: 5px; border-radius: 3px; background: rgba(47,94,158,0.3);"></div></sc-if>
+                <sc-if value="{{ s2 }}" hint-placeholder-val="{{ false }}"><div style="width: 18px; height: 5px; border-radius: 3px; background: #2F5E9E;"></div></sc-if>
+                <sc-if value="{{ n2 }}" hint-placeholder-val="{{ true }}"><div style="width: 5px; height: 5px; border-radius: 3px; background: rgba(47,94,158,0.3);"></div></sc-if>
+                <sc-if value="{{ s3 }}" hint-placeholder-val="{{ false }}"><div style="width: 18px; height: 5px; border-radius: 3px; background: #2F5E9E;"></div></sc-if>
+                <sc-if value="{{ n3 }}" hint-placeholder-val="{{ true }}"><div style="width: 5px; height: 5px; border-radius: 3px; background: rgba(47,94,158,0.3);"></div></sc-if>
+                <sc-if value="{{ s4 }}" hint-placeholder-val="{{ false }}"><div style="width: 18px; height: 5px; border-radius: 3px; background: #2F5E9E;"></div></sc-if>
+                <sc-if value="{{ n4 }}" hint-placeholder-val="{{ true }}"><div style="width: 5px; height: 5px; border-radius: 3px; background: rgba(47,94,158,0.3);"></div></sc-if>
+                <sc-if value="{{ s5 }}" hint-placeholder-val="{{ false }}"><div style="width: 18px; height: 5px; border-radius: 3px; background: #2F5E9E;"></div></sc-if>
+                <sc-if value="{{ n5 }}" hint-placeholder-val="{{ true }}"><div style="width: 5px; height: 5px; border-radius: 3px; background: rgba(47,94,158,0.3);"></div></sc-if>
+                <sc-if value="{{ s6 }}" hint-placeholder-val="{{ false }}"><div style="width: 18px; height: 5px; border-radius: 3px; background: #2F5E9E;"></div></sc-if>
+                <sc-if value="{{ n6 }}" hint-placeholder-val="{{ true }}"><div style="width: 5px; height: 5px; border-radius: 3px; background: rgba(47,94,158,0.3);"></div></sc-if>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <button onClick="{{ prev }}" style="width: 38px; height: 38px; border-radius: 19px; background: #FFFFFF; border: none; box-shadow: 0 2px 8px rgba(30,52,84,0.16); display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2F5E9E" stroke-width="2.6"><path d="M14.5 5L8 12l6.5 7"/></svg>
+                </button>
+                <sc-if value="{{ notLast }}" hint-placeholder-val="{{ true }}">
+                  <button onClick="{{ next }}" style="width: 38px; height: 38px; border-radius: 19px; background: #2F5E9E; border: none; box-shadow: 0 2px 8px rgba(47,94,158,0.35); display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6"><path d="M9.5 5L16 12l-6.5 7"/></svg>
+                  </button>
+                </sc-if>
+                <sc-if value="{{ isLast }}" hint-placeholder-val="{{ false }}">
+                  <button onClick="{{ skip }}" style="height: 38px; padding: 0 18px; border-radius: 19px; background: #2F5E9E; border: none; box-shadow: 0 2px 8px rgba(47,94,158,0.35); font-family: Geist, sans-serif; font-size: 14.5px; font-weight: 700; color: #FFFFFF; cursor: pointer;">Comenzar</button>
+                </sc-if>
+              </div>
+
+            </div>
+
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ finished }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ restart }}" style="position: absolute; left: 50%; bottom: 124px; transform: translateX(-50%); z-index: 50; height: 42px; padding: 0 20px; border-radius: 21px; background: #14161C; border: none; font-family: Geist, sans-serif; font-size: 14px; font-weight: 600; color: #FFFFFF; cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,0.28);">Ver el tour de nuevo</button>
+          </sc-if>
+
+        </div>
+      </x-import>
+
+      <div style="display: flex; flex-direction: column; gap: 0; padding-top: 6px;">
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #3E6B4B; padding-top: 3px;">A</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Es tu diseño, sin retoques</h3>
+            <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Tarjetas acrílicas con especular y luz de estudio, chip de icono en negro translúcido, título en versalitas centrado abajo, píldora de estado con punto de color, barra flotante de cinco iconos. El encabezado va tal como lo tienes en <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">Header.tsx</span>: logotipo con «Ecosistema Digital», la píldora de IA centrada con su punto verde, y el grupo de tres —modo oscuro, avisos, buscar— a la derecha. Lo único que toqué son los tamaños que quedaban por debajo del piso de legibilidad: las etiquetas de las tarjetas subieron de 9 a 12 y 10,5 px, y el «Ecosistema Digital» del encabezado de 6,5 a 10. A menos de eso no se lee en la calle, y eso no es estilo, es un mínimo.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52; padding-top: 3px;">B</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Cómo funciona el foco</h3>
+            <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Como en Dubái, el velo es claro, no oscuro: un lavado gris azulado que apaga la pantalla sin ensuciarla, y el tarjetón es traslúcido —azul al 86% con desenfoque detrás, así que la app se sigue viendo fantasma a través de la explicación, con el texto centrado. No hay ninguna capa encima del elemento resaltado: el anillo turquesa proyecta la sombra hacia afuera, así que lo iluminado es el hueco y tu tarjeta real queda nítida debajo, con su halo.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52; padding-top: 3px;">C</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Seis pasos, ni uno más</h3>
+            <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Buscar · trámites · pagos · Renacer · agentes de IA · Protección. Con «Saltar» siempre visible y «Comenzar» en el último. Más de seis y la gente salta el tour entero; menos y no cubres lo que te diferencia. Todos comparten el mismo tarjetón azul traslúcido, el mismo anillo turquesa y el texto centrado en Rubik —la grotesca geométrica más cercana a la tipografía de tus capturas, que es una fuente propia del gobierno de Dubái y no se puede licenciar fuera de allí. Una sola imagen visual, repetida seis veces.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10); border-bottom: 1px solid rgba(23,20,15,0.10);">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #7E5C09; padding-top: 3px;">D</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Para la reunión: déjalo solo</h3>
+            <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">En el panel de ajustes tienes <strong style="font-weight: 600; color: #17140F;">avance automático</strong>: el tour corre sin que toques nada, cada cuatro segundos. Sirve para dejar el teléfono girando en una mesa mientras hablas, que es exactamente el momento en que no quieres estar buscando el botón siguiente.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section style="padding: 50px 0 54px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <div style="display: flex; align-items: baseline; gap: 18px; margin-bottom: 8px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F;">02</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 38px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Protección, con el Botón Fucsia</h2>
+    </div>
+    <p style="font-size: 15px; line-height: 1.6; color: #6B645C; margin: 0 0 34px 30px; max-width: 66ch;">Tenías razón: aquí faltaba el gancho. Esto no es un directorio de teléfonos, es un servicio de emergencia real.</p>
+
+    <div style="display: grid; grid-template-columns: 402px 1fr; gap: 56px; align-items: start;">
+
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+        <div style="font-family: Geist, system-ui, sans-serif; background: #0B0E14; min-height: 100%; padding: 56px 0 46px; display: flex; flex-direction: column; gap: 12px;">
+
+          <div style="display: flex; align-items: center; gap: 11px; padding: 0 18px;">
+            <div style="width: 34px; height: 34px; border-radius: 12px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E6E9EF" stroke-width="2.4"><path d="M14.5 5L8 12l6.5 7"/></svg>
+            </div>
+            <span style="font-size: 16px; font-weight: 700; color: #FFFFFF;">Protección</span>
+          </div>
+
+          <div style="padding: 0 18px;">
+            <div style="border-radius: 26px; padding: 20px; background: linear-gradient(145deg, #1A1F2B 0%, #0D1117 100%); border: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden;">
+              <div style="position: absolute; top: -30px; right: -30px; width: 140px; height: 140px; border-radius: 70px; background: radial-gradient(circle, rgba(200,16,46,0.22) 0%, transparent 70%); pointer-events: none;"></div>
+              <div style="position: relative; display: flex; flex-direction: column; gap: 8px;">
+                <span style="font-size: 22px; font-weight: 700; color: #FFFFFF; letter-spacing: -0.015em;">Estás protegido</span>
+                <span style="font-size: 14.5px; line-height: 1.5; color: rgba(255,255,255,0.68);">Tu ubicación se comparte solo cuando tú lo activas. Toda denuncia es confidencial.</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding: 0 18px;">
+            <div style="border-radius: 26px; padding: 20px; background: linear-gradient(140deg, #B01A63 0%, #E0349B 100%); position: relative; overflow: hidden; box-shadow: 0 10px 28px rgba(176,26,99,0.4);">
+              <div style="position: absolute; inset: 0; background: radial-gradient(circle at 14% 10%, rgba(255,255,255,0.28) 0%, transparent 58%); pointer-events: none;"></div>
+              <div style="position: relative; display: flex; align-items: center; gap: 15px;">
+                <div style="width: 52px; height: 52px; border-radius: 26px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="6.2" r="3.2"/><path d="M8 21l1.4-6.2H7.2L9 10.2h6l1.8 4.6h-2.2L16 21"/></svg>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 3px;">
+                  <span style="font-size: 18px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.01em;">Botón Fucsia</span>
+                  <span style="font-size: 14px; line-height: 1.4; color: rgba(255,255,255,0.94);">INAMUJER · 0800-462-6683</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding: 0 18px;">
+            <div style="border-radius: 26px; padding: 20px; background: linear-gradient(140deg, #8A1224 0%, #C8102E 100%); position: relative; overflow: hidden; box-shadow: 0 10px 28px rgba(200,16,46,0.36);">
+              <div style="position: absolute; inset: 0; background: radial-gradient(circle at 14% 10%, rgba(255,255,255,0.26) 0%, transparent 58%); pointer-events: none;"></div>
+              <div style="position: relative; display: flex; align-items: center; gap: 15px;">
+                <div style="width: 52px; height: 52px; border-radius: 26px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"><path d="M12 4.5v8"/><path d="M7.4 6.6a7 7 0 109.2 0"/></svg>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 3px;">
+                  <span style="font-size: 18px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.01em;">Botón de pánico</span>
+                  <span style="font-size: 14px; line-height: 1.4; color: rgba(255,255,255,0.94);">Mantén pulsado 2 s · envía tu ubicación</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 9px; padding: 0 18px;">
+            <span style="font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.55); letter-spacing: 0.05em; text-transform: uppercase;">Denuncia en tiempo real</span>
+
+            <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+              <div style="display: flex; flex-direction: column; gap: 2px;">
+                <span style="font-size: 15px; font-weight: 600; color: #FFFFFF;">Ministerio Público · 0800-535-3000</span>
+                <span style="font-size: 13px; color: rgba(255,255,255,0.55);">Acta electrónica con número de caso</span>
+              </div>
+              <span style="font-size: 12.5px; font-weight: 700; color: #4ADE80; flex-shrink: 0;">En línea</span>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+              <div style="display: flex; flex-direction: column; gap: 2px;">
+                <span style="font-size: 15px; font-weight: 600; color: #FFFFFF;">CICPC · 171</span>
+                <span style="font-size: 13px; color: rgba(255,255,255,0.55);">Robo, extorsión, desaparición</span>
+              </div>
+              <span style="font-size: 12.5px; font-weight: 700; color: #4ADE80; flex-shrink: 0;">En línea</span>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+              <div style="display: flex; flex-direction: column; gap: 2px;">
+                <span style="font-size: 15px; font-weight: 600; color: #FFFFFF;">Bomberos · 166</span>
+                <span style="font-size: 13px; color: rgba(255,255,255,0.55);">Incendio, rescate, réplicas</span>
+              </div>
+              <span style="font-size: 12.5px; font-weight: 700; color: #4ADE80; flex-shrink: 0;">En línea</span>
+            </div>
+          </div>
+
+          <div style="margin-top: auto; padding: 0 12px;">
+            <div style="background: #FFFFFF; border-radius: 32px; height: 64px; display: flex; align-items: center; padding: 0 4px; box-shadow: 0 4px 18px rgba(0,0,0,0.4);">
+              <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#666C7A" stroke-width="2"><path d="M4 10.5L12 4l8 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1z"/></svg>
+                <span style="font-size: 11px; font-weight: 500; color: #666C7A;">Inicio</span>
+              </div>
+              <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#666C7A" stroke-width="2"><rect x="3" y="6" width="18" height="13" rx="2.6"/><path d="M3 10.5h18"/></svg>
+                <span style="font-size: 11px; font-weight: 500; color: #666C7A;">Pagos</span>
+              </div>
+              <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;">
+                <div style="width: 40px; height: 40px; border-radius: 20px; background: rgba(200,16,46,0.12); display: flex; align-items: center; justify-content: center; margin-bottom: -4px;">
+                  <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#C8102E" stroke-width="2.4"><path d="M12 3.5l7 3v5.5c0 4-3 7-7 8.5-4-1.5-7-4.5-7-8.5V6.5z"/><path d="M12 9v4M12 15.6v.1"/></svg>
+                </div>
+                <span style="font-size: 11px; font-weight: 700; color: #C8102E;">Protección</span>
+              </div>
+              <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#666C7A" stroke-width="2"><path d="M3.5 12h4l2-4 3 8 2.5-5 1.5 2.5h4"/></svg>
+                <span style="font-size: 11px; font-weight: 500; color: #666C7A;">Salud</span>
+              </div>
+              <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#666C7A" stroke-width="2"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>
+                <span style="font-size: 11px; font-weight: 500; color: #666C7A;">Perfil</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </x-import>
+
+      <div style="display: flex; flex-direction: column; gap: 0; padding-top: 6px;">
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F; padding-top: 3px;">E</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">El Botón Fucsia va primero</h3>
+            <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Por encima del de pánico, y con su propio color. No es una categoría dentro de emergencias: es una promesa distinta, y una mujer en riesgo tiene que encontrarla sin leer. El fucsia no aparece en ningún otro sitio de la app, así que ese color solo significa una cosa.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52; padding-top: 3px;">F</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Fondo oscuro: es otro registro</h3>
+            <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">La única pantalla oscura de la app. Cambia el modo mental en cuanto entras, se ve mejor de noche —que es cuando más se usa— y hace que los dos botones grandes salten. Tu app ya trae modo oscuro, así que no cuesta nada.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #3E6B4B; padding-top: 3px;">G</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">«En línea» es el gancho real</h3>
+            <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Denuncia en tiempo real significa que del otro lado hay alguien conectado y sale un número de caso. Ese indicador verde es lo que convierte un directorio de teléfonos en un servicio de emergencia —y es exactamente lo que tienes que negociar con el Ministerio Público para poder mostrarlo.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10); border-bottom: 1px solid rgba(23,20,15,0.10);">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #7E5C09; padding-top: 3px;">H</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Verifica los números antes de la reunión</h3>
+            <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Puse 171, 166 y las líneas del Ministerio Público e INAMUJER porque son las que ya trae tu <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">Security.tsx</span>. Confírmalas igual antes de la reunión: en esta pantalla un dígito equivocado no es un bug, es un daño.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section style="padding: 50px 0 54px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <div style="display: flex; align-items: baseline; gap: 18px; margin-bottom: 12px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #3E6B4B;">03</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 38px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Qué más le agregaría</h2>
+    </div>
+    <p style="font-size: 15.5px; line-height: 1.6; color: #46403A; margin: 0 0 34px 30px; max-width: 72ch;">Seis, ordenadas por lo que yo defendería primero. Las tres de arriba no son funciones bonitas: son las que hacen que la app sea difícil de reemplazar.</p>
+
+    <div style="display: flex; flex-direction: column; gap: 0;">
+
+      <div style="display: grid; grid-template-columns: 34px 250px 1fr 128px; gap: 24px; padding: 22px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #3E6B4B; padding-top: 2px;">01</span>
+        <h3 style="font-size: 16px; font-weight: 600; margin: 0; line-height: 1.35;">Cédula digital que funciona sin señal</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #46403A; margin: 0;">Un código QR firmado que se guarda en el teléfono y se valida sin internet: el funcionario lo escanea y su app confirma la firma contra la clave pública. En alcabalas, en el interior, después de un sismo —donde no hay red es donde más se necesita la identidad. Es lo que convierte tu app en infraestructura y no en una web envuelta.</p>
+        <span style="font-size: 13.5px; font-weight: 600; color: #3E6B4B; text-align: right;">El diferencial</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 34px 250px 1fr 128px; gap: 24px; padding: 22px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #3E6B4B; padding-top: 2px;">02</span>
+        <h3 style="font-size: 16px; font-weight: 600; margin: 0; line-height: 1.35;">Núcleo familiar</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #46403A; margin: 0;">Gestionar desde tu cuenta los trámites de tus hijos y de tus padres mayores. En la práctica quien hace las colas de toda la familia es una sola persona; hoy tu app asume un ciudadano solo. Con esto, un usuario deja de valer uno y pasa a valer cuatro —y para el ente, la adopción se multiplica igual.</p>
+        <span style="font-size: 13.5px; font-weight: 600; color: #3E6B4B; text-align: right;">Multiplica el uso</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 34px 250px 1fr 128px; gap: 24px; padding: 22px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #3E6B4B; padding-top: 2px;">03</span>
+        <h3 style="font-size: 16px; font-weight: 600; margin: 0; line-height: 1.35;">Turno digital y cola en vivo</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #46403A; margin: 0;">Para lo que todavía exige presencia: sacas el turno desde casa, ves cuánta gente hay delante y sales cuando falten quince. Ataca de frente el dolor que todo el mundo asocia con un trámite, y le da al organismo algo que hoy no tiene: medición real de sus propias colas.</p>
+        <span style="font-size: 13.5px; font-weight: 600; color: #3E6B4B; text-align: right;">El dolor real</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 34px 250px 1fr 128px; gap: 24px; padding: 22px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #7E5C09; padding-top: 2px;">04</span>
+        <h3 style="font-size: 16px; font-weight: 600; margin: 0; line-height: 1.35;">Venezolanos en el exterior</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #46403A; margin: 0;">Pasaporte, prórroga, apostilla, partidas, poderes y citas consulares. Son millones de personas con necesidad constante, capacidad de pago en divisas y ninguna alternativa decente. Es el módulo que puede financiar el resto de la plataforma.</p>
+        <span style="font-size: 13.5px; font-weight: 600; color: #7E5C09; text-align: right;">Paga la cuenta</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 34px 250px 1fr 128px; gap: 24px; padding: 22px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #7E5C09; padding-top: 2px;">05</span>
+        <h3 style="font-size: 16px; font-weight: 600; margin: 0; line-height: 1.35;">Poder digital a un tercero</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #46403A; margin: 0;">Autorizar a un familiar o a un abogado para un trámite concreto, con alcance y fecha de caducidad, firmado desde la app. Es exactamente lo que la jurisdicción especial de propiedad y sucesiones va a necesitar para los damnificados, y es SAREN puro: ya está en tu alcance.</p>
+        <span style="font-size: 13.5px; font-weight: 600; color: #7E5C09; text-align: right;">Encaja con Renacer</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 34px 250px 1fr 128px; gap: 24px; padding: 22px 0; border-top: 1px solid rgba(23,20,15,0.10); border-bottom: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 13px; color: #A3341F; padding-top: 2px;">06</span>
+        <h3 style="font-size: 16px; font-weight: 600; margin: 0; line-height: 1.35;">Alerta sísmica y punto de refugio</h3>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #46403A; margin: 0;">Con réplicas todavía activas: aviso de sismo, tu refugio o campamento asignado más cercano, y un «estoy bien» que avisa a tus contactos de una sola vez. Vive en Protección y cierra el círculo con Renacer. Ojo: solo si hay una fuente oficial detrás —una alerta falsa en una app del Estado causa más daño que no tenerla.</p>
+        <span style="font-size: 13.5px; font-weight: 600; color: #A3341F; text-align: right;">Oportuno, y delicado</span>
+      </div>
+
+    </div>
+
+    <div style="margin-top: 30px; padding: 24px 28px; background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-left: 3px solid #2F5E9E;">
+      <p style="font-size: 15px; line-height: 1.62; color: #46403A; margin: 0; max-width: 86ch;"><strong style="font-weight: 600; color: #17140F;">Si solo pudieras añadir una, la 1.</strong> Todas las demás son funciones; esa es una posición. El día que la cédula digital de tu app se acepte sin señal, ningún otro proveedor puede entrar por detrás —y todo lo demás que construyas se apoya encima.</p>
+    </div>
+  </section>
+
+  <section style="padding: 50px 0 0;">
+    <div style="display: flex; align-items: baseline; gap: 18px; margin-bottom: 26px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F;">·</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 38px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Los otros tres cambios que pediste</h2>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-bottom: 32px;">
+      <div style="grid-column: 1 / -1; background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-left: 3px solid #2F5E9E; padding: 26px 30px; display: flex; flex-direction: column; gap: 11px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #2F5E9E;">Cambio de nombre y de idea</span>
+        <h3 style="font-size: 17px; font-weight: 600; margin: 0;">Ya no es «VenIA»: son agentes de IA</h3>
+        <p style="font-size: 15px; line-height: 1.62; color: #46403A; margin: 0; max-width: 84ch;">En el encabezado queda solo <strong style="font-weight: 600; color: #17140F;">IA</strong>, con el punto verde que ya tenías. Y el paso 5 del tour cambia de discurso: dejan de ser «un asistente que responde» para ser <strong style="font-weight: 600; color: #17140F;">especializados en todo sobre Venezuela</strong> —leyes, gacetas, requisitos, plazos y costos de cada organismo— que resuelven y simplifican la gestión completa por ti.</p>
+        <p style="font-size: 15px; line-height: 1.62; color: #46403A; margin: 0; max-width: 84ch;">Es un salto de promesa importante, y por eso una advertencia: hoy el código responde con textos fijos en tres de las cuatro herramientas, y hay una respuesta enlatada para cualquier mensaje que diga «currículum». Si vas a prometer agentes especialistas, ese atajo tiene que salir antes de la reunión —es lo primero que alguien prueba.</p>
+      </div>
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-top: 3px solid #3E6B4B; padding: 24px; display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #3E6B4B;">Hecho</span>
+        <h3 style="font-size: 16.5px; font-weight: 600; margin: 0;">«Organismos» pasa a «Trámites»</h3>
+        <p style="font-size: 14px; line-height: 1.56; color: #46403A; margin: 0;">Y es mejor palabra: el organismo es de ellos, el trámite es tuyo. Actualizado también en el documento anterior.</p>
+      </div>
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-top: 3px solid #3E6B4B; padding: 24px; display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #3E6B4B;">Hecho</span>
+        <h3 style="font-size: 16.5px; font-weight: 600; margin: 0;">Noticias al final de Renacer</h3>
+        <p style="font-size: 14px; line-height: 1.56; color: #46403A; margin: 0;">Bajan debajo de los trámites. Primero lo que el damnificado puede hacer, después lo que puede leer. Con eso queda cerrado el debate de las noticias: dentro de Renacer, sí.</p>
+      </div>
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-top: 3px solid #3E6B4B; padding: 24px; display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #3E6B4B;">Hecho</span>
+        <h3 style="font-size: 16.5px; font-weight: 600; margin: 0;">Fuera «súper app de trámites»</h3>
+        <p style="font-size: 14px; line-height: 1.56; color: #46403A; margin: 0;">Entras por reconstrucción. La app es la misma; cambia por dónde abres la conversación con el ente.</p>
+      </div>
+    </div>
+
+    <div style="padding: 34px 38px; background: #17140F; color: #F4F1EA; display: flex; flex-direction: column; gap: 16px;">
+      <div style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(244,241,234,0.5);">Lo que este tour te resuelve en la reunión</div>
+      <p style="font-family: 'Instrument Serif', serif; font-size: 27px; line-height: 1.36; margin: 0; max-width: 72ch;">Deja de tener que explicar la app: la app se explica sola en cuarenta segundos. Y quien esté al otro lado de la mesa se lleva la sensación de haberla usado, no de haberla visto.</p>
+    </div>
+  </section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1120, &quot;height&quot;: 900}, &quot;pasoInicial&quot;: {&quot;editor&quot;: &quot;int&quot;, &quot;default&quot;: 1, &quot;min&quot;: 0, &quot;max&quot;: 6, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Tour&quot;}, &quot;avanceAutomatico&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Tour&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const start = Number(props.pasoInicial);
+    this.state = { step: Number.isFinite(start) && start >= 0 && start <= 6 ? start : 1 };
+    this.timer = null;
+  }
+
+  componentDidMount() { this.syncTimer(); }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.step !== this.state.step || prevProps.avanceAutomatico !== this.props.avanceAutomatico) this.syncTimer();
+  }
+  componentWillUnmount() { if (this.timer) clearInterval(this.timer); }
+
+  syncTimer() {
+    if (this.timer) { clearInterval(this.timer); this.timer = null; }
+    if (!this.props.avanceAutomatico) return;
+    if (this.state.step < 1 || this.state.step > 6) return;
+    this.timer = setInterval(() => {
+      this.setState(s => ({ step: s.step >= 6 ? 1 : s.step + 1 }));
+    }, 4000);
+  }
+
+  renderVals() {
+    const step = this.state.step;
+    const go = n => () => this.setState({ step: n });
+    return {
+      touring: step >= 1 && step <= 6,
+      finished: step === 0,
+      isLast: step === 6,
+      notLast: step >= 1 && step < 6,
+      s1: step === 1, n1: step !== 1,
+      s2: step === 2, n2: step !== 2,
+      s3: step === 3, n3: step !== 3,
+      s4: step === 4, n4: step !== 4,
+      s5: step === 5, n5: step !== 5,
+      s6: step === 6, n6: step !== 6,
+      next: () => this.setState(s => ({ step: Math.min(6, s.step + 1) })),
+      prev: () => this.setState(s => ({ step: Math.max(1, s.step - 1) })),
+      skip: go(0),
+      restart: go(1)
+    };
+  }
+}
+</script>
+</body>
+</html>

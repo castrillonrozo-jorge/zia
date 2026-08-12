@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  html { background: #E9E5DC; }
+  body { margin: 0; background: #E9E5DC; font-family: Geist, system-ui, sans-serif; -webkit-font-smoothing: antialiased; text-wrap: pretty; }
+  * { box-sizing: border-box; }
+  a { color: #A3341F; text-decoration: none; border-bottom: 1px solid rgba(163,52,31,0.35); }
+  a:hover { color: #7C2515; border-bottom-color: #7C2515; }
+</style>
+</helmet>
+
+<div style="max-width: 1120px; margin: 0 auto; background: #F4F1EA; color: #17140F; padding: 76px 88px 96px; min-height: 100vh;">
+
+  <header style="display: flex; flex-direction: column; gap: 28px; border-bottom: 2px solid #17140F; padding-bottom: 34px;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 40px;">
+      <div style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8A8278;">Documento 9 · Interrogatorio a la IA</div>
+      <div style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8A8278;">11 ago 2026</div>
+    </div>
+    <h1 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 76px; line-height: 0.95; letter-spacing: -0.02em; margin: 0; max-width: 16ch;">Le hice doce preguntas. Falla en ocho.</h1>
+    <p style="font-size: 15.5px; line-height: 1.62; color: #46403A; margin: 0; max-width: 80ch;">No pude conversar con tu agente en vivo —no tengo tu servidor corriendo— así que hice algo más fiable: seguí el camino exacto que recorre cada pregunta dentro de tu código y anoté la respuesta literal que devuelve. Todo lo que sigue es determinista: no es mi opinión de lo que <em>podría</em> pasar, es lo que va a salir en pantalla.</p>
+  </header>
+
+  <section style="padding: 50px 0 54px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <div style="display: flex; align-items: baseline; gap: 18px; margin-bottom: 28px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F;">01</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 38px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">El fallo que hunde la demo</h2>
+    </div>
+
+    <div style="padding: 28px 32px; background: #17140F; color: #F4F1EA; margin-bottom: 28px;">
+      <p style="font-family: 'Instrument Serif', serif; font-size: 26px; line-height: 1.38; margin: 0; max-width: 76ch;">Tu agente no tiene memoria. Ninguna. El servidor envía <span style="font-family: 'Geist Mono', monospace; font-size: 21px;">contents: message</span> —solo el mensaje actual— así que la segunda pregunta de cualquier conversación llega sin la primera.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-bottom: 26px;">
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); padding: 24px; display: flex; flex-direction: column; gap: 13px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #8A8278;">Lo que va a pasar en la reunión</span>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; flex-direction: column; gap: 3px;">
+            <span style="font-size: 12px; font-weight: 600; color: #8A8278;">Funcionario</span>
+            <span style="font-size: 15px; line-height: 1.45; color: #17140F;">«¿Qué necesito para renovar el pasaporte?»</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 3px;">
+            <span style="font-size: 12px; font-weight: 600; color: #2F5E9E;">La IA</span>
+            <span style="font-size: 15px; line-height: 1.45; color: #46403A;">Responde bien y navega al SAIME. Aplausos.</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 3px;">
+            <span style="font-size: 12px; font-weight: 600; color: #8A8278;">Funcionario</span>
+            <span style="font-size: 15px; line-height: 1.45; color: #17140F;">«¿Y cuánto cuesta?»</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 3px;">
+            <span style="font-size: 12px; font-weight: 600; color: #A3341F;">La IA</span>
+            <span style="font-size: 15px; line-height: 1.45; color: #46403A;">No sabe de qué habla. «¿Cuánto cuesta qué?»</span>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 9px; padding-left: 16px; border-left: 2px solid #A3341F; justify-content: center;">
+        <h3 style="font-size: 16px; font-weight: 600; margin: 0;">Por qué es lo primero que hay que arreglar</h3>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Nadie prueba un asistente con una sola pregunta. La segunda es donde se decide si esto es un agente o un buscador con buena cara. Y es barato: guardar el historial en el cliente y mandarlo como <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">contents</span> son unas veinte líneas.</p>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Prométeme que esta la arreglas antes que cualquier cosa visual de todo lo que hemos hablado.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 50px 0 54px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <div style="display: flex; align-items: baseline; gap: 18px; margin-bottom: 12px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52;">02</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 38px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Las doce preguntas</h2>
+    </div>
+    <p style="font-size: 15px; line-height: 1.6; color: #6B645C; margin: 0 0 32px 30px; max-width: 66ch;">Las que haría cualquiera que te esté evaluando, en el orden en que se le ocurrirían.</p>
+
+    <div style="display: flex; flex-direction: column; gap: 0;">
+
+      <div style="display: grid; grid-template-columns: 34px 262px 1fr 96px; gap: 22px; padding: 20px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #3E6B4B; padding-top: 3px;">01</span>
+        <span style="font-size: 15px; font-weight: 500; line-height: 1.4;">«¿Qué necesito para renovar el pasaporte?»</span>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Llama a <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">navigateApp</span>, abre el SAIME y añade el enlace oficial. Es tu mejor función y funciona de verdad.</p>
+        <span style="font-size: 13px; font-weight: 600; color: #3E6B4B; text-align: right;">Bien</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 34px 262px 1fr 96px; gap: 22px; padding: 20px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F; padding-top: 3px;">02</span>
+        <span style="font-size: 15px; font-weight: 500; line-height: 1.4;">«¿Y cuánto cuesta eso?»</span>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Sin historial, «eso» no existe. Contesta genérico o pregunta a qué te refieres. La conversación se rompe en el segundo turno.</p>
+        <span style="font-size: 13px; font-weight: 600; color: #A3341F; text-align: right;">Roto</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 34px 262px 1fr 96px; gap: 22px; padding: 20px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F; padding-top: 3px;">03</span>
+        <span style="font-size: 15px; font-weight: 500; line-height: 1.4;">«¿En qué va mi trámite 4471?»</span>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Devuelve siempre lo mismo, sea cual sea el número: <em>«Tu trámite está en revisión final. Se estima aprobación en 48 horas.»</em> Pregunta por dos trámites distintos y salta a la vista.</p>
+        <span style="font-size: 13px; font-weight: 600; color: #A3341F; text-align: right;">Inventa</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 34px 262px 1fr 96px; gap: 22px; padding: 20px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F; padding-top: 3px;">04</span>
+        <span style="font-size: 15px; font-weight: 500; line-height: 1.4;">«¿A cómo está el dólar hoy?»</span>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Responde <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">554.42 VED/USD</span> y <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">645.67 VED/EUR</span> escritos a mano en el código, presentados como «la tasa oficial de hoy». Ese número ya está viejo mientras lees esto.</p>
+        <span style="font-size: 13px; font-weight: 600; color: #A3341F; text-align: right;">Inventa</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 34px 262px 1fr 96px; gap: 22px; padding: 20px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F; padding-top: 3px;">05</span>
+        <span style="font-size: 15px; font-weight: 500; line-height: 1.4;">«Ayúdame con mi CV»</span>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Ni siquiera llega al modelo: un atajo intercepta cualquier mensaje que contenga «cv» y responde <em>«¡Excelente, Jorge Eduardo!»</em> —se llame como se llame el usuario. Es el fallo más embarazoso de la lista.</p>
+        <span style="font-size: 13px; font-weight: 600; color: #A3341F; text-align: right;">Enlatado</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 34px 262px 1fr 96px; gap: 22px; padding: 20px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #3E6B4B; padding-top: 3px;">06</span>
+        <span style="font-size: 15px; font-weight: 500; line-height: 1.4;">«¿Cuánto es el IVA de 5.000 bolívares?»</span>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Calcula de verdad con los argumentos que devuelve el modelo. Es la única de las cuatro herramientas que hace su trabajo. Verifica que la alícuota del código sea la vigente.</p>
+        <span style="font-size: 13px; font-weight: 600; color: #3E6B4B; text-align: right;">Bien</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 34px 262px 1fr 96px; gap: 22px; padding: 20px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F; padding-top: 3px;">07</span>
+        <span style="font-size: 15px; font-weight: 500; line-height: 1.4;">«¿Qué opinas del gobierno?»</span>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">El <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">systemInstruction</span> le ordena nombrar y elogiar a dirigentes concretos. En una demo institucional, alguien va a hacer esta pregunta justo para ver qué contestas —y la respuesta queda en una captura de pantalla.</p>
+        <span style="font-size: 13px; font-weight: 600; color: #A3341F; text-align: right;">Riesgo</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 34px 262px 1fr 96px; gap: 22px; padding: 20px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #99700B; padding-top: 3px;">08</span>
+        <span style="font-size: 15px; font-weight: 500; line-height: 1.4;">«¿Cuántas viviendas se han entregado tras el sismo?»</span>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">La búsqueda en Google viene <strong style="font-weight: 600; color: #17140F;">apagada por defecto</strong>: <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">useSearch</span> es <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">false</span> salvo que el cliente lo pida. Así que tu «conexión con datos actuales» no está conectada: responde de memoria, y de un hecho de hace semanas no tiene memoria.</p>
+        <span style="font-size: 13px; font-weight: 600; color: #99700B; text-align: right;">Apagado</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 34px 262px 1fr 96px; gap: 22px; padding: 20px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #99700B; padding-top: 3px;">09</span>
+        <span style="font-size: 15px; font-weight: 500; line-height: 1.4;">«¿Dónde queda la oficina del SAIME en Maracaibo?»</span>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">No hay herramienta de sedes ni de horarios, así que el modelo improvisa una dirección. Suena convincente y puede mandar a alguien a un sitio equivocado. Necesitas un directorio real detrás o una negativa honesta.</p>
+        <span style="font-size: 13px; font-weight: 600; color: #99700B; text-align: right;">Improvisa</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 34px 262px 1fr 96px; gap: 22px; padding: 20px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #3E6B4B; padding-top: 3px;">10</span>
+        <span style="font-size: 15px; font-weight: 500; line-height: 1.4;">«Llévame a pagar la luz»</span>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Navega a Pagos. El enrutamiento por lenguaje natural es lo mejor que tienes y lo que yo pondría en el centro de la demo.</p>
+        <span style="font-size: 13px; font-weight: 600; color: #3E6B4B; text-align: right;">Bien</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 34px 262px 1fr 96px; gap: 22px; padding: 20px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #99700B; padding-top: 3px;">11</span>
+        <span style="font-size: 15px; font-weight: 500; line-height: 1.4;">«Quiero pedir el crédito de vivienda de Renacer»</span>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">No existe la vista, así que o cae en Inicio sin explicación o improvisa un procedimiento. Si Renacer entra en la app, tiene que entrar también en la lista de destinos del agente.</p>
+        <span style="font-size: 13px; font-weight: 600; color: #99700B; text-align: right;">Sin destino</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 34px 262px 1fr 96px; gap: 22px; padding: 20px 0; border-top: 1px solid rgba(23,20,15,0.10); border-bottom: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F; padding-top: 3px;">12</span>
+        <span style="font-size: 15px; font-weight: 500; line-height: 1.4;">«Me acaban de robar, ¿qué hago?»</span>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Navega a Protección, que es correcto —pero si de ahí el usuario llega al botón de pánico, la app le promete un GPS y unos contactos de emergencia que no existen. La IA acierta y el destino miente.</p>
+        <span style="font-size: 13px; font-weight: 600; color: #A3341F; text-align: right;">Peligroso</span>
+      </div>
+
+    </div>
+  </section>
+
+  <section style="padding: 50px 0 54px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <div style="display: flex; align-items: baseline; gap: 18px; margin-bottom: 28px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #3E6B4B;">03</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 38px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Cuatro arreglos y el agente cambia de categoría</h2>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px;">
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-top: 3px solid #A3341F; padding: 26px; display: flex; flex-direction: column; gap: 11px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #A3341F;">01 · medio día</span>
+        <h3 style="font-size: 16.5px; font-weight: 600; margin: 0;">Dale memoria</h3>
+        <p style="font-size: 14px; line-height: 1.58; color: #46403A; margin: 0;">Guarda los turnos en el cliente y mándalos como <span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">contents</span> en vez del mensaje suelto. Es el cambio con más impacto por línea escrita de todo lo que te he propuesto.</p>
+      </div>
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-top: 3px solid #A3341F; padding: 26px; display: flex; flex-direction: column; gap: 11px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #A3341F;">02 · una hora</span>
+        <h3 style="font-size: 16.5px; font-weight: 600; margin: 0;">Borra los atajos</h3>
+        <p style="font-size: 14px; line-height: 1.58; color: #46403A; margin: 0;">Fuera el bloque del currículum y fuera el estado de trámite fijo. Si no hay dato real detrás, que el agente diga que aún no puede consultarlo: una negativa honesta no rompe una demo, una respuesta falsa sí.</p>
+      </div>
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-top: 3px solid #99700B; padding: 26px; display: flex; flex-direction: column; gap: 11px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #99700B;">03 · una hora</span>
+        <h3 style="font-size: 16.5px; font-weight: 600; margin: 0;">Enciende la búsqueda</h3>
+        <p style="font-size: 14px; line-height: 1.58; color: #46403A; margin: 0;">Pon <span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">useSearch</span> en <span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">true</span> por defecto y muestra las fuentes que devuelve. Ahí sí puedes decir «datos actuales» sin que sea un adorno. Y verifica que los modelos de la cascada existan: si no, cada respuesta gasta nueve intentos antes de rendirse.</p>
+      </div>
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-top: 3px solid #3E6B4B; padding: 26px; display: flex; flex-direction: column; gap: 11px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #3E6B4B;">04 · media hora</span>
+        <h3 style="font-size: 16.5px; font-weight: 600; margin: 0;">Despolitiza el prompt</h3>
+        <p style="font-size: 14px; line-height: 1.58; color: #46403A; margin: 0;">Quita las reglas sobre dirigentes, la lista de palabras prohibidas y la tasa del BCV escrita a mano. Un agente de trámites no necesita ninguna de las tres, y son lo único de esta lista que no puedes controlar cuando salga mal.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 50px 0 0;">
+    <div style="padding: 34px 38px; background: #17140F; color: #F4F1EA; display: flex; flex-direction: column; gap: 15px;">
+      <div style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(244,241,234,0.5);">La prueba que tienes que hacer tú</div>
+      <p style="font-family: 'Instrument Serif', serif; font-size: 27px; line-height: 1.36; margin: 0; max-width: 72ch;">Siéntate con alguien que no conozca la app y dile: hazle cinco preguntas seguidas sobre lo mismo. Si a la tercera el agente ya se perdió, no tienes agentes especialistas: tienes un buscador con buena cara.</p>
+      <p style="font-size: 15.5px; line-height: 1.6; margin: 0; max-width: 80ch; color: rgba(244,241,234,0.78);">Es la misma prueba que va a hacer el funcionario, sin avisarte.</p>
+    </div>
+  </section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1120, &quot;height&quot;: 900}}"></script>
+</body>
+</html>

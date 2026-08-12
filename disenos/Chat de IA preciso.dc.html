@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  html { background: #E9E5DC; }
+  body { margin: 0; background: #E9E5DC; font-family: Geist, system-ui, sans-serif; -webkit-font-smoothing: antialiased; text-wrap: pretty; }
+  * { box-sizing: border-box; }
+  a { color: #A3341F; text-decoration: none; border-bottom: 1px solid rgba(163,52,31,0.35); }
+  a:hover { color: #7C2515; border-bottom-color: #7C2515; }
+</style>
+</helmet>
+
+<div style="max-width: 1120px; margin: 0 auto; background: #F4F1EA; color: #17140F; padding: 76px 88px 96px; min-height: 100vh;">
+
+  <header style="display: flex; flex-direction: column; gap: 26px; border-bottom: 2px solid #17140F; padding-bottom: 34px;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 40px;">
+      <div style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8A8278;">Documento 10 · El chat, preciso</div>
+      <div style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8A8278;">11 ago 2026</div>
+    </div>
+    <h1 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 76px; line-height: 0.95; letter-spacing: -0.02em; margin: 0; max-width: 16ch;">Preciso es saber, o decir que no sabes</h1>
+    <p style="font-size: 15.5px; line-height: 1.62; color: #46403A; margin: 0; max-width: 82ch;">Un agente de trámites no se juzga por lo bien que escribe. Se juzga por cuántas veces acierta y por si avisa cuando no puede. Hoy el tuyo nunca avisa: cuando no sabe, inventa con la misma seguridad con la que acierta —y eso es lo que hay que invertir.</p>
+  </header>
+
+  <section style="padding: 50px 0 54px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <div style="display: flex; align-items: baseline; gap: 18px; margin-bottom: 28px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F;">01</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 38px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Las cuatro reglas</h2>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 44px;">
+      <div style="display: flex; flex-direction: column; gap: 9px; padding-left: 16px; border-left: 2px solid #A3341F;">
+        <h3 style="font-size: 16px; font-weight: 600; margin: 0;">Todo dato lleva fuente y fecha</h3>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Requisitos, costos, plazos, direcciones: cada uno con el dominio de donde salió y cuándo se consultó. Si no hay fuente, no se dice. Esta sola regla mata el 80% de las respuestas peligrosas, y es la que convierte el chat en algo que un ente puede defender.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 9px; padding-left: 16px; border-left: 2px solid #A3341F;">
+        <h3 style="font-size: 16px; font-weight: 600; margin: 0;">No poder es una respuesta válida</h3>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">«Todavía no tengo conexión con el sistema de citas del SAIME. Te abro el portal oficial y te aviso cuando esté integrado.» Eso no debilita la demo: le dice al funcionario que distingues lo conectado de lo que no, que es justo lo que quiere saber de un proveedor.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 9px; padding-left: 16px; border-left: 2px solid rgba(23,20,15,0.2);">
+        <h3 style="font-size: 16px; font-weight: 600; margin: 0;">Estructura, no párrafos</h3>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Un trámite es una lista de requisitos, un costo y un plazo. Que salga como lista numerada con lo que ya tienes marcado, no como tres párrafos amables. Se lee en dos segundos en un teléfono y se ve como un sistema, no como un chatbot.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 9px; padding-left: 16px; border-left: 2px solid rgba(23,20,15,0.2);">
+        <h3 style="font-size: 16px; font-weight: 600; margin: 0;">Toda respuesta termina en una acción</h3>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Un botón que abre el trámite, agenda la cita o descarga la planilla. Si la respuesta no lleva a ninguna parte, el agente está haciendo de enciclopedia —y para eso el ciudadano ya tiene el buscador.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 50px 0 54px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <div style="display: flex; align-items: baseline; gap: 18px; margin-bottom: 12px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52;">02</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 38px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Cómo se ve aplicado</h2>
+    </div>
+    <p style="font-size: 15px; line-height: 1.6; color: #6B645C; margin: 0 0 34px 30px; max-width: 66ch;">La misma conversación de la prueba, con las cuatro reglas puestas. Fíjate en el segundo turno.</p>
+
+    <div style="display: grid; grid-template-columns: 390px 1fr; gap: 56px; align-items: start;">
+
+      <div style="width: 390px; height: 844px; overflow: hidden; background: #F1F2F5; box-shadow: 0 18px 44px rgba(23,20,15,0.16); display: flex; flex-direction: column; font-family: Geist, system-ui, sans-serif;">
+
+        <div style="flex-shrink: 0; padding: 44px 16px 12px; background: #FFFFFF; border-bottom: 1px solid rgba(20,22,28,0.07); display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; border-radius: 20px; background: radial-gradient(circle at 32% 26%, #7FB0E4 0%, #3A73B8 44%, #1C4880 100%); box-shadow: inset 0 1px 2px rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: center; position: relative; flex-shrink: 0;">
+            <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.06em; color: #FFFFFF;">IA</span>
+            <span style="position: absolute; top: -1px; right: -1px; width: 11px; height: 11px; border-radius: 6px; background: #00C853; border: 2px solid #FFFFFF;"></span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 1px; min-width: 0;">
+            <span style="font-size: 16px; font-weight: 700; color: #14161C;">Agente de trámites</span>
+            <span style="font-size: 12.5px; color: #666C7A;">Especializado en Venezuela · en línea</span>
+          </div>
+        </div>
+
+        <div style="flex: 1; overflow: hidden; padding: 13px 16px; display: flex; flex-direction: column; gap: 9px;">
+
+          <div style="align-self: flex-end; max-width: 78%; background: #2F5E9E; color: #FFFFFF; border-radius: 19px 19px 5px 19px; padding: 11px 15px; font-size: 15px; line-height: 1.42;">¿Qué necesito para renovar el pasaporte?</div>
+
+          <div style="align-self: flex-start; max-width: 92%; background: #FFFFFF; border-radius: 19px 19px 19px 5px; padding: 11px 14px; box-shadow: 0 2px 8px rgba(20,22,28,0.06); display: flex; flex-direction: column; gap: 9px;">
+            <span style="font-size: 15px; line-height: 1.45; color: #14161C;">Renovación de pasaporte, SAIME. Necesitas cuatro cosas:</span>
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <div style="display: flex; align-items: center; gap: 9px;">
+                <div style="width: 18px; height: 18px; border-radius: 9px; background: #1F6E4A; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.4"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+                </div>
+                <span style="font-size: 14.5px; color: #46403A;">Cédula vigente <span style="color: #1F6E4A; font-weight: 600;">— la tienes</span></span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 9px;">
+                <div style="width: 18px; height: 18px; border-radius: 9px; border: 1.5px solid rgba(20,22,28,0.2); flex-shrink: 0;"></div>
+                <span style="font-size: 14.5px; color: #46403A;">Planilla del sistema en línea</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 9px;">
+                <div style="width: 18px; height: 18px; border-radius: 9px; border: 1.5px solid rgba(20,22,28,0.2); flex-shrink: 0;"></div>
+                <span style="font-size: 14.5px; color: #46403A;">Pago del arancel vigente</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 9px;">
+                <div style="width: 18px; height: 18px; border-radius: 9px; border: 1.5px solid rgba(20,22,28,0.2); flex-shrink: 0;"></div>
+                <span style="font-size: 14.5px; color: #46403A;">Cita presencial para la captura</span>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 7px; padding-top: 2px;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8A9099" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5l3 2"/></svg>
+              <span style="font-size: 12.5px; color: #8A9099;">saime.gob.ve · consultado hoy</span>
+            </div>
+            <button style="height: 42px; border-radius: 13px; border: none; background: #2F5E9E; color: #FFFFFF; font-family: Geist, sans-serif; font-size: 14.5px; font-weight: 600; cursor: pointer;">Abrir el trámite en SAIME</button>
+          </div>
+
+          <div style="align-self: flex-end; max-width: 78%; background: #2F5E9E; color: #FFFFFF; border-radius: 19px 19px 5px 19px; padding: 11px 15px; font-size: 15px; line-height: 1.42;">¿Y cuánto cuesta?</div>
+
+          <div style="align-self: flex-start; max-width: 92%; background: #FFFFFF; border-radius: 19px 19px 19px 5px; padding: 11px 14px; box-shadow: 0 2px 8px rgba(20,22,28,0.06); display: flex; flex-direction: column; gap: 10px;">
+            <span style="font-size: 15px; line-height: 1.45; color: #14161C;">El arancel del pasaporte lo fija el SAIME y se actualiza periódicamente. <strong style="font-weight: 600;">No tengo conexión con su tarifario todavía</strong>, así que no te voy a dar un número que puede estar viejo.</span>
+            <div style="background: #FBF3E3; border-radius: 13px; padding: 11px 13px; display: flex; gap: 10px; align-items: flex-start;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8A6410" stroke-width="2" style="flex-shrink: 0; margin-top: 1px;"><path d="M12 8.5v5M12 16.6v.1"/><circle cx="12" cy="12" r="9"/></svg>
+              <span style="font-size: 13.5px; line-height: 1.42; color: #6E5518;">Integración con el tarifario del SAIME: pendiente</span>
+            </div>
+            <button style="height: 42px; border-radius: 13px; border: 1px solid rgba(47,94,158,0.3); background: #FFFFFF; color: #2F5E9E; font-family: Geist, sans-serif; font-size: 14.5px; font-weight: 600; cursor: pointer;">Ver el tarifario oficial</button>
+          </div>
+
+        </div>
+
+        <div style="flex-shrink: 0; padding: 10px 16px 22px; background: #FFFFFF; border-top: 1px solid rgba(20,22,28,0.07); display: flex; align-items: center; gap: 10px;">
+          <div style="flex: 1; height: 44px; border-radius: 22px; background: #F1F2F5; display: flex; align-items: center; padding: 0 16px;">
+            <span style="font-size: 14.5px; color: #8A9099;">Escribe tu consulta</span>
+          </div>
+          <div style="width: 44px; height: 44px; border-radius: 22px; background: #2F5E9E; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.3"><path d="M5 12h13M12.5 6l6 6-6 6"/></svg>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0; padding-top: 6px;">
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F; padding-top: 3px;">A</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">El segundo turno es el que vale</h3>
+            <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">«¿Y cuánto cuesta?» sin decir de qué. Con historial, el agente sabe que hablas del pasaporte. Sin historial —como está hoy— esa burbuja no existe. Todo lo demás de esta pantalla depende de arreglar eso primero.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #3E6B4B; padding-top: 3px;">B</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">La negativa se ve mejor que el invento</h3>
+            <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Mira la segunda respuesta: dice que no tiene el tarifario, explica por qué, y aun así te deja en algún sitio útil. Enséñale <em>esa</em> burbuja al funcionario. Es la prueba de que el sistema conoce sus propios límites —y es lo contrario de lo que hace hoy con «aprobación en 48 horas».</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52; padding-top: 3px;">C</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Los requisitos ya saben lo que tienes</h3>
+            <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">«Cédula vigente — la tienes» en verde. La app conoce el perfil del usuario, así que la lista deja de ser genérica y pasa a ser <em>tu</em> lista. Ese detalle es lo que ninguna web oficial puede hacer, y cuesta una línea de comparación.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52; padding-top: 3px;">D</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Arreglado el contraste de la cabecera</h3>
+            <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">La tuya usa <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">text-white</span> sobre un panel <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">#F2F2F7</span>: en modo claro el nombre queda blanco sobre blanco. Aquí va texto oscuro sobre blanco, con el orbe de IA aportando el color.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10); border-bottom: 1px solid rgba(23,20,15,0.10);">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #99700B; padding-top: 3px;">E</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Y una nota de honestidad</h3>
+            <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Los cuatro requisitos que ves son los típicos de una renovación, pero <strong style="font-weight: 600; color: #17140F;">no los verifiqué contra el SAIME</strong> —y por eso no puse ni monto ni plazo. Cuando conectes esto, esos textos tienen que venir de la fuente, no de mí ni del modelo.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section style="padding: 50px 0 0;">
+    <div style="display: flex; align-items: baseline; gap: 18px; margin-bottom: 12px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #3E6B4B;">03</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 38px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">El prompt, reescrito</h2>
+    </div>
+    <p style="font-size: 15px; line-height: 1.6; color: #6B645C; margin: 0 0 30px 30px; max-width: 68ch;">Sustituye entero el <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">systemInstruction</span> de tu <span style="font-family: 'Geist Mono', monospace; font-size: 13.5px;">server.ts</span>. Sin política, sin cifras con fecha, sin palabras prohibidas.</p>
+
+    <div style="background: #17140F; color: #E8E4DC; padding: 28px 32px; font-family: 'Geist Mono', monospace; font-size: 13px; line-height: 1.85; white-space: pre-wrap; margin-bottom: 30px;">Eres el agente de trámites de Agiliza. Ayudas a ciudadanos venezolanos
+a resolver gestiones públicas: qué necesitan, dónde se hace y qué sigue.
+
+PRECISIÓN — estas cuatro reglas mandan sobre cualquier otra:
+
+1. Nunca afirmes un monto, arancel, tasa, plazo, horario o dirección
+   que no venga de una herramienta o de una búsqueda de esta misma
+   conversación. Si no lo tienes, dilo con esas palabras: "no tengo
+   ese dato conectado todavía".
+
+2. Cita siempre de dónde sale lo que dices: dominio oficial y fecha
+   de consulta. Sin fuente, no es una respuesta: es una suposición.
+
+3. Responde en estructura, no en párrafos. Requisitos en lista.
+   Un dato por línea. Máximo tres frases de introducción.
+
+4. Termina siempre ofreciendo la acción concreta que sigue, y usa
+   navigateApp para llevarlo ahí dentro de la app.
+
+ALCANCE
+Solo trámites, servicios públicos y gestiones. Si te preguntan de
+política, opinión sobre autoridades o temas fuera del ámbito, dilo
+con naturalidad y reconduce a lo que sí puedes resolver. No emites
+juicios sobre personas, instituciones ni situaciones del país.
+
+TONO
+Claro y directo, de tú. Sin adjetivos de campaña, sin superlativos,
+sin emojis. Escribes como escribe un buen funcionario que quiere
+que el ciudadano resuelva rápido.</div>
+
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; margin-bottom: 32px;">
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-top: 3px solid #A3341F; padding: 26px; display: flex; flex-direction: column; gap: 11px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #A3341F;">Y en el servidor</span>
+        <h3 style="font-size: 16.5px; font-weight: 600; margin: 0;">Manda el historial</h3>
+        <p style="font-size: 14px; line-height: 1.58; color: #46403A; margin: 0;">Cambia <span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">contents: message</span> por el array de turnos que ya tienes en <span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">aiMessages</span>, mapeado a <span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">{ role, parts }</span>. Manda los últimos diez y corta: el contexto largo cuesta dinero y no aporta.</p>
+      </div>
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-top: 3px solid #A3341F; padding: 26px; display: flex; flex-direction: column; gap: 11px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #A3341F;">Y en el cliente</span>
+        <h3 style="font-size: 16.5px; font-weight: 600; margin: 0;">Que las herramientas confiesen</h3>
+        <p style="font-size: 14px; line-height: 1.58; color: #46403A; margin: 0;">Donde hoy devuelves «aprobación en 48 horas» y la tasa fija, devuelve un objeto con <span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">{ disponible: false }</span> y deja que el modelo lo explique. Una herramienta que dice que no está lista es infinitamente mejor que una que miente con seguridad.</p>
+      </div>
+    </div>
+
+    <div style="padding: 34px 38px; background: #17140F; color: #F4F1EA; display: flex; flex-direction: column; gap: 15px;">
+      <div style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(244,241,234,0.5);">Cómo saber si quedó preciso</div>
+      <p style="font-family: 'Instrument Serif', serif; font-size: 27px; line-height: 1.36; margin: 0; max-width: 72ch;">Hazle diez preguntas cuya respuesta no tenga conectada. Si contesta las diez, sigue roto. Si dice «ese dato no lo tengo» en las diez, ya lo puedes enseñar.</p>
+    </div>
+  </section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1120, &quot;height&quot;: 900}}"></script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="./image-slot.js"></script>
+<style>
+  html { background: #E9E5DC; }
+  body { margin: 0; background: #E9E5DC; font-family: Geist, system-ui, sans-serif; -webkit-font-smoothing: antialiased; text-wrap: pretty; }
+  * { box-sizing: border-box; }
+  a { color: #A3341F; text-decoration: none; border-bottom: 1px solid rgba(163,52,31,0.35); }
+  a:hover { color: #7C2515; border-bottom-color: #7C2515; }
+</style>
+</helmet>
+
+<div style="max-width: 1120px; margin: 0 auto; background: #F4F1EA; color: #17140F; padding: 76px 88px 96px; min-height: 100vh;">
+
+  <header style="display: flex; flex-direction: column; gap: 28px; border-bottom: 2px solid #17140F; padding-bottom: 34px;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 40px;">
+      <div style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8A8278;">Documento 7 · Logos y puesta al día</div>
+      <div style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8A8278;">11 ago 2026</div>
+    </div>
+    <h1 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 76px; line-height: 0.95; letter-spacing: -0.02em; margin: 0; max-width: 16ch;">Los logos, y cómo bajar todo esto al código</h1>
+  </header>
+
+  <section style="padding: 50px 0 54px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <div style="display: flex; align-items: baseline; gap: 18px; margin-bottom: 12px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F;">01</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 38px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Antes de pegar un solo logo</h2>
+    </div>
+    <p style="font-size: 15px; line-height: 1.6; color: #6B645C; margin: 0 0 30px 30px; max-width: 66ch;">Esto tiene una trampa legal, y es justo la que te puede costar la reunión.</p>
+
+    <div style="padding: 28px 32px; background: #17140F; color: #F4F1EA; margin-bottom: 30px;">
+      <p style="font-family: 'Instrument Serif', serif; font-size: 26px; line-height: 1.38; margin: 0; max-width: 76ch;">Un logo institucional dentro de tu app comunica una sola cosa: que ese organismo te autorizó. Si no te autorizó, no es un detalle de diseño — es atribuirse un respaldo del Estado que no tienes.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px 44px;">
+      <div style="display: flex; flex-direction: column; gap: 9px; padding-left: 16px; border-left: 2px solid #A3341F;">
+        <h3 style="font-size: 16px; font-weight: 600; margin: 0;">Yo no te los puedo dibujar</h3>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Los escudos y logotipos oficiales son marcas registradas. No voy a reproducirlos ni a aproximarlos: un logo mal calcado en una propuesta al Estado se ve peor que no ponerlo. Los espacios de abajo son <strong style="font-weight: 600; color: #17140F;">arrastrables</strong> — pon tú los archivos oficiales.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 9px; padding-left: 16px; border-left: 2px solid #3E6B4B;">
+        <h3 style="font-size: 16px; font-weight: 600; margin: 0;">La salida limpia para la demo</h3>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Usa el logo con una línea al pie que diga <em>«trámite operado por el SAIME · integración propuesta»</em>. Estás señalando el organismo competente, no diciendo que trabajas con ellos. Y cuando firmes el convenio, borras esa línea y ya está.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 50px 0 54px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <div style="display: flex; align-items: baseline; gap: 18px; margin-bottom: 12px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52;">02</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 38px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Dónde va el logo al entrar</h2>
+    </div>
+    <p style="font-size: 15px; line-height: 1.6; color: #6B645C; margin: 0 0 34px 30px; max-width: 68ch;">Un patrón único que se repite en las catorce vistas. Arrastra los archivos oficiales sobre los recuadros grises: se quedan guardados.</p>
+
+    <div style="display: grid; grid-template-columns: 402px 1fr; gap: 56px; align-items: start;">
+
+      <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+        <div style="font-family: Geist, system-ui, sans-serif; background: #F1F2F5; min-height: 100%; padding: 56px 0 42px; display: flex; flex-direction: column; gap: 13px;">
+
+          <div style="display: flex; align-items: center; gap: 11px; padding: 0 16px;">
+            <div style="width: 34px; height: 34px; border-radius: 12px; background: #FFFFFF; box-shadow: 0 1px 3px rgba(20,22,28,0.09); display: flex; align-items: center; justify-content: center;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3A4152" stroke-width="2.4"><path d="M14.5 5L8 12l6.5 7"/></svg>
+            </div>
+            <span style="font-size: 16px; font-weight: 700; color: #14161C;">Cédula y pasaporte</span>
+          </div>
+
+          <div style="padding: 0 16px;">
+            <div style="background: #FFFFFF; border-radius: 22px; padding: 18px; box-shadow: 0 2px 8px rgba(20,22,28,0.06); display: flex; flex-direction: column; gap: 14px;">
+              <div style="display: flex; align-items: center; gap: 14px;">
+                <div style="width: 76px; height: 76px; border-radius: 16px; background: #F4F5F8; border: 1px solid rgba(20,22,28,0.07); overflow: hidden; flex-shrink: 0; position: relative;">
+                  <image-slot id="logo-saime" shape="rect" placeholder="Logo"></image-slot>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 3px; min-width: 0;">
+                  <span style="font-size: 19px; font-weight: 800; color: #14161C; letter-spacing: -0.015em;">SAIME</span>
+                  <span style="font-size: 13.5px; color: #666C7A; line-height: 1.35;">Servicio Administrativo de Identificación, Migración y Extranjería</span>
+                </div>
+              </div>
+              <div style="height: 1px; background: rgba(20,22,28,0.07);"></div>
+              <span style="font-size: 12.5px; color: #8A9099; line-height: 1.4;">Trámite operado por el SAIME · integración propuesta</span>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 9px; padding: 0 16px;">
+            <span style="font-size: 15.5px; font-weight: 700; color: #14161C;">Trámites disponibles</span>
+
+            <div style="background: #FFFFFF; border-radius: 18px; padding: 15px 16px; box-shadow: 0 2px 8px rgba(20,22,28,0.06); display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+              <div style="display: flex; flex-direction: column; gap: 3px;">
+                <span style="font-size: 15.5px; font-weight: 600; color: #14161C;">Renovar cédula</span>
+                <span style="font-size: 13px; font-weight: 600; color: #C8102E;">Vence en 12 días</span>
+              </div>
+              <div style="width: 30px; height: 30px; border-radius: 15px; background: rgba(47,94,158,0.1); display: flex; align-items: center; justify-content: center; color: #2F62A8; font-size: 15px; flex-shrink: 0;">›</div>
+            </div>
+
+            <div style="background: #FFFFFF; border-radius: 18px; padding: 15px 16px; box-shadow: 0 2px 8px rgba(20,22,28,0.06); display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+              <div style="display: flex; flex-direction: column; gap: 3px;">
+                <span style="font-size: 15.5px; font-weight: 600; color: #14161C;">Solicitar pasaporte</span>
+                <span style="font-size: 13px; color: #666C7A;">Cita disponible desde el 3 sep</span>
+              </div>
+              <div style="width: 30px; height: 30px; border-radius: 15px; background: rgba(47,94,158,0.1); display: flex; align-items: center; justify-content: center; color: #2F62A8; font-size: 15px; flex-shrink: 0;">›</div>
+            </div>
+
+            <div style="background: #FFFFFF; border-radius: 18px; padding: 15px 16px; box-shadow: 0 2px 8px rgba(20,22,28,0.06); display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+              <div style="display: flex; flex-direction: column; gap: 3px;">
+                <span style="font-size: 15.5px; font-weight: 600; color: #14161C;">Prórroga desde el exterior</span>
+                <span style="font-size: 13px; color: #666C7A;">Consulados</span>
+              </div>
+              <div style="width: 30px; height: 30px; border-radius: 15px; background: rgba(47,94,158,0.1); display: flex; align-items: center; justify-content: center; color: #2F62A8; font-size: 15px; flex-shrink: 0;">›</div>
+            </div>
+
+            <div style="background: #FFFFFF; border-radius: 18px; padding: 15px 16px; box-shadow: 0 2px 8px rgba(20,22,28,0.06); display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+              <div style="display: flex; flex-direction: column; gap: 3px;">
+                <span style="font-size: 15.5px; font-weight: 600; color: #14161C;">Reponer documento perdido</span>
+                <span style="font-size: 13px; color: #666C7A;">Damnificados · sin costo</span>
+              </div>
+              <div style="width: 30px; height: 30px; border-radius: 15px; background: rgba(47,94,158,0.1); display: flex; align-items: center; justify-content: center; color: #2F62A8; font-size: 15px; flex-shrink: 0;">›</div>
+            </div>
+
+            <div style="background: #FFFFFF; border-radius: 18px; padding: 15px 16px; box-shadow: 0 2px 8px rgba(20,22,28,0.06); display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+              <div style="display: flex; flex-direction: column; gap: 3px;">
+                <span style="font-size: 15.5px; font-weight: 600; color: #14161C;">Constancia de residencia</span>
+                <span style="font-size: 13px; color: #666C7A;">Descarga inmediata</span>
+              </div>
+              <div style="width: 30px; height: 30px; border-radius: 15px; background: rgba(47,94,158,0.1); display: flex; align-items: center; justify-content: center; color: #2F62A8; font-size: 15px; flex-shrink: 0;">›</div>
+            </div>
+          </div>
+
+          <div style="padding: 0 16px;">
+            <div style="border-radius: 22px; padding: 17px 18px; background: linear-gradient(140deg, #2F5E9E 0%, #4F84C4 100%); position: relative; overflow: hidden; box-shadow: 0 10px 24px rgba(47,94,158,0.26); border: 1px solid rgba(255,255,255,0.16);">
+              <div style="position: absolute; inset: 0; background: radial-gradient(circle at 14% 10%, rgba(255,255,255,0.28) 0%, transparent 58%); pointer-events: none;"></div>
+              <div style="position: relative; display: flex; align-items: center; gap: 13px;">
+                <div style="width: 42px; height: 42px; border-radius: 21px; background: radial-gradient(circle at 32% 26%, #7FB0E4 0%, #3A73B8 44%, #1C4880 100%); box-shadow: inset 0 1px 2px rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative;">
+                  <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.06em; color: #FFFFFF;">IA</span>
+                  <span style="position: absolute; top: 0px; right: 0px; width: 10px; height: 10px; border-radius: 5px; background: #00FF66; border: 2px solid #3E75B4;"></span>
+                </div>
+                <span style="font-size: 14.5px; line-height: 1.45; color: #FFFFFF;">Pregúntame los requisitos de cualquiera de estos trámites</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: auto; padding: 0 12px;">
+            <div style="background: #FFFFFF; border-radius: 26px; height: 64px; display: flex; align-items: center; padding: 0 4px; box-shadow: 0 4px 16px rgba(20,22,28,0.10);">
+              <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#666C7A" stroke-width="2.1"><path d="M4 10.5L12 4l8 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1z"/></svg>
+                <span style="font-size: 11.5px; font-weight: 500; color: #666C7A;">Inicio</span>
+              </div>
+              <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#666C7A" stroke-width="2.1"><rect x="3" y="6" width="18" height="13" rx="2.6"/><path d="M3 10.5h18"/></svg>
+                <span style="font-size: 11.5px; font-weight: 500; color: #666C7A;">Pagos</span>
+              </div>
+              <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;">
+                <div style="width: 40px; height: 40px; border-radius: 20px; background: #FBEBEC; display: flex; align-items: center; justify-content: center; margin-bottom: -4px;">
+                  <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#C8102E" stroke-width="2.2"><path d="M12 3.5l7 3v5.5c0 4-3 7-7 8.5-4-1.5-7-4.5-7-8.5V6.5z"/><path d="M12 9v4M12 15.6v.1"/></svg>
+                </div>
+                <span style="font-size: 11.5px; font-weight: 600; color: #C8102E;">Protección</span>
+              </div>
+              <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#666C7A" stroke-width="2.1"><path d="M3.5 12h4l2-4 3 8 2.5-5 1.5 2.5h4"/></svg>
+                <span style="font-size: 11.5px; font-weight: 500; color: #666C7A;">Salud</span>
+              </div>
+              <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;">
+                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#666C7A" stroke-width="2.1"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg>
+                <span style="font-size: 11.5px; font-weight: 500; color: #666C7A;">Perfil</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </x-import>
+
+      <div style="display: flex; flex-direction: column; gap: 0; padding-top: 6px;">
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52; padding-top: 3px;">A</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">El logo va en la ficha, no en la barra</h3>
+            <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Arriba se queda el momento de vida —«Cédula y pasaporte»— porque es lo que le dice al usuario dónde está. El logo entra en una ficha de identidad debajo, junto a la sigla y el nombre completo desplegado. Así el logo informa en vez de decorar.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52; padding-top: 3px;">B</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Caja fija de 76 px, fondo neutro</h3>
+            <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Los logos oficiales vienen de todos los tamaños y muchos con fondo blanco quemado. Una caja cuadrada gris muy claro con el logo <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">contain</span> dentro los normaliza a todos sin que tengas que retocar ninguno.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F; padding-top: 3px;">C</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">La línea de atribución, siempre</h3>
+            <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">«Trámite operado por el SAIME · integración propuesta», a 12,5 px. Es fea de poner y es la que te protege. Además, en la reunión, esa línea hace tu pregunta por ti: <em>¿la quitamos?</em></p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10); border-bottom: 1px solid rgba(23,20,15,0.10);">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #3E6B4B; padding-top: 3px;">D</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Dónde conseguirlos bien</h3>
+            <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">El pie de página de cada portal oficial y sus manuales de imagen en Gaceta. Busca SVG o PNG con transparencia a 512 px mínimo; nunca captures de pantalla ni resultados de imágenes. Catorce archivos en <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">public/logos/</span> nombrados por sigla y listo.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 14px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #8A8278;">Prueba el patrón con los otros organismos — arrastra los archivos encima</span>
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px;">
+        <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); padding: 16px; display: flex; flex-direction: column; gap: 12px; min-width: 0;">
+          <div style="width: 100%; height: 96px; border-radius: 14px; background: #F4F5F8; border: 1px solid rgba(20,22,28,0.07); overflow: hidden; position: relative;">
+            <image-slot id="logo-saren" shape="rect" placeholder="Logo"></image-slot>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+            <span style="font-size: 15px; font-weight: 800; letter-spacing: -0.01em;">SAREN</span>
+            <span style="font-size: 12.5px; color: #6B645C;">Registros y notarías</span>
+          </div>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); padding: 16px; display: flex; flex-direction: column; gap: 12px; min-width: 0;">
+          <div style="width: 100%; height: 96px; border-radius: 14px; background: #F4F5F8; border: 1px solid rgba(20,22,28,0.07); overflow: hidden; position: relative;">
+            <image-slot id="logo-intt" shape="rect" placeholder="Logo"></image-slot>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+            <span style="font-size: 15px; font-weight: 800; letter-spacing: -0.01em;">INTT</span>
+            <span style="font-size: 12.5px; color: #6B645C;">Licencia y vehículo</span>
+          </div>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); padding: 16px; display: flex; flex-direction: column; gap: 12px; min-width: 0;">
+          <div style="width: 100%; height: 96px; border-radius: 14px; background: #F4F5F8; border: 1px solid rgba(20,22,28,0.07); overflow: hidden; position: relative;">
+            <image-slot id="logo-seniat" shape="rect" placeholder="Logo"></image-slot>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+            <span style="font-size: 15px; font-weight: 800; letter-spacing: -0.01em;">SENIAT</span>
+            <span style="font-size: 12.5px; color: #6B645C;">RIF e impuestos</span>
+          </div>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); padding: 16px; display: flex; flex-direction: column; gap: 12px; min-width: 0;">
+          <div style="width: 100%; height: 96px; border-radius: 14px; background: #F4F5F8; border: 1px solid rgba(20,22,28,0.07); overflow: hidden; position: relative;">
+            <image-slot id="logo-ivss" shape="rect" placeholder="Logo"></image-slot>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+            <span style="font-size: 15px; font-weight: 800; letter-spacing: -0.01em;">IVSS</span>
+            <span style="font-size: 12.5px; color: #6B645C;">Empleo y pensión</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 50px 0 0;">
+    <div style="display: flex; align-items: baseline; gap: 18px; margin-bottom: 12px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #3E6B4B;">03</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 38px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Cómo bajamos esto al código</h2>
+    </div>
+    <p style="font-size: 15.5px; line-height: 1.6; color: #46403A; margin: 0 0 34px 30px; max-width: 74ch;">Entendí tu pregunta como «cómo aplico todo lo acordado a mi app». Aquí está, mapeado a tus archivos reales y en el orden en que yo lo haría. Si te referías a otra cosa, dímelo.</p>
+
+    <div style="display: flex; flex-direction: column; gap: 0; margin-bottom: 34px;">
+
+      <div style="display: grid; grid-template-columns: 40px 240px 1fr 96px; gap: 22px; padding: 20px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F; padding-top: 3px;">S1</span>
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <h3 style="font-size: 15.5px; font-weight: 600; margin: 0; line-height: 1.3;">Cerrar los riesgos</h3>
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #8A8278;">server.ts · news.ts · Transparency.tsx · Security.tsx · Login.tsx</span>
+        </div>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #46403A; margin: 0;">Revocar la clave de API y leerla solo del entorno. Borrar las noticias <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">not_real</span>. Quitar las insignias «Verificado» y «Auditoría 100%». Sacar las reglas políticas del <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">systemInstruction</span> y la tasa BCV escrita a mano. Corregir la copy del pánico. Cambiar «Seguridad de Nivel Gubernamental» por «Prototipo · datos simulados».</p>
+        <span style="font-size: 13px; font-weight: 600; color: #A3341F; text-align: right;">Días 1-3</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 40px 240px 1fr 96px; gap: 22px; padding: 20px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52; padding-top: 3px;">S2</span>
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <h3 style="font-size: 15.5px; font-weight: 600; margin: 0; line-height: 1.3;">Home y sistema visual</h3>
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #8A8278;">Home.tsx · index.css · index.html</span>
+        </div>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #46403A; margin: 0;">Rejilla fija de organismos —sigla grande, momento de vida debajo— y fuera la tarjeta que rota cada 3 s. Tarjeta de saldo arriba con recargar y transferir. Un solo acrílico por pantalla: la tarjeta «Todos». Tipografía a 13-15 px, fuera las mayúsculas apretadas. Un único sistema de estilo: mata el <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">&lt;style&gt;</span> del index.html y la <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">.bento-card</span> duplicada.</p>
+        <span style="font-size: 13px; font-weight: 600; color: #2A3A52; text-align: right;">Semana 1</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 40px 240px 1fr 96px; gap: 22px; padding: 20px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52; padding-top: 3px;">S3</span>
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <h3 style="font-size: 15.5px; font-weight: 600; margin: 0; line-height: 1.3;">Tour, IA y logos</h3>
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #8A8278;">App.tsx · nuevo WelcomeTour.tsx · public/logos/</span>
+        </div>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #46403A; margin: 0;">El tour de seis pasos con <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">localStorage</span> para no repetirlo. VenIA pasa a «IA» y el chat sale de App.tsx a su propio componente. Los catorce logos con su ficha de identidad y la línea de atribución. Y quitar el atajo del «currículum» del chat: si prometes agentes especialistas, es lo primero que van a probar.</p>
+        <span style="font-size: 13px; font-weight: 600; color: #2A3A52; text-align: right;">Semana 2</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 40px 240px 1fr 96px; gap: 22px; padding: 20px 0; border-top: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #3E6B4B; padding-top: 3px;">S4</span>
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <h3 style="font-size: 15.5px; font-weight: 600; margin: 0; line-height: 1.3;">Renacer y Protección</h3>
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #8A8278;">nuevo Renacer.tsx · Security.tsx · types.ts</span>
+        </div>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #46403A; margin: 0;">Renacer entero: hero con fuente y fecha, «Tu vivienda» con el marcaje, los tres trámites y las noticias al final. Protección en oscuro con el Botón Fucsia arriba y los estados «En línea». Y limpia <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">AppView</span>: hoy declara <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">onboarding</span> y <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">credits</span>, que no existen.</p>
+        <span style="font-size: 13px; font-weight: 600; color: #3E6B4B; text-align: right;">Semana 3</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 40px 240px 1fr 96px; gap: 22px; padding: 20px 0; border-top: 1px solid rgba(23,20,15,0.10); border-bottom: 1px solid rgba(23,20,15,0.10); align-items: start;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #3E6B4B; padding-top: 3px;">S5</span>
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <h3 style="font-size: 15.5px; font-weight: 600; margin: 0; line-height: 1.3;">Ensayo de la demo</h3>
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #8A8278;">en un teléfono real, no en el navegador</span>
+        </div>
+        <p style="font-size: 14.5px; line-height: 1.6; color: #46403A; margin: 0;">Un trámite de punta a punta, cronometrado, en el teléfono más viejo que consigas y con datos móviles. Rotula las trece vistas que no entran en el guion. Verifica cada cifra de reconstrucción contra su fuente ese mismo día, y confirma los números de emergencia.</p>
+        <span style="font-size: 13px; font-weight: 600; color: #3E6B4B; text-align: right;">Semana 4</span>
+      </div>
+
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-bottom: 34px;">
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-top: 3px solid #2F5E9E; padding: 26px; display: flex; flex-direction: column; gap: 12px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #2F5E9E;">Cómo te paso el trabajo</span>
+        <h3 style="font-size: 16.5px; font-weight: 600; margin: 0;">Conecta el repositorio</h3>
+        <p style="font-size: 14px; line-height: 1.58; color: #46403A; margin: 0;">Ahora mismo estoy trabajando sobre una copia estática de tu código, así que te describo cambios en vez de hacerlos. Si conectas el repositorio de GitHub, leo los archivos de verdad y te entrego las pantallas ya escritas contra tu estructura. Para una persona sola, eso es la diferencia entre cuatro semanas y dos.</p>
+      </div>
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-top: 3px solid #99700B; padding: 26px; display: flex; flex-direction: column; gap: 12px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #99700B;">Lo que no puedo decidir por ti</span>
+        <h3 style="font-size: 16.5px; font-weight: 600; margin: 0;">Tres datos que faltan</h3>
+        <div style="display: flex; flex-direction: column; gap: 9px;">
+          <div style="display: grid; grid-template-columns: 16px 1fr; gap: 10px; font-size: 14px; line-height: 1.5; color: #46403A;"><span style="color: #99700B;">→</span><span>¿Existe fuente consultable del marcaje verde-amarillo-rojo?</span></div>
+          <div style="display: grid; grid-template-columns: 16px 1fr; gap: 10px; font-size: 14px; line-height: 1.5; color: #46403A;"><span style="color: #99700B;">→</span><span>¿Qué ente concreto es la reunión, y en qué fecha?</span></div>
+          <div style="display: grid; grid-template-columns: 16px 1fr; gap: 10px; font-size: 14px; line-height: 1.5; color: #46403A;"><span style="color: #99700B;">→</span><span>¿Tienes autorización de imagen de algún organismo, o vamos todos con la línea de atribución?</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding: 34px 38px; background: #17140F; color: #F4F1EA; display: flex; flex-direction: column; gap: 15px;">
+      <div style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(244,241,234,0.5);">Si esta semana solo haces una cosa</div>
+      <p style="font-family: 'Instrument Serif', serif; font-size: 27px; line-height: 1.36; margin: 0; max-width: 72ch;">Haz la S1 completa. Son tres días de borrar cosas, no de construir — y es lo único de esta lista que, si no lo haces, convierte una buena reunión en una mala.</p>
+    </div>
+  </section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1120, &quot;height&quot;: 900}}"></script>
+</body>
+</html>

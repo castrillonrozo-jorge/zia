@@ -1,5 +1,12 @@
 {
-  "name": "VenezIA",
-  "description": "The most advanced tourism platform for Venezuela - Government Official MVP",
-  "requestFramePermissions": ["camera", "geolocation", "microphone"]
+  "name": "Dubai AgilizApp",
+  "description": "Plataforma inteligente de gestión ciudadana y servicios digitales. Identidad, pagos, economía y patrimonio nacional en un solo lugar.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

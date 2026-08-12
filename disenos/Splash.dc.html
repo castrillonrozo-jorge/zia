@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  html { background: #E9E5DC; }
+  body { margin: 0; background: #E9E5DC; font-family: Geist, system-ui, sans-serif; -webkit-font-smoothing: antialiased; text-wrap: pretty; }
+  * { box-sizing: border-box; }
+  a { color: #A3341F; text-decoration: none; border-bottom: 1px solid rgba(163,52,31,0.35); }
+  a:hover { color: #7C2515; border-bottom-color: #7C2515; }
+  @keyframes tileIn {
+    0%   { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.62); }
+    10%  { opacity: 1; transform: translate(var(--dx), var(--dy)) scale(1); }
+    63%  { opacity: 1; transform: translate(var(--dx), var(--dy)) scale(1); }
+    92%  { opacity: 1; transform: translate(calc(var(--dx) * 0.08), calc(var(--dy) * 0.08)) scale(0.42); }
+    100% { opacity: 0; transform: translate(0px, 0px) scale(0.12); }
+  }
+  @keyframes trailGrow {
+    0%   { opacity: 0; transform: rotate(var(--a)) scaleX(0.1); }
+    63%  { opacity: 0; transform: rotate(var(--a)) scaleX(0.12); }
+    77%  { opacity: 0.95; transform: rotate(var(--a)) scaleX(0.92); }
+    92%  { opacity: 0.75; transform: rotate(var(--a)) scaleX(0.7); }
+    100% { opacity: 0; transform: rotate(var(--a)) scaleX(0.2); }
+  }
+  @keyframes clockIn {
+    0%   { opacity: 0; transform: scale(0.68); }
+    58%  { opacity: 1; transform: scale(1.05); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes clockOut { 0% { opacity: 1; } 100% { opacity: 0; } }
+  @keyframes handSpin {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(var(--turn)); }
+  }
+  @keyframes iconIn {
+    0%   { opacity: 0; transform: scale(0.5); }
+    58%  { opacity: 1; transform: scale(1.07); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes ringOut {
+    0%   { opacity: 0.5; transform: scale(0.86); }
+    100% { opacity: 0; transform: scale(2.3); }
+  }
+  @keyframes glowIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+  @keyframes sweepX {
+    0%   { transform: translateX(-150%) skewX(-18deg); }
+    100% { transform: translateX(320%) skewX(-18deg); }
+  }
+  @keyframes charIn {
+    0%   { opacity: 0; transform: translateY(15px); filter: blur(7px); }
+    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+  }
+  @keyframes barFill { 0% { width: 0%; } 100% { width: 100%; } }
+</style>
+</helmet>
+
+<div style="max-width: 1120px; margin: 0 auto; background: #F4F1EA; color: #17140F; padding: 76px 88px 96px; min-height: 100vh;">
+
+  <header style="display: flex; flex-direction: column; gap: 28px; border-bottom: 2px solid #17140F; padding-bottom: 34px;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 40px;">
+      <div style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8A8278;">Documento 8 · Pantalla de arranque</div>
+      <div style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8A8278;">11 ago 2026</div>
+    </div>
+    <h1 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 76px; line-height: 0.95; letter-spacing: -0.02em; margin: 0; max-width: 15ch;">Todo converge, y el reloj se acelera</h1>
+  </header>
+
+  <section style="padding: 50px 0 54px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <div style="display: flex; align-items: baseline; gap: 18px; margin-bottom: 28px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #A3341F;">01</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 38px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Lo que hay que arreglar primero no es el diseño</h2>
+    </div>
+
+    <div style="padding: 28px 32px; background: #17140F; color: #F4F1EA; margin-bottom: 32px;">
+      <p style="font-family: 'Instrument Serif', serif; font-size: 26px; line-height: 1.38; margin: 0; max-width: 76ch;">El tuyo dura 6,2 segundos y el logo no aparece hasta el 4,8. Ninguna app de las que admiras te hace esperar así. Un splash largo no se lee como cuidado: se lee como lentitud, y es lo primero que siente quien abre la app en la reunión.</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px;">
+      <div style="display: grid; grid-template-columns: 168px 1fr 74px; gap: 20px; align-items: center;">
+        <span style="font-size: 14.5px; font-weight: 600;">AgilizApp hoy</span>
+        <div style="height: 26px; background: rgba(23,20,15,0.06); position: relative;">
+          <div style="position: absolute; inset: 0 auto 0 0; width: 100%; background: #A3341F;"></div>
+          <div style="position: absolute; left: 77.4%; top: -6px; bottom: -6px; width: 2px; background: #17140F;"></div>
+          <span style="position: absolute; left: calc(77.4% + 8px); top: 50%; transform: translateY(-50%); font-size: 12px; font-weight: 600; color: #FFFFFF;">aparece el logo</span>
+        </div>
+        <span style="font-family: 'Geist Mono', monospace; font-size: 13px; text-align: right; color: #A3341F;">6,20 s</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 168px 1fr 74px; gap: 20px; align-items: center;">
+        <span style="font-size: 14.5px; font-weight: 600;">Esta propuesta</span>
+        <div style="height: 26px; background: rgba(23,20,15,0.06); position: relative;">
+          <div style="position: absolute; inset: 0 auto 0 0; width: 59.7%; background: #3E6B4B;"></div>
+          <div style="position: absolute; left: 40.3%; top: -6px; bottom: -6px; width: 2px; background: #17140F;"></div>
+          <span style="position: absolute; left: calc(40.3% + 8px); top: 50%; transform: translateY(-50%); font-size: 12px; font-weight: 600; color: #FFFFFF;">colapsan</span>
+        </div>
+        <span style="font-family: 'Geist Mono', monospace; font-size: 13px; text-align: right; color: #3E6B4B;">3,70 s</span>
+      </div>
+    </div>
+
+    <div style="padding: 22px 26px; background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-left: 3px solid #99700B; margin-bottom: 32px;">
+      <p style="font-size: 14.5px; line-height: 1.6; color: #46403A; margin: 0; max-width: 88ch;"><strong style="font-weight: 600; color: #17140F;">Nota honesta sobre esos 3,7 s.</strong> Las siglas ahora se quedan quietas 1,6 s antes de colapsar, que es lo que hace falta para leerlas —pero eso deja el splash en 3,7 s, a solo 2,5 del que querías acortar. Mi propuesta: déjalo así para <strong style="font-weight: 600; color: #17140F;">la primera apertura</strong>, donde presentar los organismos tiene sentido, y usa una versión corta —siglas ya colapsando, 1,4 s— de la segunda vez en adelante. Se hace con una bandera en <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">localStorage</span> y resuelve las dos cosas sin ceder ninguna.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px 44px;">
+      <div style="display: flex; flex-direction: column; gap: 9px; padding-left: 16px; border-left: 2px solid rgba(23,20,15,0.2);">
+        <h3 style="font-size: 16px; font-weight: 600; margin: 0;">Tu idea era buena, el reloj no</h3>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Nueve ventanas de organismos que vuelan hacia un teléfono: la metáfora es correcta —muchas instituciones, una sola app— y me la quedo entera. Lo que cambia es que ocurra en 900 ms en vez de en cuatro segundos, y que el final sea el logo y no la desaparición de todo.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 9px; padding-left: 16px; border-left: 2px solid rgba(23,20,15,0.2);">
+        <h3 style="font-size: 16px; font-weight: 600; margin: 0;">Y que no bloquee</h3>
+        <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Hoy es un <span style="font-family: 'Geist Mono', monospace; font-size: 13px;">setTimeout</span> fijo: la app espera aunque ya esté lista. Debe ser al revés —arranca la carga real detrás y el splash sale en cuanto termine, con 1,4 s como piso para que no parpadee. En un teléfono rápido son 1,4 s; en uno lento, tapa la espera de verdad.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding: 50px 0 54px; border-bottom: 1px solid rgba(23,20,15,0.12);">
+    <div style="display: flex; align-items: baseline; gap: 18px; margin-bottom: 12px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52;">02</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 38px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Todo converge</h2>
+    </div>
+    <p style="font-size: 15px; line-height: 1.6; color: #6B645C; margin: 0 0 34px 30px; max-width: 66ch;">Corriendo de verdad y en bucle, a pantalla completa y sin marco dibujado. Pulsa «Repetir» para verlo cuando quieras.</p>
+
+    <div style="display: grid; grid-template-columns: 402px 1fr; gap: 56px; align-items: start;">
+
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="width: 390px; height: 844px; overflow: hidden; box-shadow: 0 18px 44px rgba(23,20,15,0.16);">{{ splash }}</div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #8A8278;">390 × 844 · sin marco</span>
+          <button onClick="{{ replay }}" style="height: 42px; padding: 0 20px; border-radius: 21px; border: 1px solid rgba(23,20,15,0.16); background: #FFFDF8; font-family: Geist, sans-serif; font-size: 14px; font-weight: 600; color: #17140F; cursor: pointer;">Repetir</button>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0; padding-top: 6px;">
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52; padding-top: 3px;">A</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Fondo profundo, no azul claro</h3>
+            <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">El azul medio a pantalla completa se ve barato en cuanto lo pones al lado de una app cara. Navy casi negro con una sola fuente de luz arriba: el mismo azul de tu marca queda entonces como <em>luz</em>, no como fondo, y el icono brilla de verdad porque tiene oscuridad alrededor. Es además lo que permite que las estelas de bandera se vean: sobre azul claro no existirían.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52; padding-top: 3px;">B</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">Doce siglas, con borde de bandera</h3>
+            <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Cada ficha lleva borde y halo en amarillo, azul o rojo, y el fondo subió al 16% de blanco: ahora sí se despegan del navy. El color no es decorativo —cada ficha arrastra una estela del suyo, así que las tres corren juntas hacia el centro y la bandera se arma en movimiento, sin que haya que dibujarla.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #3E6B4B; padding-top: 3px;">C</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">El reloj acelerado</h3>
+            <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Cuando el anillo se expande, se dibuja la esfera con sus doce marcas y las agujas dan tres vueltas de golpe antes de frenar. Ahí está el nombre explicado sin decirlo: lo que tardaba semanas pasa en segundos. Es el único momento del splash que <em>significa</em> algo, y por eso lo puse al final, justo antes del nombre.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10);">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #2A3A52; padding-top: 3px;">D</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">El nombre entra letra a letra</h3>
+            <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Cada letra sube 15 px y pasa de desenfocada a nítida, con 22 ms de diferencia entre una y otra. Mantengo tu bicolor —«Agil» claro, «iza» azul— porque es tuyo y funciona. Fuera el globito de «ECOSISTEMA» a 3,5 px: nadie lo lee y le quita solemnidad al final.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 18px; padding: 19px 0; border-top: 1px solid rgba(23,20,15,0.10); border-bottom: 1px solid rgba(23,20,15,0.10);">
+          <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #99700B; padding-top: 3px;">E</span>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <h3 style="font-size: 15.5px; font-weight: 600; margin: 0;">La línea de abajo hace un trabajo</h3>
+            <p style="font-size: 14.5px; line-height: 1.58; color: #46403A; margin: 0;">Se llena durante toda la secuencia: le dice al usuario que algo está pasando y le da al splash una razón de existir más allá de la marca. Cuando conectes la carga real, esa barra deja de ser decorativa y refleja el progreso de verdad.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section style="padding: 50px 0 0;">
+    <div style="display: flex; align-items: baseline; gap: 18px; margin-bottom: 26px;">
+      <span style="font-family: 'Geist Mono', monospace; font-size: 12px; color: #3E6B4B;">03</span>
+      <h2 style="font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 38px; line-height: 1.05; margin: 0; letter-spacing: -0.01em;">Al llevarlo a tu código</h2>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; margin-bottom: 32px;">
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-top: 3px solid #3E6B4B; padding: 24px; display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #3E6B4B;">Pantalla completa</span>
+        <h3 style="font-size: 16.5px; font-weight: 600; margin: 0;">Sin teléfono dibujado, y escalando solo</h3>
+        <p style="font-size: 14px; line-height: 1.56; color: #46403A; margin: 0;">Fuera el teléfono en miniatura: el icono de la app hace ese trabajo mejor. El lienzo es <span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">100dvh</span> a sangre, y las siglas se colocan en <span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">cqmin</span> en vez de píxeles, así que el anillo se ajusta solo del SE al Pro Max sin recortarse. La barra respeta <span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">safe-area-inset-bottom</span>.</p>
+      </div>
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-top: 3px solid #3E6B4B; padding: 24px; display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #3E6B4B;">Rendimiento</span>
+        <h3 style="font-size: 16.5px; font-weight: 600; margin: 0;">Solo transform y opacity</h3>
+        <p style="font-size: 14px; line-height: 1.56; color: #46403A; margin: 0;">Tu versión anima <span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">top</span> y <span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">left</span>, que recalculan el diseño en cada fotograma y trompican en un teléfono modesto. Esta usa solo <span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">transform</span> y <span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">opacity</span>: va a 60 fps en cualquier equipo.</p>
+      </div>
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-top: 3px solid #99700B; padding: 24px; display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #99700B;">Cuidado</span>
+        <h3 style="font-size: 16.5px; font-weight: 600; margin: 0;">Las estelas cuestan</h3>
+        <p style="font-size: 14px; line-height: 1.56; color: #46403A; margin: 0;">Doce estelas con <span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">blur(3px)</span> más doce fichas con <span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">backdrop-filter</span> es mucho para un teléfono de gama baja. Pruébalo en el más viejo que consigas; si trompica, quita el desenfoque de las fichas antes que el de las estelas.</p>
+      </div>
+      <div style="background: #FFFDF8; border: 1px solid rgba(23,20,15,0.10); border-top: 3px solid #99700B; padding: 24px; display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #99700B;">No olvidar</span>
+        <h3 style="font-size: 16.5px; font-weight: 600; margin: 0;">Respeta «reducir movimiento»</h3>
+        <p style="font-size: 14px; line-height: 1.56; color: #46403A; margin: 0;">Con <span style="font-family: 'Geist Mono', monospace; font-size: 12.5px;">prefers-reduced-motion</span> activo, muestra el icono y el nombre fijos durante 600 ms y sales. Son cuatro líneas, y es lo que separa una app cuidada de una bonita.</p>
+      </div>
+    </div>
+
+    <div style="padding: 34px 38px; background: #17140F; color: #F4F1EA; display: flex; flex-direction: column; gap: 15px;">
+      <div style="font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(244,241,234,0.5);">La prueba de fuego</div>
+      <p style="font-family: 'Instrument Serif', serif; font-size: 27px; line-height: 1.36; margin: 0; max-width: 72ch;">Ábrela veinte veces seguidas. Si a la quinta ya te molesta, sigue siendo demasiado larga —y quien la va a abrir veinte veces al día es el ciudadano, no tú.</p>
+    </div>
+  </section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1120, &quot;height&quot;: 900}, &quot;accent&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#4F84C4&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;options&quot;: [&quot;#4F84C4&quot;, &quot;#2F5E9E&quot;, &quot;#1F6E4A&quot;, &quot;#C8102E&quot;], &quot;section&quot;: &quot;Splash&quot;}, &quot;durationMs&quot;: {&quot;editor&quot;: &quot;int&quot;, &quot;default&quot;: 3700, &quot;min&quot;: 1500, &quot;max&quot;: 5000, &quot;step&quot;: 100, &quot;unit&quot;: &quot;ms&quot;, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Splash&quot;}}">
+class Component extends DCLogic {
+  state = { run: 0 };
+
+  componentDidMount() {
+    this.timer = setInterval(() => this.setState(s => ({ run: s.run + 1 })), 6400);
+  }
+  componentWillUnmount() { clearInterval(this.timer); }
+
+  renderVals() {
+    const h = React.createElement;
+    const run = this.state.run;
+    const accent = this.props.accent ?? '#4F84C4';
+    const total = this.props.durationMs ?? 3700;
+
+    const siglas = ['SAIME','SAREN','INTT','SENIAT','IVSS','SALUD','EMPLEO','BANCA','PAGOS','CITAS','RIF','INTI'];
+    const radii = [39,29.7,36.4,27.7,38,30.8,39.5,28.2,36.9,30.3,38.5,28.7];
+    const flag = ['#FFCE00','#2C6FE0','#DC1B33'];
+
+    const tiles = siglas.map((label, i) => {
+      const deg = -90 + i * 30;
+      const a = deg * Math.PI / 180;
+      const r = radii[i];
+      const c = flag[i % 3];
+      return h('div', {
+        key: i,
+        style: {
+          position: 'absolute', left: '50%', top: '43%', width: 0, height: 0,
+          '--dx': (Math.cos(a) * r).toFixed(2) + 'cqmin',
+          '--dy': (Math.sin(a) * r).toFixed(2) + 'cqmin',
+          animation: 'tileIn 2500ms cubic-bezier(0.42,0,0.3,1) both',
+          animationDelay: (i * 30) + 'ms'
+        }
+      }, [
+        h('div', { key: 't', style: {
+          position: 'absolute', left: 0, top: -5, width: (r * 0.62).toFixed(2) + 'cqmin', height: 10,
+          borderRadius: 5, transformOrigin: '0 50%', pointerEvents: 'none',
+          '--a': deg + 'deg',
+          background: 'linear-gradient(90deg, ' + c + ' 0%, ' + c + 'C0 22%, rgba(44,111,224,0.55) 56%, rgba(220,27,51,0.28) 80%, transparent 100%)',
+          filter: 'blur(3px)',
+          animation: 'trailGrow 2500ms cubic-bezier(0.42,0,0.3,1) both',
+          animationDelay: (i * 30) + 'ms'
+        }}),
+        h('div', { key: 's', style: {
+          position: 'absolute', left: -29, top: -29, width: 58, height: 58,
+          borderRadius: 17, display: 'flex', alignItems: 'center', justifyContent: 'center',
+          background: 'rgba(255,255,255,0.16)', border: '1.5px solid ' + c,
+          boxShadow: '0 0 20px ' + c + '66, inset 0 1px 2px rgba(255,255,255,0.3)',
+          backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)',
+          fontSize: 10, fontWeight: 700, letterSpacing: '0.05em',
+          color: '#FFFFFF', whiteSpace: 'nowrap',
+          transform: 'rotate(' + (i % 2 ? 10 : -10) + 'deg)'
+        }}, label)
+      ]);
+    });
+
+    const ticks = Array.from({ length: 12 }, (_, i) => h('div', {
+      key: i,
+      style: {
+        position: 'absolute', left: '50%', top: '50%', width: 1.5,
+        height: i % 3 === 0 ? 11 : 6, marginLeft: -0.75,
+        background: i % 3 === 0 ? 'rgba(255,255,255,0.75)' : 'rgba(255,255,255,0.4)',
+        transformOrigin: '50% 0', transform: 'rotate(' + (i * 30) + 'deg) translateY(-80px)'
+      }
+    }));
+
+    const clock = h('div', { key: 'clock', style: {
+      position: 'absolute', left: '50%', top: '43%', width: 176, height: 176,
+      marginLeft: -88, marginTop: -88, pointerEvents: 'none',
+      animation: 'clockIn 460ms cubic-bezier(0.34,1.35,0.5,1) both, clockOut 320ms ease-in both',
+      animationDelay: '2540ms, 3320ms'
+    }}, [
+      h('div', { key: 'face', style: {
+        position: 'absolute', inset: 6, borderRadius: 82,
+        border: '1.5px solid rgba(255,255,255,0.28)',
+        boxShadow: '0 0 30px rgba(120,175,235,0.28)'
+      }}),
+      ...ticks,
+      h('div', { key: 'min', style: {
+        position: 'absolute', left: '50%', top: '50%', width: 2.5, height: 66,
+        marginLeft: -1.25, borderRadius: 2, background: 'rgba(255,255,255,0.92)',
+        boxShadow: '0 0 10px rgba(180,215,255,0.8)', transformOrigin: '50% 100%',
+        marginTop: -66, '--turn': '1140deg',
+        animation: 'handSpin 900ms cubic-bezier(0.1,0.85,0.2,1) both', animationDelay: '2600ms'
+      }}),
+      h('div', { key: 'hr', style: {
+        position: 'absolute', left: '50%', top: '50%', width: 3, height: 46,
+        marginLeft: -1.5, borderRadius: 2, background: 'rgba(255,255,255,0.75)',
+        boxShadow: '0 0 8px rgba(180,215,255,0.6)', transformOrigin: '50% 100%',
+        marginTop: -46, '--turn': '660deg',
+        animation: 'handSpin 900ms cubic-bezier(0.1,0.85,0.2,1) both', animationDelay: '2600ms'
+      }}),
+      h('div', { key: 'pin', style: {
+        position: 'absolute', left: '50%', top: '50%', width: 7, height: 7,
+        marginLeft: -3.5, marginTop: -3.5, borderRadius: 4, background: '#FFFFFF'
+      }})
+    ]);
+
+    const word = 'Agiliza'.split('').map((c, i) => h('span', {
+      key: i,
+      style: {
+        display: 'inline-block',
+        color: i < 4 ? '#FFFFFF' : accent,
+        animation: 'charIn 420ms cubic-bezier(0.16,1,0.3,1) both',
+        animationDelay: (3160 + i * 24) + 'ms'
+      }
+    }, c));
+
+    const splash = h('div', {
+      key: run,
+      style: {
+        position: 'relative', width: '100%', height: '100%', overflow: 'hidden',
+        containerType: 'size', background: '#08111F',
+        fontFamily: 'Geist, system-ui, sans-serif'
+      }
+    }, [
+      h('div', { key: 'glow', style: {
+        position: 'absolute', left: '50%', top: '43%', width: 460, height: 460,
+        marginLeft: -230, marginTop: -230, borderRadius: 230, pointerEvents: 'none',
+        background: 'radial-gradient(circle, rgba(79,132,196,0.34) 0%, rgba(79,132,196,0.09) 42%, transparent 70%)',
+        animation: 'glowIn 700ms ease-out both', animationDelay: '2360ms'
+      }}),
+      h('div', { key: 'top', style: {
+        position: 'absolute', inset: 0, pointerEvents: 'none',
+        background: 'radial-gradient(ellipse 120% 55% at 50% -8%, rgba(120,170,225,0.20) 0%, transparent 62%)'
+      }}),
+      h('div', { key: 'ring', style: {
+        position: 'absolute', left: '50%', top: '43%', width: 92, height: 92,
+        marginLeft: -46, marginTop: -46, borderRadius: 26,
+        border: '1.5px solid rgba(140,190,240,0.7)', pointerEvents: 'none',
+        animation: 'ringOut 760ms cubic-bezier(0.16,1,0.3,1) both', animationDelay: '2500ms'
+      }}),
+      ...tiles,
+      clock,
+      h('div', { key: 'icon', style: {
+        position: 'absolute', left: '50%', top: '43%', width: 88, height: 88,
+        marginLeft: -44, marginTop: -44, borderRadius: 25, overflow: 'hidden',
+        background: 'linear-gradient(155deg, #6FA3DC 0%, ' + accent + ' 38%, #2A5490 100%)',
+        boxShadow: '0 18px 44px rgba(20,60,120,0.55), inset 0 1.5px 2px rgba(255,255,255,0.55)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        animation: 'iconIn 420ms cubic-bezier(0.34,1.4,0.5,1) both', animationDelay: '2420ms'
+      }}, [
+        h('div', { key: 'spec', style: {
+          position: 'absolute', inset: 0, pointerEvents: 'none',
+          background: 'radial-gradient(circle at 24% 16%, rgba(255,255,255,0.4) 0%, transparent 58%)'
+        }}),
+        h('span', { key: 'a', style: {
+          position: 'relative', fontSize: 46, fontWeight: 800, letterSpacing: '-0.04em',
+          color: '#FFFFFF', lineHeight: 1, textShadow: '0 1px 3px rgba(20,60,120,0.4)'
+        }}, 'A'),
+        h('div', { key: 'sweep', style: {
+          position: 'absolute', top: -20, bottom: -20, left: 0, width: 34,
+          background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent)',
+          animation: 'sweepX 620ms cubic-bezier(0.4,0,0.2,1) both', animationDelay: '2620ms'
+        }})
+      ]),
+      h('div', { key: 'word', style: {
+        position: 'absolute', left: 0, right: 0, top: '43%', marginTop: 76,
+        textAlign: 'center', fontSize: 33, fontWeight: 700, letterSpacing: '-0.025em'
+      }}, word),
+      h('div', { key: 'bar', style: {
+        position: 'absolute', left: '50%', bottom: 'calc(56px + env(safe-area-inset-bottom, 0px))', width: 108, height: 2,
+        marginLeft: -54, borderRadius: 1, background: 'rgba(255,255,255,0.12)', overflow: 'hidden'
+      }}, h('div', { style: {
+        height: '100%', background: 'rgba(255,255,255,0.5)', borderRadius: 1,
+        animation: 'barFill ' + total + 'ms cubic-bezier(0.5,0,0.2,1) both'
+      }}))
+    ]);
+
+    return { splash, replay: () => this.setState(s => ({ run: s.run + 1 })) };
+  }
+}
+</script>
+</body>
+</html>
