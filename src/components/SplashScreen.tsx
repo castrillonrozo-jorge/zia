@@ -74,7 +74,9 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
     return 'completo';
   }, []);
 
-  const total = modo === 'completo' ? 3700 : modo === 'corto' ? 1400 : 600;
+  // 4,7 s: el nombre entra a los 3,16 s y se queda ~1,5 s en pantalla,
+  // tiempo de leerlo con calma (antes salía a los 0,5 s de aparecer).
+  const total = modo === 'completo' ? 4700 : modo === 'corto' ? 1400 : 600;
 
   // La versión corta arranca con las siglas ya colapsando: mismos fotogramas,
   // desplazados para que icono y nombre entren casi de inmediato.

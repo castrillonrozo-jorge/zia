@@ -54,7 +54,7 @@ export const Header: React.FC<HeaderProps> = ({
                 </span>
                 <span className="text-[6.5px] font-bold tracking-[0.25em] text-slate-400/80 dark:text-slate-500 uppercase mt-[2.5px]">Ecosistema Digital</span>
               </div>
-            ) : <span className="text-slate-900 dark:text-slate-100">{title}</span>}
+            ) : <span className="text-slate-900 dark:text-slate-100 block max-w-[96px] truncate">{title}</span>}
           </h1>
         </div>
       </div>

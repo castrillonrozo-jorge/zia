@@ -143,11 +143,11 @@ const SecurityView: React.FC = () => {
   ];
 
   return (
-    <div className="view-transition px-2 pt-2 pb-28">
-      {/* Contenedor oscuro: la única pantalla oscura de la app */}
+    <div className="view-transition pb-24">
+      {/* Contenedor oscuro: la única pantalla oscura de la app, a lo ancho */}
       <div
-        className="rounded-[32px] overflow-hidden flex flex-col gap-3 p-4"
-        style={{ background: '#0B0E14', minHeight: 'calc(100dvh - 220px)' }}
+        className="rounded-[26px] overflow-hidden flex flex-col gap-3 p-4"
+        style={{ background: '#0B0E14', minHeight: 'calc(100dvh - 130px)' }}
       >
         {/* Estás protegido */}
         <div
@@ -185,7 +185,7 @@ const SecurityView: React.FC = () => {
             trigger('Conectando con INAMUJER · 0800-MUJERES');
             window.open('tel:08004626683', '_blank');
           }}
-          className="rounded-[26px] p-5 relative overflow-hidden text-left active:scale-[0.98] transition-transform"
+          className="w-full rounded-[26px] p-6 relative overflow-hidden text-left active:scale-[0.98] transition-transform"
           style={{ background: 'linear-gradient(140deg, #B01A63 0%, #E0349B 100%)', boxShadow: '0 10px 28px rgba(176,26,99,0.4)' }}
         >
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 14% 10%, rgba(255,255,255,0.28) 0%, transparent 58%)', pointerEvents: 'none' }} />
@@ -207,7 +207,7 @@ const SecurityView: React.FC = () => {
           onPointerLeave={stopPanicHold}
           onContextMenu={(e) => e.preventDefault()}
           whileTap={{ scale: 0.97 }}
-          className="rounded-[26px] p-5 relative overflow-hidden text-left"
+          className="w-full rounded-[26px] p-6 relative overflow-hidden text-left"
           style={{
             background: panic ? 'linear-gradient(140deg, #FF3B30 0%, #D32F2F 100%)' : 'linear-gradient(140deg, #8A1224 0%, #C8102E 100%)',
             boxShadow: panic ? '0 0 0 6px rgba(255,59,48,0.2), 0 10px 28px rgba(255,59,48,0.45)' : '0 10px 28px rgba(200,16,46,0.36)',
@@ -237,7 +237,7 @@ const SecurityView: React.FC = () => {
         {/* Compartir ubicación real */}
         <button
           onClick={compartirUbicacion}
-          className="rounded-[18px] px-4 py-3.5 flex items-center justify-between gap-3 active:scale-[0.98] transition-transform text-left"
+          className="w-full rounded-[20px] px-5 py-4 flex items-center justify-between gap-3 active:scale-[0.98] transition-transform text-left"
           style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}
         >
           <div className="flex flex-col gap-0.5">
@@ -260,7 +260,7 @@ const SecurityView: React.FC = () => {
                 trigger('Conectando con ' + l.nombre);
                 l.accion();
               }}
-              className="rounded-[18px] px-4 py-3.5 flex items-center justify-between gap-3 active:scale-[0.98] transition-transform text-left"
+              className="w-full rounded-[20px] px-5 py-4 flex items-center justify-between gap-3 active:scale-[0.98] transition-transform text-left"
               style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}
             >
               <div className="flex flex-col gap-0.5">

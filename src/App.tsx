@@ -168,7 +168,7 @@ const App: React.FC = () => {
       case 'transparency': return 'Transparencia';
       case 'health': return 'Salud';
       case 'business-reg': return 'Saren';
-      case 'renacer': return 'Renacer 2026';
+      case 'renacer': return 'Renacer';
       case 'intt': return 'INTT';
       case 'economy': return 'Economía';
       case 'national-pride': return 'Lo Nuestro';
