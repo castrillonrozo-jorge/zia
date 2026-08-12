@@ -1,14 +1,24 @@
 /**
- * Adaptador para Vercel. Copia este archivo a  api/chat.ts  en la raíz.
+ * Adaptador para Vercel de la ruta /api/chat.
  *
- * Vercel no ejecuta un Express con app.listen: ejecuta funciones. La ruta
- * ya tenía la forma (req, res) que Vercel espera, así que solo hay que
- * reexportarla desde la carpeta api/.
+ * El import es dinámico y todo va envuelto en try/catch: si el módulo
+ * falla al cargar o algo revienta fuera de los try internos, la función
+ * responde JSON con el mensaje real en vez de morir con un 500 vacío
+ * imposible de diagnosticar desde el teléfono.
  */
 
-import { chatRoute } from '../arreglos/chatRoute';
-
-export default chatRoute;
+export default async function handler(req: any, res: any) {
+  try {
+    const { chatRoute } = await import('../arreglos/chatRoute');
+    return await chatRoute(req, res);
+  } catch (err: any) {
+    console.error('[api/chat] error no controlado', err);
+    const detalle = (err?.message ?? String(err)).slice(0, 220);
+    return res.status(500).json({
+      error: `Error interno del chat (detalle técnico: ${detalle})`,
+    });
+  }
+}
 
 export const config = {
   maxDuration: 60, // El modelo puede tardar; el default de 10s se queda corto.

@@ -6,11 +6,17 @@
  * y si no puede, dice que no puede en vez de inventar.
  */
 
-import { obtenerTasaBCV } from '../arreglos/bcvRate';
-
 export default async function handler(_req: unknown, res: any) {
-  const tasa = await obtenerTasaBCV();
-  res.status(tasa.disponible ? 200 : 503).json(tasa);
+  try {
+    const { obtenerTasaBCV } = await import('../arreglos/bcvRate');
+    const tasa = await obtenerTasaBCV();
+    res.status(tasa.disponible ? 200 : 503).json(tasa);
+  } catch (err: any) {
+    res.status(500).json({
+      disponible: false,
+      motivo: 'Error interno: ' + (err?.message ?? String(err)).slice(0, 200),
+    });
+  }
 }
 
 export const config = {
