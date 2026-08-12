@@ -15,6 +15,7 @@ const ServiceCard = React.memo(({ service, onNavigate }: { service: { id: string
   return (
     <button
       onClick={() => onNavigate(service.id as AppView)}
+      data-tour={service.id === 'payments' ? 'pagos' : undefined}
       style={{
         background: 'linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
         aspectRatio: '1/1',
@@ -208,7 +209,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
       {/* Bento Grid Services - iPhone Style */}
       <section className="px-4 space-y-4">
-        <div className="grid grid-cols-2 gap-3.5 px-4 mt-2">
+        <div data-tour="tramites" className="grid grid-cols-2 gap-3.5 px-4 mt-2">
           {showAllServices ? (
             <>
               {fixedServices.map((service) => (

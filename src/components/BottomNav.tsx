@@ -32,6 +32,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentView, setView }) =>
           return (
             <button
               key={tab.id}
+              data-tour={tab.id === 'security' ? 'proteccion' : undefined}
               onClick={() => {
                 vibrate('medium');
                 setView(tab.id as AppView);

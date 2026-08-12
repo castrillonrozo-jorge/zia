@@ -61,8 +61,9 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Centered Compact AI Assistant Button (VenIA) */}
       <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center">
-        <button 
+        <button
           onClick={onOpenAI}
+          data-tour="ia"
           style={{
             background: 'linear-gradient(135deg, #4F84C4 0%, #315C91 100%)',
             boxShadow: '0 4px 12px rgba(79, 132, 196, 0.3)',
@@ -78,7 +79,7 @@ export const Header: React.FC<HeaderProps> = ({
         </button>
       </div>
 
-      <div className="flex items-center h-10 bg-slate-100 dark:bg-white/5 rounded-full p-1 border border-black/5 dark:border-white/5">
+      <div data-tour="buscar" className="flex items-center h-10 bg-slate-100 dark:bg-white/5 rounded-full p-1 border border-black/5 dark:border-white/5">
         <button 
           onClick={toggleDarkMode}
           className="w-8 h-8 rounded-full flex items-center justify-center active:scale-90 transition-all text-slate-500 dark:text-slate-300 hover:text-blue-500 hover:bg-white dark:hover:bg-white/10 dark:hover:text-white"

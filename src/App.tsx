@@ -30,6 +30,7 @@ import { SearchModal } from './components/SearchModal';
 import { GlobalBackground } from './components/GlobalBackground';
 import { DynamicIsland } from './components/DynamicIsland';
 import { AgentChat } from './components/AgentChat';
+import { WelcomeTour } from './components/WelcomeTour';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<AppView>('splash');
@@ -113,9 +114,12 @@ const App: React.FC = () => {
     window.scrollTo({ top: 0 });
   }, []);
 
+  const [showTour, setShowTour] = useState(false);
+
   const handleLogin = () => {
     setIsAuthenticated(true);
     setCurrentView('home');
+    setShowTour(true);
   };
 
   if (currentView === 'splash') {
@@ -245,6 +249,10 @@ const App: React.FC = () => {
         onNavigate={handleNavigate}
         showStatus={showStatus}
       />
+
+      {showTour && currentView === 'home' && (
+        <WelcomeTour onFinish={() => setShowTour(false)} />
+      )}
 
       {/* Fade-out Mask */}
       <div className="fixed bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#F2F2F7] dark:from-[#1C1C1E] via-[#F2F2F7]/80 dark:via-[#1C1C1E]/80 to-transparent pointer-events-none z-[90]" />
