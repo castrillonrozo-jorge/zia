@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Icons } from '../components/Icons';
 import { PaymentGatewayModal } from '../components/PaymentGatewayModal';
+import { OrganismoFicha } from '../components/OrganismoFicha';
 
 type INTTMode = 'menu' | 'form' | 'payments' | 'success';
 
@@ -42,6 +43,8 @@ export const INTT: React.FC = () => {
           <h2 className="text-2xl font-black tracking-tight text-slate-900 dark:text-white">INTT Digital</h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest">Instituto Nacional de Transporte Terrestre</p>
         </div>
+
+        <OrganismoFicha sigla="INTT" nombre="Instituto Nacional de Transporte Terrestre" />
 
         <div className="grid grid-cols-2 gap-4">
           <button 

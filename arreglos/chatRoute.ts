@@ -28,7 +28,7 @@ import { obtenerTasaBCV } from './bcvRate';
 
 // Verifica en tu consola de Google cuáles tiene habilitados tu proyecto.
 // Un id inexistente hace que cada respuesta gaste todos los reintentos.
-const MODELS = ['gemini-2.5-flash', 'gemini-2.0-flash'];
+const MODELS = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-flash-latest'];
 
 const MAX_TURNOS = 10;
 
@@ -279,8 +279,11 @@ export async function chatRoute(req: Request, res: Response) {
   }
 
   console.error('[chat] fallaron todos los modelos', ultimoError);
+  const detalle =
+    ultimoError instanceof Error ? ultimoError.message.slice(0, 180) : '';
   return res.status(503).json({
     error:
-      'El asistente no está disponible en este momento. Intenta de nuevo en unos minutos.',
+      'El asistente no está disponible en este momento. Intenta de nuevo en unos minutos.' +
+      (detalle ? ` (detalle técnico: ${detalle})` : ''),
   });
 }

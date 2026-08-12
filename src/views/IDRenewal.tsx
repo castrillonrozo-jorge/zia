@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Icons } from '../components/Icons';
 import { motion } from 'motion/react';
+import { OrganismoFicha } from '../components/OrganismoFicha';
 
 type IdentityMode = 'choice' | 'id' | 'passport' | 'view-id' | 'view-passport';
 
@@ -35,6 +36,8 @@ export const IDRenewal: React.FC = () => {
           <h2 className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.4em]">Sistemas de Identidad</h2>
           <p className="text-4xl font-black tracking-tighter text-slate-900 dark:text-white leading-[0.9]">Identidad Digital</p>
         </div>
+
+        <OrganismoFicha sigla="SAIME" nombre="Servicio Administrativo de Identificación, Migración y Extranjería" />
 
         {/* VenIA Contextual Help */}
         <div className="bg-[#4F84C4]/[0.05] border border-[#4F84C4]/20 p-6 rounded-[2.5rem] flex items-center gap-4 backdrop-blur-xl">

@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Icons } from '../components/Icons';
 import { motion, AnimatePresence } from 'motion/react';
+import { OrganismoFicha } from '../components/OrganismoFicha';
 
 export const Employment: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('Todas');
@@ -134,6 +135,8 @@ export const Employment: React.FC = () => {
         <h2 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">Empleo Nacional</h2>
         <p className="text-[10px] text-[#4F84C4] dark:text-blue-400 font-black uppercase tracking-[0.2em]">Bolsa de Trabajo Institucional</p>
       </div>
+
+        <OrganismoFicha sigla="IVSS" nombre="Instituto Venezolano de los Seguros Sociales" />
 
       {/* Hero Header Card */}
       <div 

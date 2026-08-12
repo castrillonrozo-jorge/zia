@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Icons } from '../components/Icons';
 import { PaymentGatewayModal } from '../components/PaymentGatewayModal';
 import { motion } from 'motion/react';
+import { OrganismoFicha } from '../components/OrganismoFicha';
 
 export const Seniat: React.FC = () => {
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
@@ -29,6 +30,8 @@ export const Seniat: React.FC = () => {
         <h2 className="text-4xl font-black tracking-tighter text-slate-900 dark:text-white">Seniat</h2>
         <p className="text-[10px] text-slate-500 dark:text-slate-400 font-black uppercase tracking-[0.4em]">Portal de Recaudación Tributaria</p>
       </div>
+
+        <OrganismoFicha sigla="SENIAT" nombre="Servicio Nacional Integrado de Administración Aduanera y Tributaria" />
 
       <div className="grid grid-cols-1 gap-5 px-2">
         {seniatPayments.map((payment, idx) => (

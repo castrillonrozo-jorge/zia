@@ -55,6 +55,13 @@ const PASOS: Paso[] = [
     margen: 6,
   },
   {
+    target: 'noticias',
+    titulo: 'Últimas noticias',
+    texto: 'Novedades de inversión, reconstrucción y acuerdos, cada una con su fecha y su fuente. Toca cualquiera para leer la nota completa.',
+    radio: 24,
+    margen: 8,
+  },
+  {
     target: 'ia',
     titulo: 'Agentes de IA',
     texto: 'Especializados en todo sobre Venezuela: leyes, gacetas, requisitos, plazos y costos de cada organismo. Pregunta en tus palabras y ellos te orientan en la gestión completa.',

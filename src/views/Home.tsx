@@ -321,7 +321,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       
 
       {/* News Carousel */}
-      <section className="mt-8 mb-6">
+      <section data-tour="noticias" className="mt-8 mb-6">
         <h3 className="text-[14px] font-black text-slate-900 dark:text-white uppercase tracking-wider mb-4 px-5">Últimas Noticias</h3>
         <div className="flex overflow-x-auto gap-4 snap-x snap-mandatory no-scrollbar px-5 pb-4">
           {MOCK_NEWS.map(item => (

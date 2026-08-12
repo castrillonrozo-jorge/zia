@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Icons } from '../components/Icons';
+import { OrganismoFicha } from '../components/OrganismoFicha';
 
 type SarenMode = 'menu' | 'form' | 'payments' | 'success';
 
@@ -53,6 +54,8 @@ export const BusinessRegistration: React.FC = () => {
           <h2 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">Saren Digital</h2>
           <p className="text-[10px] text-slate-500 dark:text-slate-400 font-black uppercase tracking-[0.3em]">Servicio Autónomo de Registros y Notarías</p>
         </div>
+
+        <OrganismoFicha sigla="SAREN" nombre="Servicio Autónomo de Registros y Notarías" />
 
         <div className="grid grid-cols-2 gap-4">
            <button 
