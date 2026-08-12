@@ -15,7 +15,7 @@ const ServiceCard = React.memo(({ service, onNavigate }: { service: { id: string
   return (
     <button
       onClick={() => onNavigate(service.id as AppView)}
-      data-tour={service.id === 'payments' ? 'pagos' : undefined}
+      data-tour={service.id === 'payments' ? 'pagos' : service.id === 'renacer' ? 'renacer' : undefined}
       style={{
         background: 'linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
         aspectRatio: '1/1',
@@ -127,10 +127,11 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
     { id: 'id-renewal', title: 'Saime', icon: 'Fingerprint', status: 'CITA EN 12 D.', statusColor: '#00FF66' },
     { id: 'business-reg', title: 'Saren', icon: 'FileText', status: 'FIRMA PENDIENTE', statusColor: '#FFA000' },
     { id: 'payments', title: 'Pagos', icon: 'CreditCard', status: 'SIN DEUDAS', statusColor: '#00FF66' },
-    { id: 'intt', title: 'Intt', icon: 'Car', status: 'VENCE MAÑANA', statusColor: '#FF9F0A' },
+    { id: 'renacer', title: 'Renacer', icon: 'Home', status: 'TU VIVIENDA', statusColor: '#00FF66' },
   ];
 
   const carouselServices = [
+    { id: 'intt', title: 'Intt', icon: 'Car', status: 'VENCE MAÑANA', statusColor: '#FF9F0A' },
     { id: 'employment', title: 'Empleo', icon: 'Briefcase', status: 'VACANTES REPSOL', statusColor: '#00FF66' },
     { id: 'seniat', title: 'Seniat', icon: 'Landmark', status: 'CONTRIBUYENTE AL DÍA', statusColor: '#00FF66' },
     { id: 'economy', title: 'Economía', icon: 'BarChart3', status: 'TASA BCV ACTUALIZADA', statusColor: '#00FF66' },

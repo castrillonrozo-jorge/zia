@@ -64,7 +64,7 @@ const PASOS: Paso[] = [
   {
     target: 'proteccion',
     titulo: 'Protección',
-    texto: 'Botón de pánico para llamar al 911 y líneas directas del Ministerio Público, el CICPC, INAMUJER y los Bomberos. A un toque desde cualquier pantalla.',
+    texto: 'Botón de pánico que llama al 911, compartir tu ubicación con un toque, denuncias al Ministerio Público y al CICPC, y el Botón Fucsia de atención inmediata a la mujer.',
     radio: 42,
     margen: 8,
   },

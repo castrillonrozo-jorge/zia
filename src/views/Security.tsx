@@ -2,12 +2,30 @@ import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useVibration } from '../hooks/useVibration';
 
+/**
+ * Protección (disenos/Tour de bienvenida.dc.html, sección 02).
+ *
+ * La única pantalla oscura de la app: otro registro mental, mejor de noche.
+ * El Botón Fucsia va primero —es una promesa distinta— y el fucsia no se
+ * usa en ningún otro sitio de la app.
+ *
+ * Servicios y números reales (verificar antes de cada presentación):
+ *  911  — VEN911, Sistema Nacional de Respuesta Inmediata
+ *  171  — línea de emergencia / CICPC
+ *  166  — Bomberos
+ *  0800-462-6683 — INAMUJER (0800-MUJERES)
+ *  0800-535-3000 — Ministerio Público (denuncias, mp.gob.ve)
+ *  0800-266-2700 — CONAS, antiextorsión
+ *  FUNVISIS — única fuente sísmica oficial (funvisis.gob.ve)
+ */
+
 const SecurityView: React.FC = () => {
   const { vibrate } = useVibration();
   const [sent, setSent] = useState<string | null>(null);
   const [panic, setPanic] = useState(false);
   const [holdProgress, setHoldProgress] = useState(0);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const [ubicacion, setUbicacion] = useState<'inactiva' | 'buscando' | 'compartida' | 'error'>('inactiva');
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const trigger = (msg: string) => {
     setSent(msg);
@@ -18,19 +36,11 @@ const SecurityView: React.FC = () => {
     if (panic) return;
     setHoldProgress(0);
     let progress = 0;
-    
-    // Vibrate lightly on start
     vibrate('medium');
-    
     timerRef.current = setInterval(() => {
-      progress += 2; // reaches 100 in 50 ticks * 30ms = 1.5 seconds
+      progress += 2; // llega a 100 en 1,5 s
       setHoldProgress(progress);
-      
-      // Haptic buildup while holding
-      if (progress % 20 === 0) {
-        vibrate('medium');
-      }
-      
+      if (progress % 20 === 0) vibrate('medium');
       if (progress >= 100) {
         if (timerRef.current) clearInterval(timerRef.current);
         executePanic();
@@ -40,18 +50,14 @@ const SecurityView: React.FC = () => {
 
   const stopPanicHold = () => {
     if (timerRef.current) clearInterval(timerRef.current);
-    if (!panic) {
-      setHoldProgress(0);
-    }
+    if (!panic) setHoldProgress(0);
   };
 
   const executePanic = () => {
     setPanic(true);
     setHoldProgress(100);
     vibrate('alert');
-
     setSent('🔴 Abriendo llamada al 911...');
-
     setTimeout(() => {
       window.open('tel:911', '_blank');
       setPanic(false);
@@ -60,112 +66,218 @@ const SecurityView: React.FC = () => {
     }, 1200);
   };
 
-  const actions = [
-    { id: 'mp', icon: '⚖️', title: 'Ministerio Público', subtitle: 'Línea gratuita 24/7: 0800-535-3000', bg: 'linear-gradient(135deg, #1a3a6e, #2a5aae)', action: () => { window.open('tel:08005353000', '_blank'); } },
-    { id: 'conas', icon: '🚔', title: 'CONAS — Extorsión', subtitle: 'Línea antiextorsión: 0800-266-2700', bg: 'linear-gradient(135deg, #6e1a1a, #9e3a3a)', action: () => { window.open('tel:08002662700', '_blank'); } },
-    { id: 'cicpc', icon: '🛡️', title: 'CICPC — Denuncia Policial', subtitle: 'Línea directa: 171', bg: 'linear-gradient(135deg, #1a4a2a, #2a6a3a)', action: () => { window.open('tel:171', '_blank'); } },
-    { id: 'agresion', icon: '🆘', title: 'Violencia y Agresión', subtitle: 'INAMUJER: 0800-462-6683', bg: 'linear-gradient(135deg, #4a1a6e, #6a3a9e)', action: () => { window.open('https://minmujer.gob.ve/instituto-nacional-de-la-mujer/', '_blank'); } },
-    { id: 'bomberos', icon: '🚒', title: 'Bomberos', subtitle: 'Emergencias de incendio: 166', bg: 'linear-gradient(135deg, #7a3a1a, #9a5a2a)', action: () => { window.open('tel:166', '_blank'); } },
-    { id: 'denuncia', icon: '📋', title: 'Denuncia en línea — MP', subtitle: 'Portal oficial del Ministerio Público', bg: 'linear-gradient(135deg, #1a3a4a, #2a5a6a)', action: () => { window.open('http://www.mp.gob.ve/index.php/denuncia/', '_blank'); } },
+  // Comparte la ubicación real del dispositivo (GPS del navegador).
+  // Si el usuario no da permiso o falla, se dice — no se simula.
+  const compartirUbicacion = () => {
+    if (!('geolocation' in navigator)) {
+      setUbicacion('error');
+      trigger('Este dispositivo no permite obtener la ubicación.');
+      return;
+    }
+    setUbicacion('buscando');
+    vibrate('medium');
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const { latitude, longitude } = pos.coords;
+        const enlace = `https://maps.google.com/?q=${latitude.toFixed(6)},${longitude.toFixed(6)}`;
+        const texto = `Mi ubicación actual (enviada desde Agiliza): ${enlace}`;
+        try {
+          if (navigator.share) {
+            await navigator.share({ title: 'Mi ubicación', text: texto, url: enlace });
+          } else {
+            await navigator.clipboard.writeText(texto);
+            trigger('Enlace de ubicación copiado. Pégalo donde lo necesites.');
+          }
+          setUbicacion('compartida');
+        } catch {
+          setUbicacion('inactiva');
+        }
+      },
+      () => {
+        setUbicacion('error');
+        trigger('No se pudo obtener tu ubicación. Revisa el permiso de GPS.');
+      },
+      { enableHighAccuracy: true, timeout: 10000 },
+    );
+  };
+
+  const lineas = [
+    {
+      id: 'mp',
+      nombre: 'Ministerio Público',
+      detalle: 'Denuncias · 0800-535-3000',
+      accion: () => window.open('tel:08005353000', '_blank'),
+    },
+    {
+      id: 'cicpc',
+      nombre: 'CICPC',
+      detalle: 'Robo, extorsión, desaparición · 171',
+      accion: () => window.open('tel:171', '_blank'),
+    },
+    {
+      id: 'conas',
+      nombre: 'CONAS — Antiextorsión',
+      detalle: 'Línea directa · 0800-266-2700',
+      accion: () => window.open('tel:08002662700', '_blank'),
+    },
+    {
+      id: 'bomberos',
+      nombre: 'Bomberos',
+      detalle: 'Incendio y rescate · 166',
+      accion: () => window.open('tel:166', '_blank'),
+    },
+    {
+      id: 'denuncia-web',
+      nombre: 'Denuncia en línea',
+      detalle: 'Portal del Ministerio Público',
+      accion: () => window.open('http://www.mp.gob.ve/index.php/denuncia/', '_blank'),
+      externo: true,
+    },
+    {
+      id: 'funvisis',
+      nombre: 'Sismos y réplicas — FUNVISIS',
+      detalle: 'La única fuente sísmica oficial',
+      accion: () => window.open('http://www.funvisis.gob.ve/', '_blank'),
+      externo: true,
+    },
   ];
 
   return (
-    <div className="w-full flex flex-col gap-5 pt-4 pb-12">
-      <div style={{ margin: '16px 16px 0', borderRadius: 28, overflow: 'hidden', background: 'linear-gradient(145deg, #161B22, #0D1117)', padding: 28, position: 'relative', border: '1px solid rgba(255,255,255,0.08)', boxShadow: 'none' }}>
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '40%', background: 'linear-gradient(180deg, rgba(200,16,46,0.1) 0%, transparent 100%)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', top: -30, right: -30, width: 120, height: 120, background: 'radial-gradient(circle, rgba(200,16,46,0.15) 0%, transparent 70%)', filter: 'blur(20px)', pointerEvents: 'none' }} />
-        
-        <div style={{ fontSize: 28, marginBottom: 8, filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.2))' }}>🛡️</div>
-        <div style={{ color: 'white', fontWeight: 800, fontSize: 24, marginBottom: 6, letterSpacing: '-0.02em' }}>Protección Ciudadana</div>
-        <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: 13.5, lineHeight: 1.6 }}>Acceso directo a los organismos de seguridad del Estado. <span style={{ color: '#E53935' }}>Tu denuncia es confidencial.</span></div>
-      </div>
+    <div className="view-transition px-2 pt-2 pb-28">
+      {/* Contenedor oscuro: la única pantalla oscura de la app */}
+      <div
+        className="rounded-[32px] overflow-hidden flex flex-col gap-3 p-4"
+        style={{ background: '#0B0E14', minHeight: 'calc(100dvh - 220px)' }}
+      >
+        {/* Estás protegido */}
+        <div
+          className="rounded-[26px] p-5 relative overflow-hidden"
+          style={{ background: 'linear-gradient(145deg, #1A1F2B 0%, #0D1117 100%)', border: '1px solid rgba(255,255,255,0.08)' }}
+        >
+          <div style={{ position: 'absolute', top: -30, right: -30, width: 140, height: 140, borderRadius: 70, background: 'radial-gradient(circle, rgba(200,16,46,0.22) 0%, transparent 70%)', pointerEvents: 'none' }} />
+          <div className="relative flex flex-col gap-2">
+            <span className="text-[22px] font-bold text-white tracking-tight">Estás protegido</span>
+            <span className="text-[14px] leading-relaxed text-white/70">
+              Acceso directo a los organismos de seguridad del Estado. Tu ubicación se comparte solo cuando tú lo activas. Toda denuncia es confidencial.
+            </span>
+          </div>
+        </div>
 
-      {sent && (
-        <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
-          style={{ background: 'rgba(52,199,89,0.15)', border: '1px solid rgba(52,199,89,0.3)', borderRadius: 16, padding: '12px 16px', color: '#1a7a3a', fontSize: 13, fontWeight: 500 }}
-          className="dark:text-green-400">
-          ✓ {sent}
-        </motion.div>
-      )}
+        {/* Aviso de estado */}
+        <AnimatePresence>
+          {sent && (
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              className="rounded-2xl px-4 py-3 text-[13px] font-medium"
+              style={{ background: 'rgba(52,199,89,0.15)', border: '1px solid rgba(52,199,89,0.3)', color: '#4ADE80' }}
+            >
+              ✓ {sent}
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-      <div>
-        <motion.button 
+        {/* Botón Fucsia — primero, con su propio color */}
+        <button
+          onClick={() => {
+            vibrate('medium');
+            trigger('Conectando con INAMUJER · 0800-MUJERES');
+            window.open('tel:08004626683', '_blank');
+          }}
+          className="rounded-[26px] p-5 relative overflow-hidden text-left active:scale-[0.98] transition-transform"
+          style={{ background: 'linear-gradient(140deg, #B01A63 0%, #E0349B 100%)', boxShadow: '0 10px 28px rgba(176,26,99,0.4)' }}
+        >
+          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 14% 10%, rgba(255,255,255,0.28) 0%, transparent 58%)', pointerEvents: 'none' }} />
+          <div className="relative flex items-center gap-4">
+            <div className="w-[52px] h-[52px] rounded-full flex items-center justify-center shrink-0" style={{ background: 'rgba(255,255,255,0.2)', border: '1px solid rgba(255,255,255,0.3)' }}>
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="1.9" strokeLinecap="round"><circle cx="12" cy="6.2" r="3.2" /><path d="M8 21l1.4-6.2H7.2L9 10.2h6l1.8 4.6h-2.2L16 21" /></svg>
+            </div>
+            <div className="flex flex-col gap-0.5">
+              <span className="text-[18px] font-extrabold text-white tracking-tight">Botón Fucsia</span>
+              <span className="text-[14px] text-white/95">Atención a la mujer · INAMUJER · 0800-462-6683</span>
+            </div>
+          </div>
+        </button>
+
+        {/* Botón de pánico — mantener pulsado */}
+        <motion.button
           onPointerDown={startPanicHold}
           onPointerUp={stopPanicHold}
           onPointerLeave={stopPanicHold}
           onContextMenu={(e) => e.preventDefault()}
-          whileTap={{ scale: 0.96 }}
-          animate={panic ? { scale: [1, 1.02, 1] } : { y: [0, -3, 0] }}
-          transition={{ duration: panic ? 0.5 : 3, repeat: Infinity, ease: 'easeInOut' }}
-          className="rounded-[28px] focus:outline-none outline-none appearance-none"
+          whileTap={{ scale: 0.97 }}
+          className="rounded-[26px] p-5 relative overflow-hidden text-left"
           style={{
-            width: '100%', padding: '24px 28px', cursor: 'pointer',
-            background: panic ? 'linear-gradient(135deg, #FF3B30, #D32F2F)' : 'linear-gradient(135deg, #DF2020, #B71C1C)',
-            border: '1px solid rgba(255,255,255,0.2)',
-            boxShadow: panic ? '0 0 0 8px rgba(255,59,48,0.2), 0 20px 40px rgba(255,59,48,0.4), inset 0 1px 0 rgba(255,255,255,0.3)' : '0 15px 35px rgba(223, 32, 32, 0.35), inset 0 1px 0 rgba(255,255,255,0.2)',
-            display: 'flex', alignItems: 'center', gap: 18, position: 'relative', touchAction: 'none',
+            background: panic ? 'linear-gradient(140deg, #FF3B30 0%, #D32F2F 100%)' : 'linear-gradient(140deg, #8A1224 0%, #C8102E 100%)',
+            boxShadow: panic ? '0 0 0 6px rgba(255,59,48,0.2), 0 10px 28px rgba(255,59,48,0.45)' : '0 10px 28px rgba(200,16,46,0.36)',
+            touchAction: 'none',
             WebkitTapHighlightColor: 'transparent',
-          }}>
-          <div style={{ position: 'absolute', inset: 0, borderRadius: '28px', overflow: 'hidden', pointerEvents: 'none', zIndex: 1 }}>
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '40%', background: 'linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%)' }} />
-            
-            {/* Progress fill */}
-            {!panic && holdProgress > 0 && (
-              <div style={{ position: 'absolute', bottom: 0, left: 0, height: '100%', background: 'rgba(0,0,0,0.2)', width: `${holdProgress}%`, transition: 'width 0.05s linear' }} />
-            )}
-          </div>
-
-          <motion.div animate={panic ? { scale: [1, 1.2, 1] } : {}} transition={{ duration: 0.8, repeat: Infinity }} style={{ fontSize: 36, filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))', zIndex: 10 }}>🚨</motion.div>
-          <div style={{ textAlign: 'left', zIndex: 10 }}>
-            <div style={{ color: 'white', fontWeight: 900, fontSize: 19, letterSpacing: '-0.02em', textShadow: '0 2px 4px rgba(0,0,0,0.2)' }}>
-              {panic ? '🔴 ALERTA EN CURSO...' : 'BOTÓN DE PÁNICO'}
+          }}
+        >
+          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 14% 10%, rgba(255,255,255,0.26) 0%, transparent 58%)', pointerEvents: 'none' }} />
+          {!panic && holdProgress > 0 && (
+            <div style={{ position: 'absolute', bottom: 0, left: 0, top: 0, background: 'rgba(0,0,0,0.25)', width: `${holdProgress}%`, transition: 'width 0.05s linear' }} />
+          )}
+          <div className="relative flex items-center gap-4">
+            <div className="w-[52px] h-[52px] rounded-full flex items-center justify-center shrink-0" style={{ background: 'rgba(255,255,255,0.2)', border: '1px solid rgba(255,255,255,0.3)' }}>
+              <motion.svg animate={panic ? { scale: [1, 1.2, 1] } : {}} transition={{ duration: 0.8, repeat: Infinity }} width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round"><path d="M12 4.5v8" /><path d="M7.4 6.6a7 7 0 109.2 0" /></motion.svg>
             </div>
-            <div style={{ color: 'rgba(255,255,255,0.85)', fontSize: 13, marginTop: 3, fontWeight: 500 }}>
-              {panic ? 'Llamando al 911 en instantes...' : (holdProgress > 0 ? 'Mantén presionado para alertar...' : 'Mantén presionado por 1.5s')}
+            <div className="flex flex-col gap-0.5">
+              <span className="text-[18px] font-extrabold text-white tracking-tight">
+                {panic ? 'Llamando al 911...' : 'Botón de pánico'}
+              </span>
+              <span className="text-[14px] text-white/95">
+                {panic ? 'VEN911 · Sistema Nacional de Respuesta Inmediata' : holdProgress > 0 ? 'Sigue presionando...' : 'Mantén pulsado 1,5 s · llama al 911'}
+              </span>
             </div>
           </div>
         </motion.button>
-      </div>
 
-      <div>
-        <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#8E8E93', marginBottom: 16, marginLeft: 8 }}>DENUNCIAS Y REPORTES</div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          {actions.map((a, i) => (
-            <motion.button key={a.id} whileTap={{ scale: 0.97 }}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.05 + 0.1 }}
-              onClick={() => { 
+        {/* Compartir ubicación real */}
+        <button
+          onClick={compartirUbicacion}
+          className="rounded-[18px] px-4 py-3.5 flex items-center justify-between gap-3 active:scale-[0.98] transition-transform text-left"
+          style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}
+        >
+          <div className="flex flex-col gap-0.5">
+            <span className="text-[15px] font-semibold text-white">Compartir mi ubicación</span>
+            <span className="text-[13px] text-white/55">
+              {ubicacion === 'buscando' ? 'Obteniendo tu posición GPS...' : ubicacion === 'compartida' ? 'Ubicación compartida' : ubicacion === 'error' ? 'Sin acceso al GPS — revisa el permiso' : 'Envía un enlace de mapa a quien tú elijas'}
+            </span>
+          </div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={ubicacion === 'error' ? '#F87171' : '#4ADE80'} strokeWidth="2" className={ubicacion === 'buscando' ? 'animate-pulse' : ''}><path d="M12 21s-7-6.1-7-11a7 7 0 1114 0c0 4.9-7 11-7 11z" /><circle cx="12" cy="10" r="2.5" /></svg>
+        </button>
+
+        {/* Líneas directas */}
+        <span className="text-[13px] font-bold text-white/55 tracking-widest uppercase mt-1 px-1">Denuncias y líneas directas</span>
+        <div className="flex flex-col gap-2">
+          {lineas.map((l) => (
+            <button
+              key={l.id}
+              onClick={() => {
                 vibrate('medium');
-                a.action(); 
-                trigger('Conectando con ' + a.title); 
+                trigger('Conectando con ' + l.nombre);
+                l.accion();
               }}
-              className="rounded-[24px] focus:outline-none outline-none appearance-none"
-              style={{
-                width: '100%', padding: '18px 20px', cursor: 'pointer',
-                background: a.bg, border: '1px solid rgba(255,255,255,0.08)',
-                boxShadow: 'none',
-                display: 'flex', alignItems: 'center', gap: 16, position: 'relative', textAlign: 'left',
-                WebkitTapHighlightColor: 'transparent',
-              }}>
-              <div style={{ position: 'absolute', inset: 0, borderRadius: '24px', overflow: 'hidden', pointerEvents: 'none' }}>
-                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '50%', background: 'linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%)' }} />
+              className="rounded-[18px] px-4 py-3.5 flex items-center justify-between gap-3 active:scale-[0.98] transition-transform text-left"
+              style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}
+            >
+              <div className="flex flex-col gap-0.5">
+                <span className="text-[15px] font-semibold text-white">{l.nombre}</span>
+                <span className="text-[13px] text-white/55">{l.detalle}</span>
               </div>
-              
-              <div style={{ fontSize: 28, flexShrink: 0, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))', zIndex: 1 }}>{a.icon}</div>
-              <div style={{ flex: 1, minWidth: 0, zIndex: 1 }}>
-                <div style={{ color: 'white', fontWeight: 700, fontSize: 15, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', letterSpacing: '-0.01em' }}>{a.title}</div>
-                <div style={{ color: 'rgba(255,255,255,0.65)', fontWeight: 500, fontSize: 12.5, marginTop: 3, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>{a.subtitle}</div>
-              </div>
-              <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: 20 }}>›</div>
-            </motion.button>
+              {l.externo ? (
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" /><path d="M15 3h6v6" /><path d="M10 14L21 3" /></svg>
+              ) : (
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z" /></svg>
+              )}
+            </button>
           ))}
         </div>
-      </div>
 
-      <div style={{ background: 'rgba(0,0,0,0.05)', borderRadius: 16, padding: '14px 16px' }} className="dark:bg-white/5">
-        <p style={{ fontSize: 11, color: '#8E8E93', lineHeight: 1.6, textAlign: 'center', margin: 0 }}>
-          🔒 Todas las denuncias son confidenciales y están protegidas por la Ley Orgánica contra la Delincuencia Organizada.
+        <p className="text-[11px] text-white/35 text-center px-4 pt-2 leading-relaxed">
+          Números verificados contra fuentes oficiales · Ago 2026. En emergencia real llama siempre al 911.
         </p>
       </div>
     </div>

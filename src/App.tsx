@@ -22,6 +22,7 @@ import { MyProcedures } from './views/MyProcedures';
 import { Economy } from './views/Economy';
 import { NationalPride } from './views/NationalPride';
 import SecurityView from './views/Security';
+import { Renacer } from './views/Renacer';
 import { ExchangeCalculator } from './components/ExchangeCalculator';
 import { RechargeModal } from './components/RechargeModal';
 import { TransferModal } from './components/TransferModal';
@@ -144,6 +145,7 @@ const App: React.FC = () => {
       case 'transparency': return <Transparency selectedNewsId={selectedNewsId} onBack={() => handleNavigate('home')} />;
       case 'health': return <Health />;
       case 'business-reg': return <BusinessRegistration />;
+      case 'renacer': return <Renacer onNavigate={handleNavigate} />;
       case 'intt': return <INTT />;
       case 'employment': return <Employment />;
       case 'profile': return <Profile balance={balance} onOpenRecharge={() => setIsRechargeOpen(true)} onOpenTransfer={() => setIsTransferOpen(true)} userData={userData} setUserData={setUserData} />;
@@ -166,6 +168,7 @@ const App: React.FC = () => {
       case 'transparency': return 'Transparencia';
       case 'health': return 'Salud';
       case 'business-reg': return 'Saren';
+      case 'renacer': return 'Renacer 2026';
       case 'intt': return 'INTT';
       case 'economy': return 'Economía';
       case 'national-pride': return 'Lo Nuestro';
