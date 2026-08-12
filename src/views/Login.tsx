@@ -180,8 +180,8 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
       </div>
 
       <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest text-center mb-8 max-w-xs leading-relaxed relative z-10">
-        Tecnología Venezolana con<br/>
-        Seguridad de Nivel Gubernamental.
+        Tecnología Venezolana.<br/>
+        Prototipo · Datos simulados.
       </p>
     </div>
   );

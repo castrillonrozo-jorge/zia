@@ -166,7 +166,6 @@ export const INTT: React.FC = () => {
            </div>
            <div className="space-y-2 relative z-10">
             <p className="text-xs text-[#FFFFFF] font-black uppercase tracking-widest">Calculadora de Aranceles</p>
-            <p className="text-[10px] text-[#FFFFFF] opacity-80 font-bold uppercase tracking-widest">Tasa Petro / Bolívar Soberano</p>
            </div>
            <button style={{ background: 'rgba(255, 255, 255, 0.15)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.2)' }} className="w-full text-[#FFFFFF] py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest active:scale-95 transition-all relative z-10">Consultar Tasa</button>
         </div>

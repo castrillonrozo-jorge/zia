@@ -54,9 +54,6 @@ export const Transparency: React.FC<{ selectedNewsId?: string | number | null, o
                 <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-none"></div>
                 <p className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] md:tracking-[0.4em] text-white/80 shrink-0">Transparencia</p>
               </div>
-              <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[9px] md:text-[10px] font-black px-3 py-1.5 rounded-full inline-flex items-center tracking-widest uppercase shrink-0 shadow-none self-start md:self-auto">
-                Verificado 2026
-              </div>
             </div>
             
             <div className="space-y-3 pt-6 md:pt-4 pb-2 relative group-hover:scale-[1.02] transition-transform duration-500">
@@ -81,7 +78,7 @@ export const Transparency: React.FC<{ selectedNewsId?: string | number | null, o
                 </div>
                 <div>
                   <p className="text-[9px] font-black uppercase tracking-widest text-white/50">Estado de Gestión</p>
-                  <p className="text-xs md:text-sm font-black text-white tracking-tight mt-0.5">Auditoría 100%</p>
+                  <p className="text-xs md:text-sm font-black text-white tracking-tight mt-0.5">Datos de demostración</p>
                 </div>
               </div>
             </div>
@@ -117,7 +114,6 @@ export const Transparency: React.FC<{ selectedNewsId?: string | number | null, o
         <div className="flex items-center justify-between px-4">
           <h3 className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.3em]">Distribución de Inversión</h3>
           <div className="flex items-center gap-3">
-            <span className="text-[9px] font-mono text-slate-400 dark:text-slate-500 uppercase tracking-widest">Latency: 24ms</span>
             <Icons.PieChart size={18} className="text-slate-400 dark:text-slate-500" />
           </div>
         </div>

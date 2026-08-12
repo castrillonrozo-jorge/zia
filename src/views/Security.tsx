@@ -50,23 +50,14 @@ const SecurityView: React.FC = () => {
     setHoldProgress(100);
     vibrate('alert');
 
-    // Fase 1 — Localizando
-    setSent('📡 Localizando tu posición GPS...');
-
-    setTimeout(() => {
-      setSent('🔴 ALERTA ACTIVA — Notificando a contactos de emergencia...');
-    }, 1500);
-
-    setTimeout(() => {
-      setSent('✅ Ubicación compartida — Llamando al 911 ahora...');
-    }, 3000);
+    setSent('🔴 Abriendo llamada al 911...');
 
     setTimeout(() => {
       window.open('tel:911', '_blank');
       setPanic(false);
       setHoldProgress(0);
       setSent(null);
-    }, 4500);
+    }, 1200);
   };
 
   const actions = [

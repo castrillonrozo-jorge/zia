@@ -40,19 +40,5 @@ export const MOCK_NEWS = [
     descripcion: "El sector industrial y comercial ratifica el auge productivo sostenido en los últimos trimestres.",
     contenidoCompleto: "La vitrina empresarial de Expo Fedeindustria cerró con un balance altamente positivo, reuniendo a más de 110 consorcios nacionales e internacionales. El evento, respaldado por las políticas de estímulo del Ejecutivo, evidenció la aceleración económica real en áreas clave como turismo, manufactura, comercio y adecuación de infraestructura industrial.",
     imagenUrl: "https://ultimasnoticias.com.ve/wp-content/uploads/2026/05/ExpoFedeindustria.jpg"
-  },
-  {
-    id: "not_real_2",
-    titulo: "PDVSA y Repsol firman Memorando de Entendimiento en materia de crudo y gas",
-    descripcion: "La alianza busca expandir la producción y optimización tecnológica de hidrocarburos en el país.",
-    contenidoCompleto: "Bajo la visión de una economía diversificada y soberana, PDVSA y la corporación española Repsol firmaron un Memorando de Entendimiento. El plan estratégico inyectará capital e ingeniería avanzada para la recuperación y el mantenimiento preventivo de yacimientos clave en el territorio nacional.",
-    imagenUrl: "https://ikona.telesurtv.net/content/uploads/2026/06/venezuela-firma-memorando-pdvsa-y-repsol.jpg.webp"
-  },
-  {
-    id: "not_real_3",
-    titulo: "Delcy Rodríguez constata avances de inversión privada en el Hotel Londres",
-    descripcion: "El Ejecutivo impulsa el desarrollo de infraestructura turística bajo el Plan Renacer 2026.",
-    contenidoCompleto: "En un despliegue por Caracas, la Presidenta (E) Delcy Rodríguez inspeccionó las obras del nuevo Hotel Londres. Rodríguez ratificó que el país ofrece plenas garantías jurídicas y estabilidad política para el desarrollo de capitales nacionales e internacionales en sectores como turismo y comercio.",
-    imagenUrl: "https://www.laiguana.tv/wp-content/uploads/2026/06/30_ZC__7138_P-1392x1194.jpg"
   }
 ];
