@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { AppView } from './types';
+import { useAgentChat } from '../arreglos/useAgentChat';
 import { Header } from './components/Header';
 import { BottomNav } from './components/BottomNav';
 import { Login } from './views/Login';
@@ -130,10 +131,13 @@ const App: React.FC = () => {
   };
 
   const [aiInput, setAiInput] = useState('');
-  const [aiMessages, setAiMessages] = useState<{role: 'user' | 'ai', text: string}[]>([
-    { role: 'ai', text: `¡Hola, ${userName}! Soy VenIA, tu Asistente de IA Oficial y Especializado en trámites de Venezuela para Agilizarte todo. Estoy aquí para guiarte de forma directa y fácil en tus gestiones del SAIME, SENIAT, INTT, SAREN y más. ¿Qué trámite deseas consultar o agilizar hoy?` }
-  ]);
-  const [isAiLoading, setIsAiLoading] = useState(false);
+  const saludoInicial = `¡Hola, ${userName}! Soy VenIA, tu Asistente de IA Oficial y Especializado en trámites de Venezuela para Agilizarte todo. Estoy aquí para guiarte de forma directa y fácil en tus gestiones del SAIME, SENIAT, INTT, SAREN y más. ¿Qué trámite deseas consultar o agilizar hoy?`;
+  const {
+    messages: aiMessages,
+    loading: isAiLoading,
+    error: aiError,
+    send: sendAiMessage,
+  } = useAgentChat({ onNavigate: (view) => handleNavigate(view as AppView) });
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -215,7 +219,7 @@ const App: React.FC = () => {
     setCurrentView('home');
   };
 
-  const handleSendAiMessage = async (text?: string | any) => {
+  const handleSendAiMessage = (text?: string | any) => {
     const messageToSend = (typeof text === 'string' ? text : '') || aiInput;
     if (!messageToSend || !messageToSend.trim() || isAiLoading) return;
 
@@ -223,107 +227,7 @@ const App: React.FC = () => {
     vibrate('heavy');
 
     setAiInput('');
-    setAiMessages(prev => [...prev, { role: 'user', text: messageToSend }]);
-    setIsAiLoading(true);
-
-    // Bypass específico para pruebas de Currículum como Consultor Élite
-    const lowerMessage = messageToSend.toLowerCase();
-    if (lowerMessage.includes('curriculo') || lowerMessage.includes('currículum') || lowerMessage.includes('cv') || lowerMessage.includes('hoja de vida')) {
-      setTimeout(() => {
-        setAiMessages(prev => [...prev, { role: 'ai', text: "¡Excelente, Jorge Eduardo! Vamos a estructurar tu Currículum Vitae con un enfoque premium y de alto impacto para el mercado actual. Para empezar, desarrollemos tu Perfil Profesional. Como especialista en desarrollo web y diseño UI/UX con experiencia gestionando portales institucionales y e-commerce, tu gancho inicial debe ser contundente. ¿Prefieres que armemos primero tu resumen ejecutivo o pasamos directamente a estructurar tu experiencia con logros clave?" }]);
-        setIsAiLoading(false);
-      }, 800);
-      return;
-    }
-
-    try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          message: messageToSend,
-          userName,
-          model: selectedModel,
-          useSearch: useSearch
-        })
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        if (errorData.error) {
-          throw new Error(errorData.error);
-        }
-        throw new Error('Server error');
-      }
-
-      const data = await response.json();
-
-      if (data.functionCall) {
-        const call = data.functionCall;
-        if (call.name === 'navigateApp') {
-          const view = call.args.view as AppView;
-          handleNavigate(view);
-          
-          let linkText = "";
-          if (view === 'id-renewal') {
-            linkText = "\n\n🔗 **Enlace oficial de este organismo:** [Canal de Citas SAIME](https://www.saime.gob.ve/)";
-          } else if (view === 'seniat') {
-            linkText = "\n\n🔗 **Enlace oficial de este organismo:** [Portal del SENIAT](https://www.seniat.gob.ve/) o [Declaraciones SENIAT](http://declaraciones.seniat.gob.ve/)";
-          } else if (view === 'payments') {
-            linkText = "\n\n🔗 **Enlace oficial de este organismo:** [Acceso Plataforma Patria](https://persona.patria.org.ve/) o [Portal Patria](https://portada.patria.org.ve/)";
-          } else if (view === 'business-reg') {
-            linkText = "\n\n🔗 **Enlace oficial de este organismo:** [Trámites SAREN](https://tramites.saren.gob.ve/) o [Página del SAREN](https://www.saren.gob.ve/)";
-          } else if (view === 'intt') {
-            linkText = "\n\n🔗 **Enlace oficial de este organismo:** [INTT en Línea](http://www.intt.gob.ve/)";
-          } else if (view === 'employment') {
-            linkText = "\n\n🔗 **Enlace oficial de este organismo:** [Sistema IVSS](http://www.ivss.gov.ve/)";
-          } else if (view === 'health') {
-            linkText = "\n\n🔗 **Enlace oficial de este organismo:** [Sistema IVSS](http://www.ivss.gov.ve/)";
-          } else if (view === 'economy') {
-            linkText = "\n\n🔗 **Enlace oficial de este organismo:** [Banco Central de Venezuela (BCV)](http://www.bcv.org.ve/)";
-          } else if (view === 'transparency') {
-            linkText = "\n\n🔗 **Enlace oficial de este organismo:** [Portal Legislativo de la Asamblea Nacional](http://www.asambleanacional.gob.ve/)";
-          } else if (view === 'national-pride') {
-            linkText = "\n\n🔗 **Enlace oficial de este organismo:** [Ministerio de Cultura](http://www.mincultura.gob.ve/)";
-          }
-
-          setAiMessages(prev => [...prev, { role: 'ai', text: `¡Perfecto! Te he llevado de inmediato a la sección de **${view === 'id-renewal' ? 'SAIME (Identidad)' : view === 'seniat' ? 'SENIAT (Tributos)' : view === 'payments' ? 'Pagos y Servicios' : view === 'transparency' ? 'Transparencia Ciudadana' : view === 'health' ? 'Salud' : view === 'business-reg' ? 'SAREN (Empresas/Apostilla)' : view === 'intt' ? 'INTT (Vehículos)' : view === 'employment' ? 'Empleo e IVSS' : view === 'economy' ? 'Economía' : view === 'national-pride' ? 'Cultura' : view}** en el fondo del portal para que lo tengas listo.${linkText}
-          
-Como tu asistente oficial VenIA, puedo seguir orientándote desde aquí. ¿Tienes alguna pregunta sobre los requisitos o pasos a seguir?` }]);
-          setIsAiLoading(false);
-          return;
-        }
-        
-        if (call.name === 'getExchangeRate') {
-          setAiMessages(prev => [...prev, { role: 'ai', text: `La tasa de cambio oficial de hoy publicada por el Banco Central de Venezuela es de **554.42 VED/USD** para el Dólar y de **645.67 VED/EUR** para el Euro, ${userName}.` }]);
-          setIsAiLoading(false);
-          return;
-        }
-
-        if (call.name === 'getProcedureStatus') {
-          setAiMessages(prev => [...prev, { role: 'ai', text: `Tu trámite está en revisión final. Se estima aprobación en 48 horas, ${userName}.` }]);
-          setIsAiLoading(false);
-          return;
-        }
-
-        if (call.name === 'calculateTax') {
-          const amount = call.args.amount as number;
-          const taxType = call.args.taxType as string;
-          const tax = taxType === 'IVA' ? amount * 0.16 : amount * 0.34;
-          setAiMessages(prev => [...prev, { role: 'ai', text: `El impuesto (${taxType}) para ${amount} es de ${tax.toFixed(2)}. Total a pagar: ${(amount + tax).toFixed(2)}, ${userName}.` }]);
-          setIsAiLoading(false);
-          return;
-        }
-      }
-
-      setAiMessages(prev => [...prev, { role: 'ai', text: data.text || "Entendido." }]);
-    } catch (error: any) {
-      setAiMessages(prev => [...prev, { role: 'ai', text: error.message && error.message !== 'Server error' ? error.message : 'Error de conexión con VenIA. Intenta más tarde.' }]);
-    } finally {
-      setIsAiLoading(false);
-    }
+    sendAiMessage(messageToSend, { useSearch });
   };
 
   if (currentView === 'splash') {
@@ -591,17 +495,41 @@ Como tu asistente oficial VenIA, puedo seguir orientándote desde aquí. ¿Tiene
             )}
 
             <div className="flex-1 overflow-y-auto p-6 space-y-6 no-scrollbar">
+              <div className="flex justify-start">
+                <div
+                  className="max-w-[85%] p-4 text-sm leading-relaxed rounded-2xl rounded-tl-none border border-black/5 dark:border-white/5"
+                  style={{ backgroundColor: '#F4F6F9', color: '#1A2B49' }}
+                >
+                  {formatMessageText(saludoInicial)}
+                </div>
+              </div>
               {aiMessages.map((msg, i) => (
                 <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div 
+                  <div
                     className={`max-w-[85%] p-4 text-sm leading-relaxed ${
-                      msg.role === 'user' 
-                      ? 'bg-[#4F84C4] text-white rounded-3xl rounded-br-sm shadow-none' 
+                      msg.role === 'user'
+                      ? 'bg-[#4F84C4] text-white rounded-3xl rounded-br-sm shadow-none'
                       : 'rounded-2xl rounded-tl-none border border-black/5 dark:border-white/5'
                     }`}
                     style={msg.role === 'ai' ? { backgroundColor: '#F4F6F9', color: '#1A2B49' } : {}}
                   >
                     {msg.role === 'ai' ? formatMessageText(msg.text) : msg.text}
+                    {msg.role === 'ai' && msg.sources && msg.sources.length > 0 && (
+                      <div className="mt-3 pt-2 border-t border-black/10 space-y-1">
+                        <p className="text-[9px] font-bold uppercase tracking-widest opacity-60">Fuentes</p>
+                        {msg.sources.map((fuente, j) => (
+                          <a
+                            key={j}
+                            href={fuente.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block text-[11px] underline break-all opacity-80 hover:opacity-100"
+                          >
+                            {fuente.titulo}
+                          </a>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
@@ -614,8 +542,16 @@ Como tu asistente oficial VenIA, puedo seguir orientándote desde aquí. ¿Tiene
                 </div>
               )}
               
+              {aiError && !isAiLoading && (
+                <div className="flex justify-start">
+                  <div className="max-w-[85%] p-4 text-sm leading-relaxed rounded-2xl rounded-tl-none border border-red-200 dark:border-red-500/30 bg-red-50 dark:bg-red-500/10 text-red-700 dark:text-red-300">
+                    {aiError}
+                  </div>
+                </div>
+              )}
+
               {/* Quick Suggestions Chips */}
-              {!isAiLoading && aiMessages.length === 1 && (
+              {!isAiLoading && aiMessages.length === 0 && (
                 <div className="flex flex-wrap gap-2 pt-4">
                   {quickSuggestions.map((suggestion, idx) => (
                     <button
