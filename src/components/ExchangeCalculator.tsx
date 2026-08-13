@@ -62,7 +62,7 @@ export const ExchangeCalculator: React.FC<ExchangeCalculatorProps> = ({ isOpen, 
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          className="w-full max-w-sm bg-white dark:bg-[#121212] rounded-[3rem] shadow-none overflow-hidden border border-slate-100 dark:border-white/10"
+          className="relative z-10 w-full max-w-sm bg-white dark:bg-[#121212] rounded-[3rem] shadow-none overflow-hidden border border-slate-100 dark:border-white/10"
         >
           <div className="p-8">
             <div className="flex justify-between items-center mb-8">

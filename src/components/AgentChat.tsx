@@ -24,9 +24,9 @@ export const AgentChat: React.FC<AgentChatProps> = ({ isOpen, onClose, userName,
   const [useSearch, setUseSearch] = useState(() => {
     if (typeof localStorage !== 'undefined') {
       const stored = localStorage.getItem('venia_use_search');
-      return stored !== null ? stored === 'true' : false;
+      return stored !== null ? stored === 'true' : true;
     }
-    return false;
+    return true;
   });
 
   const handleModelChange = (model: string) => {

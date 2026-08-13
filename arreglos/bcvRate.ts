@@ -1,15 +1,14 @@
 /**
  * Tasa oficial del BCV, consultada en vivo. Nunca escrita a mano.
  *
- * Por qué existe este archivo: el valor que tenías fijo en el código
- * (554,42 Bs/USD y 645,67 Bs/EUR) estaba un 38% y un 37% por debajo del
- * publicado por el BCV el 12/08/2026 (764,3486 y 882,2952). Una cifra fija
- * en un país con esta inflación no envejece: nace vieja.
+ * El BCV no ofrece API pública y su portal bloquea con frecuencia el
+ * tráfico desde nubes (Vercel incluida). Por eso la consulta es una
+ * CADENA con respaldo: primero bcv.org.ve; si no responde, espejos
+ * públicos que republican la misma tasa oficial. La fuente real de cada
+ * dato viaja en el campo `fuente` y se muestra en pantalla.
  *
- * El BCV no ofrece API pública, así que esto lee su portada. Es frágil por
- * definición: si cambian el HTML, deja de parsear. Por eso nunca devuelve
- * un número sin decir de cuándo es, y si falla devuelve disponible:false
- * en vez de inventar.
+ * Si ninguna fuente responde, devuelve disponible:false — se dice, no
+ * se inventa.
  */
 
 export type Tasa = {
@@ -22,7 +21,6 @@ export type Tasa = {
   motivo?: string;
 };
 
-const FUENTE = 'https://www.bcv.org.ve/';
 const CACHE_MS = 30 * 60 * 1000; // El BCV publica una vez al día.
 
 let cache: { valor: Tasa; expira: number } | null = null;
@@ -35,7 +33,6 @@ function aNumero(bruto: string): number | undefined {
 }
 
 function extraer(html: string, id: string): number | undefined {
-  // Estructura observada: <div id="dolar"> … <strong> 764,34860000 </strong>
   const bloque = new RegExp(
     `id=["']${id}["'][\\s\\S]{0,400}?<strong[^>]*>([^<]+)</strong>`,
     'i',
@@ -43,52 +40,87 @@ function extraer(html: string, id: string): number | undefined {
   return bloque ? aNumero(bloque[1]) : undefined;
 }
 
+async function traer(url: string, ms = 6000): Promise<globalThis.Response> {
+  const res = await fetch(url, {
+    headers: { 'User-Agent': 'AgilizApp/1.0' },
+    signal: AbortSignal.timeout(ms),
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res;
+}
+
+// Fuente 1: la portada del propio BCV (USD y EUR).
+async function desdeBCV(): Promise<Tasa> {
+  const res = await traer('https://www.bcv.org.ve/', 8000);
+  const html = await res.text();
+  const usd = extraer(html, 'dolar');
+  const eur = extraer(html, 'euro');
+  if (!usd) throw new Error('No se pudo leer el valor del dólar');
+  const fecha = /Fecha\s*Valor:?\s*([^<\n]+)/i.exec(html);
+  return {
+    disponible: true,
+    usd,
+    eur,
+    fechaValor: fecha ? fecha[1].trim() : undefined,
+    consultadoEn: new Date().toISOString(),
+    fuente: 'bcv.org.ve',
+  };
+}
+
+// Fuente 2: DolarApi (espejo público de la tasa oficial; solo USD).
+async function desdeDolarApi(): Promise<Tasa> {
+  const res = await traer('https://ve.dolarapi.com/v1/dolares/oficial');
+  const data: any = await res.json();
+  const usd = Number(data?.promedio ?? data?.venta);
+  if (!Number.isFinite(usd) || usd <= 0) throw new Error('Respuesta sin tasa');
+  return {
+    disponible: true,
+    usd,
+    fechaValor: data?.fechaActualizacion
+      ? String(data.fechaActualizacion).slice(0, 10)
+      : undefined,
+    consultadoEn: new Date().toISOString(),
+    fuente: 'BCV vía dolarapi.com',
+  };
+}
+
+// Fuente 3: pyDolarVenezuela (espejo público; USD y EUR del monitor BCV).
+async function desdePyDolar(): Promise<Tasa> {
+  const res = await traer('https://pydolarve.org/api/v1/dollar?page=bcv');
+  const data: any = await res.json();
+  const monitores = data?.monitors ?? {};
+  const usd = Number(monitores?.usd?.price);
+  const eur = Number(monitores?.eur?.price);
+  if (!Number.isFinite(usd) || usd <= 0) throw new Error('Respuesta sin tasa');
+  return {
+    disponible: true,
+    usd,
+    eur: Number.isFinite(eur) && eur > 0 ? eur : undefined,
+    fechaValor: data?.datetime?.date ? String(data.datetime.date) : undefined,
+    consultadoEn: new Date().toISOString(),
+    fuente: 'BCV vía pydolarve.org',
+  };
+}
+
 export async function obtenerTasaBCV(): Promise<Tasa> {
   if (cache && Date.now() < cache.expira) return cache.valor;
 
-  try {
-    const res = await fetch(FUENTE, {
-      headers: { 'User-Agent': 'AgilizApp/1.0' },
-      signal: AbortSignal.timeout(8000),
-    });
-
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-    const html = await res.text();
-    const usd = extraer(html, 'dolar');
-    const eur = extraer(html, 'euro');
-
-    if (!usd) throw new Error('No se pudo leer el valor del dólar');
-
-    const fecha = /Fecha\s*Valor:?\s*([^<\n]+)/i.exec(html);
-
-    const valor: Tasa = {
-      disponible: true,
-      usd,
-      eur,
-      fechaValor: fecha ? fecha[1].trim() : undefined,
-      consultadoEn: new Date().toISOString(),
-      fuente: FUENTE,
-    };
-
-    cache = { valor, expira: Date.now() + CACHE_MS };
-    return valor;
-  } catch (err) {
-    // Si el BCV no responde o cambió el HTML, se dice. No se inventa.
-    return {
-      disponible: false,
-      fuente: FUENTE,
-      motivo:
-        'No se pudo consultar la tasa oficial del BCV en este momento. ' +
-        (err instanceof Error ? err.message : ''),
-    };
+  const errores: string[] = [];
+  for (const intento of [desdeBCV, desdeDolarApi, desdePyDolar]) {
+    try {
+      const valor = await intento();
+      cache = { valor, expira: Date.now() + CACHE_MS };
+      return valor;
+    } catch (err) {
+      errores.push(err instanceof Error ? err.message : String(err));
+    }
   }
-}
 
-/**
- * Nota operativa: el certificado TLS del BCV ha dado problemas en Node en
- * el pasado. Si ves errores de certificado en producción, la salida correcta
- * NO es desactivar la verificación: es poner un proxy propio que consulte una
- * vez al día y sirva el valor con su fecha. Desactivar TLS en una app que
- * maneja identidad ciudadana es indefendible en una auditoría.
- */
+  return {
+    disponible: false,
+    fuente: 'BCV',
+    motivo:
+      'Ni el portal del BCV ni los espejos de la tasa oficial respondieron. ' +
+      `(${errores.join(' · ').slice(0, 160)})`,
+  };
+}

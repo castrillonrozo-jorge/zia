@@ -14,59 +14,59 @@ import { GoogleGenAI, Type, type FunctionDeclaration } from '@google/genai';
 
 // ═══ systemInstruction (inline de arreglos/systemInstruction.ts) ═══
 /**
- * Reemplaza el systemInstruction que hoy vive dentro de server.ts.
- * Sin política, sin cifras con fecha, sin palabras prohibidas.
+ * Prompt del sistema del agente. Sin política, sin cifras escritas a mano.
+ * v2: útil y coherente primero; la honestidad sigue mandando en los números.
  */
-export const SYSTEM_INSTRUCTION = `Eres el agente de trámites de Agiliza. Ayudas a ciudadanos venezolanos
-a resolver gestiones públicas: qué necesitan, dónde se hace y qué sigue.
+export const SYSTEM_INSTRUCTION = `Eres el Agente de IA de Agiliza, especializado en trámites, gestiones y
+servicios públicos de Venezuela: SAIME (cédula y pasaporte), SAREN
+(registros, notarías, título de propiedad), INTT (licencia y vehículos),
+SENIAT (RIF e impuestos), IVSS (empleo y pensiones), pagos de servicios
+(luz, agua, teléfono), el plan Renacer de reconstrucción y las líneas de
+emergencia.
 
-PRECISIÓN — estas cuatro reglas mandan sobre cualquier otra:
-
-1. Nunca afirmes un monto, arancel, tasa, plazo, horario o dirección que no
-   venga de una herramienta o de una búsqueda de esta misma conversación.
-   Si no lo tienes, dilo con esas palabras: "no tengo ese dato conectado
-   todavía". Nunca lo estimes, nunca lo redondees, nunca lo supongas.
-
-2. Cita siempre de dónde sale lo que dices: dominio oficial y fecha de
-   consulta. Sin fuente, no es una respuesta: es una suposición.
-
-3. Responde en estructura, no en párrafos. Requisitos en lista, un dato por
-   línea, máximo tres frases de introducción.
-
-4. Termina siempre ofreciendo la acción concreta que sigue, y usa navigateApp
-   para llevar al usuario ahí dentro de la app.
+CÓMO RESPONDES
+1. Responde SIEMPRE con contenido útil y directamente relacionado con lo
+   que te preguntaron. Los requisitos, pasos y lugares de los trámites son
+   procedimientos estables: explícalos con tu conocimiento, completos y en
+   orden. Nunca respondas vacío ni con evasivas.
+2. Números que cambian con el tiempo (aranceles, tasas, plazos exactos,
+   disponibilidad de citas): solo si vienen de una herramienta o de una
+   búsqueda de esta conversación. Si no los tienes, dilo en una línea y di
+   dónde verificarlos, sin frenar el resto de la respuesta.
+3. Estructura: máximo dos frases de introducción, luego listas con un dato
+   por línea. Cierra con el siguiente paso concreto.
+4. Cuando uses datos de búsqueda, cita el dominio del que salieron.
+5. Usa el historial: si el usuario dice "¿y cuánto cuesta?", se refiere a
+   lo que venían hablando. Mantén el hilo siempre.
 
 HERRAMIENTAS
-- navigateApp: úsala siempre que el usuario quiera llegar a algún sitio.
-- calculateTax: úsala para cálculos de IVA o ISLR.
-- Si una herramienta responde { disponible: false }, explícale al usuario que
-  esa integración todavía no está conectada, di qué organismo la opera y
-  ofrécele abrir el portal oficial. No inventes el dato que faltó.
+- navigateApp: si el usuario quiere hacer un trámite que la app cubre,
+  navega Y ADEMÁS responde con la explicación útil del trámite.
+- getExchangeRate: la tasa oficial BCV, siempre por aquí.
+- calculateTax: cálculos de IVA.
+- getProcedureStatus / getOfficialFee: si responden { disponible: false },
+  dilo tal cual — esa integración aún no está conectada — y ofrece el
+  portal oficial. Nunca inventes el estado o el monto que faltó.
 
 ALCANCE
-Solo trámites, servicios públicos y gestiones. Si te preguntan de política,
-opinión sobre autoridades o temas fuera del ámbito, dilo con naturalidad y
-reconduce a lo que sí puedes resolver. No emites juicios sobre personas,
-instituciones ni situaciones del país.
+Solo trámites, servicios públicos y gestiones. Nada de política ni juicios
+sobre personas o instituciones: recondúcelo con naturalidad.
 
 TONO
-Claro y directo, de tú. Sin adjetivos de campaña, sin superlativos, sin
-emojis. Escribes como escribe un buen funcionario que quiere que el ciudadano
-resuelva rápido.`;
+Claro, directo, de tú, profesional. Sin emojis ni superlativos.`;
 
 // ═══ bcvRate (inline de arreglos/bcvRate.ts) ═══
 /**
  * Tasa oficial del BCV, consultada en vivo. Nunca escrita a mano.
  *
- * Por qué existe este archivo: el valor que tenías fijo en el código
- * (554,42 Bs/USD y 645,67 Bs/EUR) estaba un 38% y un 37% por debajo del
- * publicado por el BCV el 12/08/2026 (764,3486 y 882,2952). Una cifra fija
- * en un país con esta inflación no envejece: nace vieja.
+ * El BCV no ofrece API pública y su portal bloquea con frecuencia el
+ * tráfico desde nubes (Vercel incluida). Por eso la consulta es una
+ * CADENA con respaldo: primero bcv.org.ve; si no responde, espejos
+ * públicos que republican la misma tasa oficial. La fuente real de cada
+ * dato viaja en el campo `fuente` y se muestra en pantalla.
  *
- * El BCV no ofrece API pública, así que esto lee su portada. Es frágil por
- * definición: si cambian el HTML, deja de parsear. Por eso nunca devuelve
- * un número sin decir de cuándo es, y si falla devuelve disponible:false
- * en vez de inventar.
+ * Si ninguna fuente responde, devuelve disponible:false — se dice, no
+ * se inventa.
  */
 
 export type Tasa = {
@@ -79,7 +79,6 @@ export type Tasa = {
   motivo?: string;
 };
 
-const FUENTE = 'https://www.bcv.org.ve/';
 const CACHE_MS = 30 * 60 * 1000; // El BCV publica una vez al día.
 
 let cache: { valor: Tasa; expira: number } | null = null;
@@ -92,7 +91,6 @@ function aNumero(bruto: string): number | undefined {
 }
 
 function extraer(html: string, id: string): number | undefined {
-  // Estructura observada: <div id="dolar"> … <strong> 764,34860000 </strong>
   const bloque = new RegExp(
     `id=["']${id}["'][\\s\\S]{0,400}?<strong[^>]*>([^<]+)</strong>`,
     'i',
@@ -100,55 +98,90 @@ function extraer(html: string, id: string): number | undefined {
   return bloque ? aNumero(bloque[1]) : undefined;
 }
 
+async function traer(url: string, ms = 6000): Promise<globalThis.Response> {
+  const res = await fetch(url, {
+    headers: { 'User-Agent': 'AgilizApp/1.0' },
+    signal: AbortSignal.timeout(ms),
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res;
+}
+
+// Fuente 1: la portada del propio BCV (USD y EUR).
+async function desdeBCV(): Promise<Tasa> {
+  const res = await traer('https://www.bcv.org.ve/', 8000);
+  const html = await res.text();
+  const usd = extraer(html, 'dolar');
+  const eur = extraer(html, 'euro');
+  if (!usd) throw new Error('No se pudo leer el valor del dólar');
+  const fecha = /Fecha\s*Valor:?\s*([^<\n]+)/i.exec(html);
+  return {
+    disponible: true,
+    usd,
+    eur,
+    fechaValor: fecha ? fecha[1].trim() : undefined,
+    consultadoEn: new Date().toISOString(),
+    fuente: 'bcv.org.ve',
+  };
+}
+
+// Fuente 2: DolarApi (espejo público de la tasa oficial; solo USD).
+async function desdeDolarApi(): Promise<Tasa> {
+  const res = await traer('https://ve.dolarapi.com/v1/dolares/oficial');
+  const data: any = await res.json();
+  const usd = Number(data?.promedio ?? data?.venta);
+  if (!Number.isFinite(usd) || usd <= 0) throw new Error('Respuesta sin tasa');
+  return {
+    disponible: true,
+    usd,
+    fechaValor: data?.fechaActualizacion
+      ? String(data.fechaActualizacion).slice(0, 10)
+      : undefined,
+    consultadoEn: new Date().toISOString(),
+    fuente: 'BCV vía dolarapi.com',
+  };
+}
+
+// Fuente 3: pyDolarVenezuela (espejo público; USD y EUR del monitor BCV).
+async function desdePyDolar(): Promise<Tasa> {
+  const res = await traer('https://pydolarve.org/api/v1/dollar?page=bcv');
+  const data: any = await res.json();
+  const monitores = data?.monitors ?? {};
+  const usd = Number(monitores?.usd?.price);
+  const eur = Number(monitores?.eur?.price);
+  if (!Number.isFinite(usd) || usd <= 0) throw new Error('Respuesta sin tasa');
+  return {
+    disponible: true,
+    usd,
+    eur: Number.isFinite(eur) && eur > 0 ? eur : undefined,
+    fechaValor: data?.datetime?.date ? String(data.datetime.date) : undefined,
+    consultadoEn: new Date().toISOString(),
+    fuente: 'BCV vía pydolarve.org',
+  };
+}
+
 export async function obtenerTasaBCV(): Promise<Tasa> {
   if (cache && Date.now() < cache.expira) return cache.valor;
 
-  try {
-    const res = await fetch(FUENTE, {
-      headers: { 'User-Agent': 'AgilizApp/1.0' },
-      signal: AbortSignal.timeout(8000),
-    });
-
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-    const html = await res.text();
-    const usd = extraer(html, 'dolar');
-    const eur = extraer(html, 'euro');
-
-    if (!usd) throw new Error('No se pudo leer el valor del dólar');
-
-    const fecha = /Fecha\s*Valor:?\s*([^<\n]+)/i.exec(html);
-
-    const valor: Tasa = {
-      disponible: true,
-      usd,
-      eur,
-      fechaValor: fecha ? fecha[1].trim() : undefined,
-      consultadoEn: new Date().toISOString(),
-      fuente: FUENTE,
-    };
-
-    cache = { valor, expira: Date.now() + CACHE_MS };
-    return valor;
-  } catch (err) {
-    // Si el BCV no responde o cambió el HTML, se dice. No se inventa.
-    return {
-      disponible: false,
-      fuente: FUENTE,
-      motivo:
-        'No se pudo consultar la tasa oficial del BCV en este momento. ' +
-        (err instanceof Error ? err.message : ''),
-    };
+  const errores: string[] = [];
+  for (const intento of [desdeBCV, desdeDolarApi, desdePyDolar]) {
+    try {
+      const valor = await intento();
+      cache = { valor, expira: Date.now() + CACHE_MS };
+      return valor;
+    } catch (err) {
+      errores.push(err instanceof Error ? err.message : String(err));
+    }
   }
-}
 
-/**
- * Nota operativa: el certificado TLS del BCV ha dado problemas en Node en
- * el pasado. Si ves errores de certificado en producción, la salida correcta
- * NO es desactivar la verificación: es poner un proxy propio que consulte una
- * vez al día y sirva el valor con su fecha. Desactivar TLS en una app que
- * maneja identidad ciudadana es indefendible en una auditoría.
- */
+  return {
+    disponible: false,
+    fuente: 'BCV',
+    motivo:
+      'Ni el portal del BCV ni los espejos de la tasa oficial respondieron. ' +
+      `(${errores.join(' · ').slice(0, 160)})`,
+  };
+}
 
 // ═══ chatRoute (inline de arreglos/chatRoute.ts) ═══
 // Tipos estructurales mínimos del handler (req, res). Express ya no está
@@ -348,11 +381,13 @@ async function chatRoute(req: Request, res: Response) {
   const ai = new GoogleGenAI({ apiKey });
   const contents = construirContents(history, message);
 
-  // googleSearch y functionDeclarations no conviven en la misma llamada:
-  // el cliente decide con useSearch si esta consulta necesita datos actuales.
+  // googleSearch y functionDeclarations no conviven en la misma llamada.
+  // Estrategia en dos pasadas: la primera SIEMPRE con herramientas (navegar,
+  // tasa, IVA); si el modelo no las necesita y la búsqueda está permitida,
+  // una segunda pasada con grounding responde con datos frescos y fuentes.
   const config: any = {
     systemInstruction: SYSTEM_INSTRUCTION,
-    tools: useSearch ? [{ googleSearch: {} }] : [{ functionDeclarations: TOOLS }],
+    tools: [{ functionDeclarations: TOOLS }],
   };
 
   let ultimoError: unknown = null;
@@ -431,6 +466,29 @@ async function chatRoute(req: Request, res: Response) {
           contents: conversacion,
           config,
         });
+      }
+
+      // Segunda pasada con búsqueda: para todo lo informativo, con fuentes.
+      if (useSearch !== false) {
+        try {
+          const conBusqueda: any = await ai.models.generateContent({
+            model,
+            contents,
+            config: {
+              systemInstruction: SYSTEM_INSTRUCTION,
+              tools: [{ googleSearch: {} }],
+            },
+          });
+          if (conBusqueda?.text) {
+            return res.json({
+              text: conBusqueda.text,
+              action: null,
+              sources: extraerFuentes(conBusqueda),
+            });
+          }
+        } catch {
+          // La respuesta de la primera pasada sirve de respaldo.
+        }
       }
 
       return res.json({

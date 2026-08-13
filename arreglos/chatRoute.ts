@@ -214,11 +214,13 @@ export async function chatRoute(req: Request, res: Response) {
   const ai = new GoogleGenAI({ apiKey });
   const contents = construirContents(history, message);
 
-  // googleSearch y functionDeclarations no conviven en la misma llamada:
-  // el cliente decide con useSearch si esta consulta necesita datos actuales.
+  // googleSearch y functionDeclarations no conviven en la misma llamada.
+  // Estrategia en dos pasadas: la primera SIEMPRE con herramientas (navegar,
+  // tasa, IVA); si el modelo no las necesita y la búsqueda está permitida,
+  // una segunda pasada con grounding responde con datos frescos y fuentes.
   const config: any = {
     systemInstruction: SYSTEM_INSTRUCTION,
-    tools: useSearch ? [{ googleSearch: {} }] : [{ functionDeclarations: TOOLS }],
+    tools: [{ functionDeclarations: TOOLS }],
   };
 
   let ultimoError: unknown = null;
@@ -297,6 +299,29 @@ export async function chatRoute(req: Request, res: Response) {
           contents: conversacion,
           config,
         });
+      }
+
+      // Segunda pasada con búsqueda: para todo lo informativo, con fuentes.
+      if (useSearch !== false) {
+        try {
+          const conBusqueda: any = await ai.models.generateContent({
+            model,
+            contents,
+            config: {
+              systemInstruction: SYSTEM_INSTRUCTION,
+              tools: [{ googleSearch: {} }],
+            },
+          });
+          if (conBusqueda?.text) {
+            return res.json({
+              text: conBusqueda.text,
+              action: null,
+              sources: extraerFuentes(conBusqueda),
+            });
+          }
+        } catch {
+          // La respuesta de la primera pasada sirve de respaldo.
+        }
       }
 
       return res.json({

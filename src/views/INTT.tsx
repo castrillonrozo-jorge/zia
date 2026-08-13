@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Icons } from '../components/Icons';
 import { PaymentGatewayModal } from '../components/PaymentGatewayModal';
 import { OrganismoFicha } from '../components/OrganismoFicha';
+import { ExchangeCalculator } from '../components/ExchangeCalculator';
 
 type INTTMode = 'menu' | 'form' | 'payments' | 'success';
 
@@ -11,6 +12,7 @@ export const INTT: React.FC = () => {
   const [step, setStep] = useState(1);
   const [selectedProcedure, setSelectedProcedure] = useState('');
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
+  const [isTasaOpen, setIsTasaOpen] = useState(false);
   const [activePayment, setActivePayment] = useState<{name: string, amount: number} | null>(null);
 
   const handlePayClick = (name: string, amount: string) => {
@@ -48,7 +50,7 @@ export const INTT: React.FC = () => {
 
         <div className="grid grid-cols-2 gap-4">
           <button 
-            onClick={() => setMode('menu')}
+            onClick={() => document.getElementById('intt-servicios')?.scrollIntoView({ behavior: 'smooth' })}
             style={{
               background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
               boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
@@ -77,7 +79,7 @@ export const INTT: React.FC = () => {
           </button>
         </div>
 
-        <div className="space-y-4">
+        <div id="intt-servicios" className="space-y-4">
           <h4 className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest px-4">Servicios Disponibles</h4>
           <div className="grid grid-cols-1 gap-4">
             {procedures.map((proc) => (
@@ -103,6 +105,7 @@ export const INTT: React.FC = () => {
             ))}
           </div>
         </div>
+        <ExchangeCalculator isOpen={isTasaOpen} onClose={() => setIsTasaOpen(false)} />
       </div>
     );
   }
@@ -170,8 +173,9 @@ export const INTT: React.FC = () => {
            <div className="space-y-2 relative z-10">
             <p className="text-xs text-[#FFFFFF] font-black uppercase tracking-widest">Calculadora de Aranceles</p>
            </div>
-           <button style={{ background: 'rgba(255, 255, 255, 0.15)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.2)' }} className="w-full text-[#FFFFFF] py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest active:scale-95 transition-all relative z-10">Consultar Tasa</button>
+           <button onClick={() => setIsTasaOpen(true)} style={{ background: 'rgba(255, 255, 255, 0.15)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.2)' }} className="w-full text-[#FFFFFF] py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest active:scale-95 transition-all relative z-10">Consultar Tasa</button>
         </div>
+        <ExchangeCalculator isOpen={isTasaOpen} onClose={() => setIsTasaOpen(false)} />
       </div>
     );
   }
