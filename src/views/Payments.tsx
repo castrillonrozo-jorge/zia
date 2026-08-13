@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Icons } from '../components/Icons';
 import { PaymentGatewayModal } from '../components/PaymentGatewayModal';
+import { ExchangeCalculator } from '../components/ExchangeCalculator';
 import { AppView } from '../types';
 import { useVibration } from '../hooks/useVibration';
 
@@ -16,6 +17,27 @@ export const Payments: React.FC<PaymentsProps> = ({ onNavigate }) => {
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
   const [activeService, setActiveService] = useState<{name: string, amount: number} | null>(null);
+
+  // La cinta de tasas se alimenta del BCV en vivo vía /api/rate.
+  // Nunca un número escrito a mano: si no hay dato, la cinta lo dice.
+  const [cinta, setCinta] = useState('consultando tasa oficial del BCV…');
+  React.useEffect(() => {
+    let activo = true;
+    fetch('/api/rate')
+      .then((r) => r.json())
+      .then((t) => {
+        if (!activo) return;
+        if (t?.disponible && t.usd) {
+          const usd = Number(t.usd).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          const eur = t.eur ? Number(t.eur).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : null;
+          setCinta(`tasa bcv ${usd} bs/usd${eur ? ` • tasa euro ${eur} bs/eur` : ''}${t.fechaValor ? ` • fecha valor ${t.fechaValor}` : ''} • fuente bcv.org.ve`);
+        } else {
+          setCinta('tasa oficial del bcv no disponible en este momento');
+        }
+      })
+      .catch(() => { if (activo) setCinta('tasa oficial del bcv no disponible en este momento'); });
+    return () => { activo = false; };
+  }, []);
 
   const handlePayClick = (name: string, amount: number) => {
     setActiveService({ name, amount });
@@ -47,10 +69,10 @@ export const Payments: React.FC<PaymentsProps> = ({ onNavigate }) => {
         <div className="w-[100vw] -ml-4 overflow-hidden relative my-2">
           <div className="animate-marquee w-max">
             <span className="text-[12px] font-black tracking-[0.1em] uppercase text-black dark:text-white pr-2">
-              tasa euro 687,69 • tasa bcv 592,51 — tasa euro 687,69 • tasa bcv 592,51 — tasa euro 687,69 • tasa bcv 592,51 —
+              {cinta} — {cinta} —
             </span>
             <span className="text-[12px] font-black tracking-[0.1em] uppercase text-black dark:text-white pr-2">
-              tasa euro 687,69 • tasa bcv 592,51 — tasa euro 687,69 • tasa bcv 592,51 — tasa euro 687,69 • tasa bcv 592,51 —
+              {cinta} — {cinta} —
             </span>
           </div>
         </div>
@@ -217,56 +239,7 @@ export const Payments: React.FC<PaymentsProps> = ({ onNavigate }) => {
           Escanear Ahora
         </motion.button>
       </div>
-      {isCalculatorOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-300">
-          <div className="bg-white dark:bg-[#0a0a0a] border border-black/10 dark:border-white/10 w-full max-w-sm rounded-[2rem] p-6 shadow-none relative">
-            <button 
-              onClick={() => setIsCalculatorOpen(false)}
-              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400"
-            >
-              <Icons.X size={16} />
-            </button>
-            
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center">
-                 <Icons.Calculator size={20} className="text-[#4F84C4] dark:text-blue-400" />
-              </div>
-              <div>
-                <h3 className="font-black text-black dark:text-white text-base">Calculadora BCV</h3>
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Tasa oficial: Bs. 59.25</p>
-              </div>
-            </div>
-            
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Monto en Divisas (USD)</label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
-                  <input type="number" id="usd-input" placeholder="0.00" className="w-full h-14 bg-slate-50 dark:bg-white/5 border border-black/5 dark:border-white/10 rounded-2xl pl-10 pr-4 text-sm font-bold text-black dark:text-white outline-none focus:border-[#4F84C4] transition-colors" onChange={(e) => {
-                    const bsVal = parseFloat(e.target.value) * 59.25;
-                    (document.getElementById('bs-input') as HTMLInputElement).value = isNaN(bsVal) ? '' : bsVal.toFixed(2);
-                  }} />
-                </div>
-              </div>
-              <div className="flex justify-center">
-                <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center">
-                  <Icons.ArrowDown size={16} className="text-[#4F84C4]" />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest pl-1">Monto en Bolívares (VES)</label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">Bs</span>
-                  <input type="number" id="bs-input" placeholder="0.00" className="w-full h-14 bg-slate-50 dark:bg-white/5 border border-black/5 dark:border-white/10 rounded-2xl pl-10 pr-4 text-sm font-bold text-black dark:text-white outline-none focus:border-[#4F84C4] transition-colors" onChange={(e) => {
-                    const usdVal = parseFloat(e.target.value) / 59.25;
-                    (document.getElementById('usd-input') as HTMLInputElement).value = isNaN(usdVal) ? '' : usdVal.toFixed(2);
-                  }} />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <ExchangeCalculator isOpen={isCalculatorOpen} onClose={() => setIsCalculatorOpen(false)} />
     </div>
   );
 };
