@@ -1,7 +1,26 @@
 export const MOCK_NEWS = [
   {
+    id: 10,
+    fecha: "12 Ago 2026",
+    renacer: true,
+    titulo: "Corpoelec e IMPSA firman el arranque inmediato de las obras en Macagua y Tocoma",
+    descripcion: "El adendum contractual autoriza mantenimiento y modernización para recuperar 672 MW en la primera fase.",
+    contenidoCompleto: "El Ejecutivo formalizó el 12 de agosto un adendum contractual estratégico entre Corpoelec y la empresa argentina IMPSA que autoriza el inicio inmediato de los trabajos de mantenimiento, modernización y adecuación técnica en las centrales hidroeléctricas Macagua y Tocoma, en el estado Bolívar. La primera fase, de 14 a 19 meses, apunta a recuperar 672 MW con la puesta en línea de las dos primeras unidades; el objetivo integral es incorporar 2.640 MW al Sistema Eléctrico Nacional con el montaje de diez unidades de generación. La firma cierra el ciclo de negociaciones reactivado en junio. Fuente: Efecto Cocuyo / teleSUR / Radio Miraflores, 12-08-2026.",
+    imagenUrl: "https://images.unsplash.com/photo-1475688621402-4257c812d6db?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: 11,
+    fecha: "11 Ago 2026",
+    renacer: true,
+    titulo: "Venezuela Renace: tres bancos ya reciben solicitudes del crédito de vivienda con subsidio",
+    descripcion: "Banco de Venezuela, BDT y Banco del Tesoro tramitan los créditos para afectados por los sismos, con respuesta en 5 días hábiles.",
+    contenidoCompleto: "El programa de Crédito Especial Social «Venezuela Renace» quedó operativo en todas las agencias del Banco de Venezuela, el Banco Digital de los Trabajadores y el Banco del Tesoro. Financia viviendas de hasta 100.000 dólares con subsidio estatal del 80% hasta 70.000 dólares y del 50% entre 70.000 y 100.000. Recaudos: planilla, cédula y RIF, constancia de ingresos y los últimos tres estados de cuenta. Los bancos anunciaron respuesta en 5 días hábiles y firma del contrato en menos de 72 horas tras la aprobación. Fuente: prensa nacional, 7-11 ago 2026.",
+    imagenUrl: "https://images.unsplash.com/photo-1554469384-e58fac16e23a?auto=format&fit=crop&w=800&q=80"
+  },
+  {
     id: 8,
     fecha: "04 Ago 2026",
+    renacer: true,
     titulo: "Entregadas 87 viviendas a familias afectadas por el terremoto; la meta es 4.000 antes de fin de año",
     descripcion: "58 apartamentos de cuatro habitaciones y 29 de dos, entregados en Ciudad Tiuna a familias que perdieron su hogar en los sismos del 24 de junio.",
     contenidoCompleto: "El Ejecutivo entregó el 4 de agosto 87 viviendas nuevas a familias afectadas por el doble terremoto del 24 de junio: 58 apartamentos de cuatro habitaciones y 29 de dos habitaciones, en un acto realizado en Ciudad Tiuna, Caracas. En la ceremonia se ratificó el compromiso de entregar al menos 4.000 viviendas adicionales antes de fin de año. Las entregas comenzaron el 20 de julio, cuando se adjudicaron las primeras viviendas a más de 240 familias damnificadas. Fuente: Infobae / Telemundo, 04-08-2026.",
@@ -10,6 +29,7 @@ export const MOCK_NEWS = [
   {
     id: 9,
     fecha: "28 Jun 2026",
+    renacer: true,
     titulo: "CAF crea el Fondo para la Recuperación y Reconstrucción de Venezuela por hasta 200 millones de dólares",
     descripcion: "El banco de desarrollo financia búsqueda y rescate, asistencia humanitaria y rehabilitación de infraestructura crítica tras los sismos.",
     contenidoCompleto: "El banco de desarrollo de América Latina y el Caribe (CAF) anunció la creación del Fondo para la Recuperación y Reconstrucción de Venezuela, con capacidad de hasta 200 millones de dólares. El fondo contempla financiamiento para operaciones de búsqueda y rescate, asistencia humanitaria, suministro de insumos esenciales y rehabilitación de servicios en infraestructuras críticas: agua y saneamiento, energía eléctrica, salud, educación y conectividad. CAF realizó un aporte semilla de 1 millón de dólares y asume los costos de administración, de modo que el 100% de las contribuciones se destina a la atención de la emergencia. Fuente: CAF / Infobae, 28-06-2026.",

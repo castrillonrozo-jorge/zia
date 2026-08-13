@@ -24,7 +24,7 @@ export const Transparency: React.FC<{ selectedNewsId?: string | number | null, o
   // Fuentes: anuncios oficiales y prensa (CAF, Infobae, La Iguana), Jun-Ago 2026.
   const investments = [
     { label: 'GE Vernova — Sistema Eléctrico', dato: '1.000 MW', detalle: 'Memorando · 24 meses · Jun 2026', icon: Icons.Zap },
-    { label: 'IMPSA — Central Tocoma', dato: '672 MW', detalle: 'Reactivación · 19 meses · Jun 2026', icon: Icons.Activity },
+    { label: 'Corpoelec + IMPSA — Macagua y Tocoma', dato: '672 MW', detalle: 'Adendum firmado · 12 Ago 2026', icon: Icons.Activity },
     { label: 'Shell — Campo de gas Loran', dato: 'Fase I', detalle: 'Licencia de exploración · Jun 2026', icon: Icons.TrendingUp },
     { label: 'CAF — Fondo de Reconstrucción', dato: 'Hasta $200M', detalle: 'Creado el 28 Jun 2026', icon: Icons.Landmark },
     { label: 'Viviendas Post-Terremoto', dato: '87 / 4.000', detalle: 'Entregadas · meta fin de año', icon: Icons.Home },
@@ -81,7 +81,7 @@ export const Transparency: React.FC<{ selectedNewsId?: string | number | null, o
                 </div>
                 <div>
                   <p className="text-[9px] font-black uppercase tracking-widest text-white/50">Última Actualización</p>
-                  <p className="text-xs md:text-sm font-black text-white tracking-tight mt-0.5">12 Ago 2026 · Fuentes públicas</p>
+                  <p className="text-xs md:text-sm font-black text-white tracking-tight mt-0.5">13 Ago 2026 · Fuentes públicas</p>
                 </div>
               </div>
             </div>
@@ -95,8 +95,8 @@ export const Transparency: React.FC<{ selectedNewsId?: string | number | null, o
           <div 
             key={i} 
             style={{
-              background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-              boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+              background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+              boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
               borderTop: '1px solid rgba(255, 255, 255, 0.25)',
             }}
             className="p-6 rounded-[2rem] border border-white/10 flex flex-col items-center text-center gap-3 shadow-none relative overflow-hidden"
@@ -126,8 +126,8 @@ export const Transparency: React.FC<{ selectedNewsId?: string | number | null, o
             <div 
               key={idx} 
               style={{
-                background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-                boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+                background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+                boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
                 borderTop: '1px solid rgba(255, 255, 255, 0.25)',
               }}
               className="rounded-[3rem] p-8 border border-white/10 flex flex-col gap-8 group hover:shadow-none transition-all shadow-none active:scale-[0.98] relative overflow-hidden"
@@ -162,7 +162,7 @@ export const Transparency: React.FC<{ selectedNewsId?: string | number | null, o
           <span className="text-[10px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Fuentes Públicas</span>
         </div>
         <p className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.3em] leading-relaxed max-w-[280px] mx-auto">
-          Datos compilados de anuncios oficiales y prensa • Actualizado 12 Ago 2026
+          Datos compilados de anuncios oficiales y prensa • Actualizado 13 Ago 2026
         </p>
       </section>
 
@@ -188,8 +188,8 @@ export const Transparency: React.FC<{ selectedNewsId?: string | number | null, o
                 <div 
                   onClick={() => toggleExpand(news.id)}
                   style={{
-                    background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-                    boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+                    background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+                    boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
                     borderTop: '1px solid rgba(255, 255, 255, 0.25)',
                   }}
                   className={`rounded-2xl overflow-hidden border transition-all cursor-pointer shadow-sm hover:shadow-md ${isTarget && !isExpanded ? 'border-white' : 'border-white/10'} relative overflow-hidden`}

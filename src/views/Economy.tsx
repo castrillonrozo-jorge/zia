@@ -50,8 +50,8 @@ export const Economy: React.FC = () => {
         
         <div 
           style={{
-            background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-            boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+            background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+            boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
             borderTop: '1px solid rgba(255, 255, 255, 0.25)',
           }}
           className="rounded-[3rem] border border-white/10 overflow-hidden shadow-none"
@@ -89,8 +89,8 @@ export const Economy: React.FC = () => {
         <h2 className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.4em] mb-8 px-4">Histórico de Precios (Q1 2026)</h2>
         <div 
           style={{
-            background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-            boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+            background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+            boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
             borderTop: '1px solid rgba(255, 255, 255, 0.25)',
           }}
           className="rounded-[2.5rem] border border-white/10 overflow-hidden shadow-none relative"
@@ -130,8 +130,8 @@ export const Economy: React.FC = () => {
               transition={{ delay: 0.4 + idx * 0.1 }}
               className="p-10 rounded-[3rem] border border-white/10 shadow-none group cursor-pointer active:scale-[0.98] transition-all relative overflow-hidden"
               style={{
-                background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-                boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+                background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+                boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
                 borderTop: '1px solid rgba(255, 255, 255, 0.25)',
               }}
             >
@@ -150,8 +150,8 @@ export const Economy: React.FC = () => {
       <section className="px-6">
         <div 
           style={{
-            background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-            boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+            background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+            boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
             borderTop: '1px solid rgba(255, 255, 255, 0.25)',
           }}
           className="p-12 rounded-[3.5rem] border border-white/10 shadow-none relative overflow-hidden group"

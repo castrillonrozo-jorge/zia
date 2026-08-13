@@ -76,8 +76,8 @@ export const Profile: React.FC<ProfileProps> = ({ balance, onOpenRecharge, onOpe
         <div className="space-y-6">
           <div 
             style={{
-              background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-              boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+              background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+              boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
               borderTop: '1px solid rgba(255, 255, 255, 0.25)',
             }}
             className="p-6 rounded-[2rem] border border-white/10"
@@ -91,8 +91,8 @@ export const Profile: React.FC<ProfileProps> = ({ balance, onOpenRecharge, onOpe
           </div>
           <div 
             style={{
-              background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-              boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+              background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+              boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
               borderTop: '1px solid rgba(255, 255, 255, 0.25)',
             }}
             className="p-6 rounded-[2rem] border border-white/10"
@@ -106,8 +106,8 @@ export const Profile: React.FC<ProfileProps> = ({ balance, onOpenRecharge, onOpe
           </div>
           <div 
             style={{
-              background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-              boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+              background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+              boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
               borderTop: '1px solid rgba(255, 255, 255, 0.25)',
             }}
             className="p-6 rounded-[2rem] border border-white/10"
@@ -179,7 +179,7 @@ export const Profile: React.FC<ProfileProps> = ({ balance, onOpenRecharge, onOpe
         <button 
           onClick={() => setIsCardModalOpen(true)}
           style={{
-            background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
+            background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
             boxShadow: '0 12px 25px rgba(79, 132, 196, 0.25)',
             borderTop: '1px solid rgba(255, 255, 255, 0.25)',
             border: '1px solid rgba(255, 255, 255, 0.15)',
@@ -303,7 +303,7 @@ export const Profile: React.FC<ProfileProps> = ({ balance, onOpenRecharge, onOpe
       <div className="px-8 mt-12">
         <div 
           style={{
-            background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
+            background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
             boxShadow: '0 12px 30px rgba(79, 132, 196, 0.25)',
             borderTop: '1px solid rgba(255, 255, 255, 0.25)',
             border: '1px solid rgba(255,255,255,0.08)',
@@ -329,7 +329,7 @@ export const Profile: React.FC<ProfileProps> = ({ balance, onOpenRecharge, onOpe
       <div className="px-8 mt-12">
         <div 
           style={{
-            background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
+            background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
             boxShadow: '0 12px 30px rgba(79, 132, 196, 0.25)',
             borderTop: '1px solid rgba(255, 255, 255, 0.25)',
             border: '1px solid rgba(255,255,255,0.08)',
@@ -392,8 +392,8 @@ export const Profile: React.FC<ProfileProps> = ({ balance, onOpenRecharge, onOpe
             <div 
               key={tx.id} 
               style={{
-                background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-                boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+                background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+                boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
                 borderTop: '1px solid rgba(255, 255, 255, 0.25)',
                 position: 'relative',
                 overflow: 'hidden',

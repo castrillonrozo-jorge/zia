@@ -52,8 +52,8 @@ export const INTT: React.FC = () => {
           <button 
             onClick={() => document.getElementById('intt-servicios')?.scrollIntoView({ behavior: 'smooth' })}
             style={{
-              background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-              boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+              background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+              boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
               borderTop: '1px solid rgba(255, 255, 255, 0.25)',
             }}
             className="p-8 rounded-[2.5rem] text-[#FFFFFF] flex flex-col justify-between h-44 shadow-none active:scale-95 transition-all border border-white/10"
@@ -66,8 +66,8 @@ export const INTT: React.FC = () => {
           <button 
             onClick={() => setMode('payments')}
             style={{
-              background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-              boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+              background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+              boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
               borderTop: '1px solid rgba(255, 255, 255, 0.25)',
             }}
             className="p-8 rounded-[2.5rem] text-[#FFFFFF] flex flex-col justify-between h-44 shadow-none active:scale-95 transition-all border border-white/10"
@@ -87,8 +87,8 @@ export const INTT: React.FC = () => {
                 key={proc.id}
                 onClick={() => handleProcedureSelect(proc.id)}
                 style={{
-                  background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-                  boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+                  background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+                  boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
                   borderTop: '1px solid rgba(255, 255, 255, 0.25)',
                 }}
                 className="flex items-center gap-5 p-6 border border-white/10 rounded-[2.5rem] shadow-none hover:shadow-none transition-all text-left group active:scale-[0.98] relative overflow-hidden"
@@ -128,8 +128,8 @@ export const INTT: React.FC = () => {
             <div 
               key={pay.id} 
               style={{
-                background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-                boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+                background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+                boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
                 borderTop: '1px solid rgba(255, 255, 255, 0.25)',
               }}
               className="p-8 rounded-[2.5rem] border border-white/10 shadow-none flex items-center justify-between group active:scale-[0.98] transition-all relative overflow-hidden"
@@ -161,8 +161,8 @@ export const INTT: React.FC = () => {
 
         <div 
           style={{
-            background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-            boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+            background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+            boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
             borderTop: '1px solid rgba(255, 255, 255, 0.25)',
           }}
           className="p-10 rounded-[2.5rem] border border-white/10 text-center space-y-6 shadow-none relative overflow-hidden"

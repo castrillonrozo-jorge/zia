@@ -26,7 +26,7 @@ interface RenacerProps {
 export const Renacer: React.FC<RenacerProps> = ({ onNavigate }) => {
   const [detalle, setDetalle] = useState<'ninguno' | 'vivienda' | 'credito'>('ninguno');
 
-  const noticiasRenacer = MOCK_NEWS.filter((n) => n.id === 8 || n.id === 9);
+  const noticiasRenacer = MOCK_NEWS.filter((n: any) => n.renacer);
 
   return (
     <div className="view-transition flex flex-col gap-3 pb-28 pt-2 px-2">

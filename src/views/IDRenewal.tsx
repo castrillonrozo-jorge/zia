@@ -67,8 +67,8 @@ export const IDRenewal: React.FC = () => {
                 onClick={() => setMode('view-id')}
                 className="group relative h-[210px] w-full rounded-[2.5rem] overflow-hidden p-8 text-left transition-all duration-500 active:scale-[0.96] outline-none"
                 style={{
-                  background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-                  boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+                  background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+                  boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
                   borderTop: '1px solid rgba(255, 255, 255, 0.25)',
                 }}
               >
@@ -108,8 +108,8 @@ export const IDRenewal: React.FC = () => {
                 onClick={() => setMode('view-passport')}
                 className="group relative h-[210px] w-full rounded-[2.5rem] overflow-hidden p-8 text-left transition-all duration-500 active:scale-[0.96] outline-none"
                 style={{
-                  background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-                  boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+                  background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+                  boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
                   borderTop: '1px solid rgba(255, 255, 255, 0.25)',
                 }}
               >
@@ -151,8 +151,8 @@ export const IDRenewal: React.FC = () => {
               <button 
                 onClick={() => setMode('id')}
                 style={{
-                  background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-                  boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+                  background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+                  boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
                   borderTop: '1px solid rgba(255, 255, 255, 0.25)',
                 }}
                 className="p-6 rounded-[2.5rem] border border-white/10 text-left space-y-4 active:scale-95 transition-all relative overflow-hidden"
@@ -165,8 +165,8 @@ export const IDRenewal: React.FC = () => {
               <button 
                 onClick={() => setMode('passport')}
                 style={{
-                  background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-                  boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+                  background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+                  boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
                   borderTop: '1px solid rgba(255, 255, 255, 0.25)',
                 }}
                 className="p-6 rounded-[2.5rem] border border-white/10 text-left space-y-4 active:scale-95 transition-all relative overflow-hidden"
@@ -182,8 +182,8 @@ export const IDRenewal: React.FC = () => {
 
         <div 
           style={{
-            background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-            boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+            background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+            boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
             borderTop: '1px solid rgba(255, 255, 255, 0.25)',
           }}
           className="p-6 rounded-[28px] border border-white/10 flex items-center gap-5 relative overflow-hidden"
@@ -377,8 +377,8 @@ export const IDRenewal: React.FC = () => {
         {/* Estado de verificación */}
         <div
           style={{
-            background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-            boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+            background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+            boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
             borderTop: '1px solid rgba(255, 255, 255, 0.25)',
           }}
           className="rounded-[28px] p-5 border border-white/10 space-y-5 relative overflow-hidden mt-4"
@@ -622,8 +622,8 @@ export const IDRenewal: React.FC = () => {
           <div className="grid grid-cols-1 gap-3">
             <div
               style={{
-                background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-                boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+                background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+                boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
                 borderTop: '1px solid rgba(255, 255, 255, 0.25)',
               }}
               className="w-full p-5 rounded-[24px] border border-white/10 flex items-center justify-between group active:scale-[0.98] transition-all relative overflow-hidden"
@@ -642,8 +642,8 @@ export const IDRenewal: React.FC = () => {
 
             <div
               style={{
-                background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-                boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+                background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+                boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
                 borderTop: '1px solid rgba(255, 255, 255, 0.25)',
               }}
               className="w-full p-5 rounded-[24px] border border-white/10 flex items-center justify-between group active:scale-[0.98] transition-all relative overflow-hidden"
@@ -662,8 +662,8 @@ export const IDRenewal: React.FC = () => {
 
             <div
               style={{
-                background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-                boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+                background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+                boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
                 borderTop: '1px solid rgba(255, 255, 255, 0.25)',
               }}
               className="w-full p-5 rounded-[24px] border border-white/10 flex items-center justify-between group active:scale-[0.98] transition-all relative overflow-hidden"

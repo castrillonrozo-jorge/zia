@@ -41,8 +41,8 @@ export const Seniat: React.FC = () => {
             transition={{ delay: idx * 0.1 }}
             key={payment.id} 
             style={{
-              background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-              boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+              background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+              boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
               borderTop: '1px solid rgba(255, 255, 255, 0.25)',
             }}
             className="p-6 md:p-8 rounded-[3rem] flex items-center justify-between group active:scale-[0.98] transition-all border border-white/10 shadow-none relative overflow-hidden"
@@ -79,8 +79,8 @@ export const Seniat: React.FC = () => {
 
       <div 
         style={{
-          background: 'linear-gradient(135deg, #4F84C4 0%, #254A75 100%)',
-          boxShadow: '0 12px 30px rgba(79, 132, 196, 0.28)',
+          background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+          boxShadow: '0 14px 34px rgba(47, 94, 158, 0.32), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
           borderTop: '1px solid rgba(255, 255, 255, 0.25)',
         }}
         className="rounded-[3.5rem] p-12 border border-white/10 flex flex-col items-center text-center gap-8 mx-2 shadow-none relative overflow-hidden"
