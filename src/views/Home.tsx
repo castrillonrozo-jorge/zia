@@ -108,7 +108,7 @@ const NewsCard = React.memo(({ item, onNavigate }: { item: any, onNavigate: (vie
       <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/35 to-black/5"></div>
       <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end">
         <div className="flex items-center gap-2 mb-3.5">
-          <span className="inline-block bg-[#4F84C4] text-white text-[9.5px] font-black uppercase tracking-[0.18em] px-3 py-1.5 rounded-full w-fit shadow-[0_2px_10px_rgba(79,132,196,0.5)]">
+          <span className="inline-block text-white text-[9.5px] font-black uppercase tracking-[0.18em] px-3 py-1.5 rounded-full w-fit" style={{ background: '#CC0000', boxShadow: '0 2px 12px rgba(204,0,0,0.55)' }}>
             Nacional
           </span>
           {item.fecha && (
@@ -341,7 +341,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       
 
       {/* News Carousel */}
-      <section data-tour="noticias" className="mt-8 mb-6">
+      <section data-tour="noticias" className="mt-8 mb-6 bg-white dark:bg-transparent">
         <h3 className="text-[14px] font-black text-slate-900 dark:text-white uppercase tracking-wider mb-4 px-5">Últimas Noticias</h3>
         <div className="flex overflow-x-auto gap-4 snap-x snap-mandatory no-scrollbar px-5 pb-4">
           {MOCK_NEWS.map(item => (

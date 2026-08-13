@@ -6,7 +6,7 @@ export const MOCK_NEWS = [
     titulo: "Corpoelec e IMPSA firman el arranque inmediato de las obras en Macagua y Tocoma",
     descripcion: "El adendum contractual autoriza mantenimiento y modernización para recuperar 672 MW en la primera fase.",
     contenidoCompleto: "El Ejecutivo formalizó el 12 de agosto un adendum contractual estratégico entre Corpoelec y la empresa argentina IMPSA que autoriza el inicio inmediato de los trabajos de mantenimiento, modernización y adecuación técnica en las centrales hidroeléctricas Macagua y Tocoma, en el estado Bolívar. La primera fase, de 14 a 19 meses, apunta a recuperar 672 MW con la puesta en línea de las dos primeras unidades; el objetivo integral es incorporar 2.640 MW al Sistema Eléctrico Nacional con el montaje de diez unidades de generación. La firma cierra el ciclo de negociaciones reactivado en junio. Fuente: Efecto Cocuyo / teleSUR / Radio Miraflores, 12-08-2026.",
-    imagenUrl: "https://images.unsplash.com/photo-1470115636492-6d2b56f9146d?auto=format&fit=crop&w=1200&q=80"
+    imagenUrl: "https://images.unsplash.com/photo-1508615039623-a25605d2b022?auto=format&fit=crop&w=1200&q=80"
   },
   {
     id: 11,
