@@ -254,9 +254,17 @@ export async function chatRoute(req: Request, res: Response) {
           })),
         );
 
+        // El turno del modelo debe devolverse TAL CUAL lo envió: sus parts
+        // incluyen la thought_signature que Gemini 2.5+ exige recibir de
+        // vuelta con cada functionCall. Reconstruirlo a mano la pierde y
+        // la API responde 400.
+        const turnoModelo =
+          response.candidates?.[0]?.content ??
+          { role: 'model', parts: llamadas.map((c: any) => ({ functionCall: c })) };
+
         const conversacion = [
           ...contents,
-          { role: 'model', parts: llamadas.map((c: any) => ({ functionCall: c })) },
+          turnoModelo,
           { role: 'user', parts: resultados },
         ];
 
