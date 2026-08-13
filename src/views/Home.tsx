@@ -90,19 +90,39 @@ const ServiceCard = React.memo(({ service, onNavigate }: { service: { id: string
 });
 
 const NewsCard = React.memo(({ item, onNavigate }: { item: any, onNavigate: (view: AppView, params?: { newsId?: string | number }) => void }) => {
+  const [imagenRota, setImagenRota] = useState(false);
   return (
-    <div 
-      className="flex-none w-[85%] h-[320px] rounded-[24px] relative overflow-hidden snap-center cursor-pointer shadow-md group border border-black/5 dark:border-white/10 bg-slate-900 active:scale-[0.98] transition-all duration-150"
+    <div
+      className="flex-none w-[92%] h-[440px] rounded-[28px] relative overflow-hidden snap-center cursor-pointer shadow-[0_18px_44px_rgba(10,25,50,0.35)] group border border-black/5 dark:border-white/10 active:scale-[0.985] transition-all duration-150"
+      style={{ background: 'linear-gradient(160deg, #1E3A5F 0%, #0D1B2E 100%)' }}
       onClick={() => onNavigate('transparency', { newsId: item.id })}
     >
-      <img src={item.imagenUrl} alt={item.titulo} className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700 ease-out" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
-      <div className="absolute inset-x-0 bottom-0 p-5 flex flex-col justify-end">
-        <span className="inline-block bg-[#4F84C4] text-white text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full mb-3 w-fit">
-          Nacional
-        </span>
-        <h4 className="text-white font-bold text-[18px] leading-[1.2] mb-2 drop-shadow-lg pr-4">{item.titulo}</h4>
-        <p className="text-white/80 text-[12px] leading-relaxed line-clamp-2 font-medium">{item.descripcion}</p>
+      {!imagenRota && (
+        <img
+          src={item.imagenUrl}
+          alt={item.titulo}
+          onError={() => setImagenRota(true)}
+          className="absolute inset-0 w-full h-full object-cover opacity-95 group-hover:scale-105 transition-transform duration-700 ease-out"
+        />
+      )}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/35 to-black/5"></div>
+      <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end">
+        <div className="flex items-center gap-2 mb-3.5">
+          <span className="inline-block bg-[#4F84C4] text-white text-[9.5px] font-black uppercase tracking-[0.18em] px-3 py-1.5 rounded-full w-fit shadow-[0_2px_10px_rgba(79,132,196,0.5)]">
+            Nacional
+          </span>
+          {item.fecha && (
+            <span className="inline-block bg-white/15 backdrop-blur-md border border-white/20 text-white text-[9.5px] font-black uppercase tracking-[0.18em] px-3 py-1.5 rounded-full w-fit">
+              {item.fecha}
+            </span>
+          )}
+        </div>
+        <h4 className="text-white font-black text-[23px] leading-[1.14] mb-2.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] pr-2 tracking-tight">{item.titulo}</h4>
+        <p className="text-white/85 text-[13px] leading-relaxed line-clamp-2 font-medium pr-4">{item.descripcion}</p>
+        <div className="flex items-center gap-1.5 mt-3.5 text-white/60">
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Leer la nota completa</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 5l7 7-7 7" /></svg>
+        </div>
       </div>
     </div>
   );
