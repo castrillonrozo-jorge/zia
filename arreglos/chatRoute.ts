@@ -234,11 +234,35 @@ export async function chatRoute(req: Request, res: Response) {
       const llamadas = response.functionCalls ?? [];
 
       // navigateApp la resuelve el cliente: se devuelve como acción.
+      // El modelo habla en su vocabulario (saime, pagos, salud…); aquí se
+      // traduce a los ids reales de AppView. Y siempre va un texto: si el
+      // modelo solo emitió la orden de navegar, el cliente no tendría nada
+      // que mostrar y la conversación parecería muerta.
       const nav = llamadas.find((c: any) => c.name === 'navigateApp');
       if (nav) {
+        const VISTAS: Record<string, string> = {
+          home: 'home', inicio: 'home',
+          saime: 'id-renewal', 'id-renewal': 'id-renewal', cedula: 'id-renewal', 'cédula': 'id-renewal', pasaporte: 'id-renewal', identidad: 'id-renewal',
+          saren: 'business-reg', 'business-reg': 'business-reg', registro: 'business-reg',
+          intt: 'intt', seniat: 'seniat',
+          ivss: 'employment', empleo: 'employment', employment: 'employment',
+          payments: 'payments', pagos: 'payments',
+          wallet: 'wallet', billetera: 'wallet',
+          security: 'security', proteccion: 'security', 'protección': 'security', seguridad: 'security',
+          health: 'health', salud: 'health',
+          renacer: 'renacer', vivienda: 'renacer',
+          procedures: 'my-procedures', 'my-procedures': 'my-procedures', tramites: 'my-procedures', 'trámites': 'my-procedures',
+          profile: 'profile', perfil: 'profile',
+          economy: 'economy', economia: 'economy', 'economía': 'economy',
+          transparency: 'transparency', transparencia: 'transparency',
+        };
+        const solicitada = String(nav.args?.view ?? '').toLowerCase().trim();
+        const vista = VISTAS[solicitada] ?? 'home';
         return res.json({
-          text: response.text ?? '',
-          action: { type: 'navigate', view: nav.args?.view },
+          text:
+            response.text ||
+            'Listo, te llevo a esa sección ahora. ¿Quieres que te explique los requisitos o los pasos a seguir?',
+          action: { type: 'navigate', view: vista },
           sources: [],
         });
       }
@@ -276,7 +300,9 @@ export async function chatRoute(req: Request, res: Response) {
       }
 
       return res.json({
-        text: response.text ?? '',
+        text:
+          response.text ||
+          'No obtuve una respuesta con contenido esta vez. ¿Puedes reformular la pregunta?',
         action: null,
         sources: extraerFuentes(response),
       });

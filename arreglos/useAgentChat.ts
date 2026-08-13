@@ -87,6 +87,9 @@ export function useAgentChat({
             ...prev,
             { role: 'ai', text: data.text, sources: data.sources ?? [] },
           ]);
+        } else if (!data.action) {
+          // Respuesta 200 sin texto ni acción: que nunca parezca que murió.
+          setError('El asistente respondió sin contenido. Intenta reformular.');
         }
 
         if (data.action?.type === 'navigate' && data.action.view) {
