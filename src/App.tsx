@@ -178,7 +178,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className={`max-w-md mx-auto min-h-screen relative flex flex-col transition-all duration-500 shadow-none md:my-8 md:border md:border-black/5 overflow-hidden ${isDarkMode ? 'bg-[#05070A] text-slate-100' : 'bg-[#FAFAFA] text-slate-900'}`}>
+    <div className={`max-w-md mx-auto min-h-screen relative flex flex-col transition-all duration-500 shadow-none md:my-8 md:border md:border-black/5 overflow-hidden ${isDarkMode ? 'bg-[#05070A] text-slate-100' : 'bg-white text-slate-900'}`}>
       <GlobalBackground />
       <DynamicIsland 
         message={dynamicIsland?.message || null} 
@@ -258,7 +258,7 @@ const App: React.FC = () => {
       )}
 
       {/* Fade-out Mask */}
-      <div className="fixed bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#F2F2F7] dark:from-[#1C1C1E] via-[#F2F2F7]/80 dark:via-[#1C1C1E]/80 to-transparent pointer-events-none z-[90]" />
+      <div className="fixed bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white dark:from-[#1C1C1E] via-white/80 dark:via-[#1C1C1E]/80 to-transparent pointer-events-none z-[90]" />
 
       <BottomNav currentView={currentView} setView={handleNavigate} />
     </div>

@@ -44,7 +44,7 @@
 
 @layer base {
   body {
-    @apply bg-[#FAFAFA] dark:bg-[#05070A] antialiased selection:bg-blue-500/30 transition-colors duration-300;
+    @apply bg-white dark:bg-[#05070A] antialiased selection:bg-blue-500/30 transition-colors duration-300;
   }
 }
 

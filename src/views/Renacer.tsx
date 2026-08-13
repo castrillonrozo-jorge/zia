@@ -154,6 +154,29 @@ export const Renacer: React.FC<RenacerProps> = ({ onNavigate }) => {
         )}
       </div>
 
+      {/* Renace Venezuela — programa nacional para jóvenes */}
+      <div className="bg-white dark:bg-[#0D1117] rounded-[22px] p-4 shadow-[0_2px_8px_rgba(20,22,28,0.06)] border border-black/5 dark:border-white/10 flex flex-col gap-3">
+        <div className="flex items-center gap-3">
+          <div className="w-11 h-11 rounded-[14px] flex items-center justify-center shrink-0" style={{ background: 'linear-gradient(140deg, #F7C325 0%, #E8A317 100%)', boxShadow: '0 6px 16px rgba(232,163,23,0.35)' }}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="7" r="3.2" /><path d="M5.5 21c.5-4 3-6.2 6.5-6.2s6 2.2 6.5 6.2" /><path d="M12 2v1.5M18.5 4.5l-1 1M5.5 4.5l1 1" /></svg>
+          </div>
+          <div className="min-w-0">
+            <span className="text-[16px] font-bold text-slate-900 dark:text-white block leading-tight">Renace Venezuela</span>
+            <span className="text-[12.5px] text-slate-500 dark:text-slate-400">Programa nacional para jóvenes</span>
+          </div>
+        </div>
+        <button
+          onClick={() => window.open('https://renacevenezuela.gob.ve', '_blank')}
+          className="w-full py-3.5 rounded-2xl text-white font-black text-[11px] uppercase tracking-[0.2em] active:scale-[0.98] transition-all"
+          style={{
+            background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+            boxShadow: '0 10px 24px rgba(47, 94, 158, 0.30), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
+          }}
+        >
+          Conocer el programa · renacevenezuela.gob.ve
+        </button>
+      </div>
+
       {/* Noticias, al final: primero lo que puedes hacer, después lo que puedes leer */}
       <div className="flex flex-col gap-2 pt-1">
         <div className="flex items-baseline justify-between px-1">
