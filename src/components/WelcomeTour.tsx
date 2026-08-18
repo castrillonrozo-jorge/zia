@@ -1,13 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 /**
  * Tour de bienvenida (disenos/Tour de bienvenida.dc.html).
  *
  * Lenguaje visual tipo Dubái: velo claro que apaga la pantalla sin
  * ensuciarla, anillo turquesa que ilumina el elemento real (la sombra se
- * proyecta hacia afuera: lo resaltado queda nítido), y tarjetón azul
- * traslúcido con el texto centrado. Seis pasos como máximo, «Saltar»
- * siempre visible y «Comenzar» en el último.
+ * proyecta hacia afuera: lo resaltado queda nítido), y tarjetón blanco
+ * de vidrio con borde fino y acento dorado, con el texto centrado. La
+ * tarjeta se posiciona midiendo su alto real para no montarse nunca
+ * sobre la barra de «Saltar». «Saltar» siempre visible y «Comenzar» en
+ * el último paso.
  *
  * Cada paso apunta a un elemento real vía [data-tour="..."]; si el
  * elemento no existe todavía (p. ej. Renacer), el paso se omite solo.
@@ -101,6 +103,8 @@ export const WelcomeTour: React.FC<WelcomeTourProps> = ({ onFinish }) => {
 
   const [indice, setIndice] = useState(0);
   const [rect, setRect] = useState<DOMRect | null>(null);
+  const tarjetaRef = useRef<HTMLDivElement>(null);
+  const [altoTarjeta, setAltoTarjeta] = useState(200);
 
   const medir = useCallback(() => {
     const paso = pasos?.[indice];
@@ -124,6 +128,11 @@ export const WelcomeTour: React.FC<WelcomeTourProps> = ({ onFinish }) => {
     };
   }, [indice, pasos, medir]);
 
+  // Alto real de la tarjeta, para posicionarla sin invadir la barra.
+  useEffect(() => {
+    if (tarjetaRef.current) setAltoTarjeta(tarjetaRef.current.offsetHeight);
+  }, [indice, rect, pasos]);
+
   if (!pasos) return null;
 
   const paso = pasos[indice];
@@ -134,8 +143,13 @@ export const WelcomeTour: React.FC<WelcomeTourProps> = ({ onFinish }) => {
   const w = rect ? rect.width + paso.margen * 2 : 0;
   const h = rect ? rect.height + paso.margen * 2 : 0;
 
-  // El tarjetón va debajo del hueco si este queda en la mitad superior.
-  const tarjetaAbajo = rect ? y + h / 2 < window.innerHeight * 0.5 : true;
+  // La tarjeta va al lado del hueco con más espacio, y se sujeta para no
+  // salirse por arriba ni invadir la zona de la barra de control.
+  const ZONA_BARRA = 176;
+  const tarjetaAbajo = rect ? window.innerHeight - (y + h) >= y : true;
+  let tarjetaTop = tarjetaAbajo ? y + h + 20 : y - 20 - altoTarjeta;
+  tarjetaTop = Math.min(tarjetaTop, window.innerHeight - ZONA_BARRA - altoTarjeta);
+  tarjetaTop = Math.max(12, tarjetaTop);
 
   return (
     <div className="fixed inset-0 z-[300]" style={{ pointerEvents: 'none' }}>
@@ -156,35 +170,40 @@ export const WelcomeTour: React.FC<WelcomeTourProps> = ({ onFinish }) => {
         />
       )}
 
-      {/* Tarjetón azul traslúcido */}
+      {/* Tarjeta blanca de vidrio con borde fino y acento dorado */}
       {rect && (
         <div
+          ref={tarjetaRef}
           style={{
             position: 'fixed',
             left: 20,
             right: 20,
-            ...(tarjetaAbajo
-              ? { top: Math.min(y + h + 24, window.innerHeight - 300) }
-              : { bottom: window.innerHeight - y + 24 }),
-            borderRadius: 16,
-            padding: '22px 24px',
-            background: 'rgba(37,93,166,0.86)',
-            backdropFilter: 'blur(5px)',
-            WebkitBackdropFilter: 'blur(5px)',
+            top: tarjetaTop,
+            borderRadius: 22,
+            padding: '20px 22px 22px',
+            background: 'rgba(255,255,255,0.93)',
+            backdropFilter: 'blur(14px)',
+            WebkitBackdropFilter: 'blur(14px)',
+            border: '1px solid rgba(30,52,84,0.10)',
+            boxShadow: '0 20px 48px rgba(30,52,84,0.18), inset 0 1px 0 rgba(255,255,255,0.95), inset 0 0 0 1px rgba(212,175,55,0.12)',
             fontFamily: 'Rubik, Geist, sans-serif',
             textAlign: 'center',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: 9,
+            gap: 8,
             transition: 'all 320ms cubic-bezier(0.4,0,0.2,1)',
           }}
           className="max-w-[430px] mx-auto"
         >
-          <span style={{ fontSize: 22, fontWeight: 600, color: '#FFFFFF', letterSpacing: '-0.005em' }}>
+          <span style={{ fontSize: 10.5, fontWeight: 800, letterSpacing: '0.22em', color: '#B08A2E', textTransform: 'uppercase' }}>
+            Paso {indice + 1} de {pasos.length}
+          </span>
+          <span style={{ width: 34, height: 2, borderRadius: 1, background: 'linear-gradient(90deg, transparent, #D4AF37, transparent)' }} />
+          <span style={{ fontSize: 20, fontWeight: 700, color: '#14213A', letterSpacing: '-0.01em' }}>
             {paso.titulo}
           </span>
-          <span style={{ fontSize: 16, lineHeight: 1.46, color: '#FFFFFF' }}>{paso.texto}</span>
+          <span style={{ fontSize: 14.5, lineHeight: 1.5, color: '#44536E' }}>{paso.texto}</span>
         </div>
       )}
 
