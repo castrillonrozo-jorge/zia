@@ -134,8 +134,12 @@ const App: React.FC = () => {
   const renderView = () => {
     switch (currentView) {
       case 'home': return (
-        <Home 
-          onNavigate={handleNavigate} 
+        <Home
+          onNavigate={handleNavigate}
+          balance={balance}
+          onOpenRecharge={() => setIsRechargeOpen(true)}
+          onOpenTransfer={() => setIsTransferOpen(true)}
+          onOpenSearch={() => setIsSearchOpen(true)}
         />
       );
       case 'id-renewal': return <IDRenewal />;
@@ -154,7 +158,7 @@ const App: React.FC = () => {
       case 'economy': return <Economy />;
       case 'national-pride': return <NationalPride />;
       case 'security': return <SecurityView />;
-      default: return <Home onNavigate={handleNavigate} />;
+      default: return <Home onNavigate={handleNavigate} balance={balance} onOpenRecharge={() => setIsRechargeOpen(true)} onOpenTransfer={() => setIsTransferOpen(true)} onOpenSearch={() => setIsSearchOpen(true)} />;
     }
   };
 
