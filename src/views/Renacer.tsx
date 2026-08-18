@@ -169,7 +169,7 @@ export const Renacer: React.FC<RenacerProps> = ({ onNavigate }) => {
           onClick={() => window.open('https://renacevenezuela.gob.ve', '_blank')}
           className="w-full py-3.5 rounded-2xl text-white font-black text-[11px] uppercase tracking-[0.2em] active:scale-[0.98] transition-all"
           style={{
-            background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+            background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), radial-gradient(circle at 82% 100%, rgba(25,198,181,0.50) 0%, transparent 55%), radial-gradient(circle at 12% 90%, rgba(20,100,160,0.85) 0%, transparent 62%), radial-gradient(circle at 78% 12%, rgba(120,80,220,0.30) 0%, transparent 55%), linear-gradient(135deg, #0E2A52 0%, #1464A0 100%)',
             boxShadow: '0 10px 24px rgba(47, 94, 158, 0.30), inset 0 1px 1px rgba(255, 255, 255, 0.28)',
           }}
         >

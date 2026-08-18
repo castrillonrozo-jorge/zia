@@ -17,7 +17,7 @@ const ServiceCard = React.memo(({ service, onNavigate }: { service: { id: string
       onClick={() => onNavigate(service.id as AppView)}
       data-tour={service.id === 'payments' ? 'pagos' : service.id === 'renacer' ? 'renacer' : undefined}
       style={{
-        background: 'linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+        background: 'radial-gradient(circle at 82% 100%, rgba(25,198,181,0.50) 0%, transparent 55%), radial-gradient(circle at 12% 90%, rgba(20,100,160,0.85) 0%, transparent 62%), radial-gradient(circle at 78% 12%, rgba(120,80,220,0.30) 0%, transparent 55%), linear-gradient(135deg, #0E2A52 0%, #1464A0 100%)',
         aspectRatio: '1/1',
         position: 'relative',
         borderRadius: '28px',
@@ -29,7 +29,7 @@ const ServiceCard = React.memo(({ service, onNavigate }: { service: { id: string
       {/* Aurora + Noise background layer */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden rounded-[28px]">
         {/* Subtle Aurora mesh */}
-        <div className="absolute inset-[-50%] bg-[radial-gradient(ellipse_at_50%_0%,rgba(79,132,196,0.6)_0%,transparent_50%),radial-gradient(ellipse_at_0%_100%,rgba(58,105,163,0.6)_0%,transparent_50%)] animate-[spin_30s_linear_infinite] mix-blend-screen" />
+        <div className="absolute inset-[-50%] bg-[radial-gradient(ellipse_at_50%_0%,rgba(25,198,181,0.35)_0%,transparent_50%),radial-gradient(ellipse_at_0%_100%,rgba(20,100,160,0.6)_0%,transparent_50%)] animate-[spin_30s_linear_infinite] mix-blend-screen" />
         {/* Noise layer */}
         <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")" }} />
       </div>
@@ -252,7 +252,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           <button
             onClick={toggleServices}
             style={{
-              background: 'linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+              background: 'radial-gradient(circle at 82% 100%, rgba(25,198,181,0.50) 0%, transparent 55%), radial-gradient(circle at 12% 90%, rgba(20,100,160,0.85) 0%, transparent 62%), radial-gradient(circle at 78% 12%, rgba(120,80,220,0.30) 0%, transparent 55%), linear-gradient(135deg, #0E2A52 0%, #1464A0 100%)',
               aspectRatio: '1/1',
               position: 'relative',
               overflow: 'hidden',

@@ -27,7 +27,7 @@ export const Wallet: React.FC<WalletProps> = ({ balance, onOpenRecharge, onOpenT
 
       <div className="px-4">
         <div style={{
-          background: 'linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+          background: 'radial-gradient(circle at 82% 100%, rgba(25,198,181,0.50) 0%, transparent 55%), radial-gradient(circle at 12% 90%, rgba(20,100,160,0.85) 0%, transparent 62%), radial-gradient(circle at 78% 12%, rgba(120,80,220,0.30) 0%, transparent 55%), linear-gradient(135deg, #0E2A52 0%, #1464A0 100%)',
           boxShadow: 'none',
           border: '1px solid rgba(255, 255, 255, 0.2)'
         }} className="rounded-[2.5rem] p-8 text-white relative overflow-hidden group">
@@ -78,7 +78,7 @@ export const Wallet: React.FC<WalletProps> = ({ balance, onOpenRecharge, onOpenT
         <h3 className="text-[10px] font-black tracking-[0.3em] uppercase text-slate-500 mb-6">Herramientas</h3>
         <div className="grid grid-cols-2 gap-4">
           <div style={{
-            background: 'linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+            background: 'radial-gradient(circle at 82% 100%, rgba(25,198,181,0.50) 0%, transparent 55%), radial-gradient(circle at 12% 90%, rgba(20,100,160,0.85) 0%, transparent 62%), radial-gradient(circle at 78% 12%, rgba(120,80,220,0.30) 0%, transparent 55%), linear-gradient(135deg, #0E2A52 0%, #1464A0 100%)',
             boxShadow: 'none',
             border: '1px solid rgba(255,255,255,0.12)'
           }} className="p-5 rounded-[2rem] flex flex-col items-center justify-center text-center gap-3">
@@ -88,7 +88,7 @@ export const Wallet: React.FC<WalletProps> = ({ balance, onOpenRecharge, onOpenT
             <p className="text-[9px] font-black uppercase tracking-widest text-white">Cripto / P2P</p>
           </div>
           <div style={{
-            background: 'linear-gradient(135deg, #3A69A3 0%, #4F84C4 100%)',
+            background: 'radial-gradient(circle at 82% 100%, rgba(25,198,181,0.50) 0%, transparent 55%), radial-gradient(circle at 12% 90%, rgba(20,100,160,0.85) 0%, transparent 62%), radial-gradient(circle at 78% 12%, rgba(120,80,220,0.30) 0%, transparent 55%), linear-gradient(135deg, #0E2A52 0%, #1464A0 100%)',
             boxShadow: 'none',
             border: '1px solid rgba(255,255,255,0.12)'
           }} className="p-5 rounded-[2rem] flex flex-col items-center justify-center text-center gap-3">
