@@ -260,10 +260,46 @@ export async function chatRoute(req: Request, res: Response) {
         };
         const solicitada = String(nav.args?.view ?? '').toLowerCase().trim();
         const vista = VISTAS[solicitada] ?? 'home';
+
+        // Si el modelo navegó sin redactar, se le devuelve el resultado de
+        // la herramienta y se le pide el texto SIN herramientas (así no
+        // puede volver a navegar): el usuario recibe la explicación
+        // completa junto con la navegación, nunca una muletilla en bucle.
+        let textoNav = (response.text ?? '').trim();
+        if (!textoNav) {
+          try {
+            const turnoNav =
+              response.candidates?.[0]?.content ??
+              { role: 'model', parts: [{ functionCall: nav }] };
+            const seguimiento: any = await ai.models.generateContent({
+              model,
+              contents: [
+                ...contents,
+                turnoNav,
+                {
+                  role: 'user',
+                  parts: [{
+                    functionResponse: {
+                      name: 'navigateApp',
+                      response: {
+                        ok: true,
+                        vista,
+                        instruccion:
+                          'Navegación realizada. Redacta ahora la respuesta completa para el usuario: qué encontrará en la sección y los requisitos o pasos del trámite. No llames más herramientas.',
+                      },
+                    },
+                  }],
+                },
+              ],
+              config: { systemInstruction: SYSTEM_INSTRUCTION },
+            });
+            textoNav = (seguimiento?.text ?? '').trim();
+          } catch {
+            // cae al texto de respaldo
+          }
+        }
         return res.json({
-          text:
-            response.text ||
-            'Listo, te llevo a esa sección ahora. ¿Quieres que te explique los requisitos o los pasos a seguir?',
+          text: textoNav || 'Listo, ya estás en la sección. Dime qué parte del trámite te explico.',
           action: { type: 'navigate', view: vista },
           sources: [],
         });
