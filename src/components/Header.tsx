@@ -8,6 +8,7 @@ interface HeaderProps {
   showBack?: boolean;
   onNotifications?: () => void;
   onOpenCalculator?: () => void;
+  onOpenAI?: () => void;
   onSearch?: () => void;
   isDarkMode: boolean;
   toggleDarkMode: () => void;
@@ -19,6 +20,7 @@ export const Header: React.FC<HeaderProps> = ({
   showBack, 
   onNotifications,
   onOpenCalculator,
+  onOpenAI,
   onSearch,
   isDarkMode,
   toggleDarkMode
@@ -55,6 +57,24 @@ export const Header: React.FC<HeaderProps> = ({
             ) : <span className="text-slate-900 dark:text-slate-100 block max-w-[96px] truncate">{title}</span>}
           </h1>
         </div>
+      </div>
+
+      {/* Botón de IA: centrado exacto en la barra, verde WhatsApp */}
+      <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center">
+        <button
+          onClick={onOpenAI}
+          data-tour="ia"
+          aria-label="Abrir asistente de IA"
+          style={{
+            background: '#25D366',
+            boxShadow: '0 4px 14px rgba(37, 211, 102, 0.45), inset 0 1px 1px rgba(255,255,255,0.35)',
+            border: '1px solid rgba(0, 0, 0, 0.08)',
+          }}
+          className="w-11 h-11 rounded-full flex items-center justify-center active:scale-95 transition-transform"
+          title="VenIA - Asistente de IA"
+        >
+          <span className="text-[14px] font-black tracking-[0.02em] text-black">IA</span>
+        </button>
       </div>
 
       <div data-tour="buscar" className="flex items-center h-10 bg-slate-100 dark:bg-white/5 rounded-full p-1 border border-black/5 dark:border-white/5">

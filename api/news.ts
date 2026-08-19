@@ -122,7 +122,7 @@ function parsearAtom(xml: string, fuente: string): NoticiaViva[] {
 
 async function leerFuente(fuente: { nombre: string; url: string }): Promise<NoticiaViva[]> {
   const controlador = new AbortController();
-  const timeout = setTimeout(() => controlador.abort(), 12000);
+  const timeout = setTimeout(() => controlador.abort(), 6000);
   try {
     const res = await fetch(fuente.url, {
       signal: controlador.signal,
@@ -149,14 +149,16 @@ async function leerFuente(fuente: { nombre: string; url: string }): Promise<Noti
 }
 
 async function obtenerNoticias(): Promise<{ fuente: string; noticias: NoticiaViva[] }> {
+  // Todas las fuentes a la vez (6 s de tope cada una) y se elige la
+  // primera del orden de prioridad que haya respondido con noticias.
+  const intentos = await Promise.allSettled(FUENTES.map((f) => leerFuente(f)));
   const errores: string[] = [];
-  for (const fuente of FUENTES) {
-    try {
-      const noticias = await leerFuente(fuente);
-      return { fuente: fuente.nombre, noticias };
-    } catch (err: any) {
-      errores.push(`${fuente.url}: ${err?.message ?? String(err)}`);
+  for (let i = 0; i < FUENTES.length; i++) {
+    const intento = intentos[i];
+    if (intento.status === 'fulfilled') {
+      return { fuente: FUENTES[i].nombre, noticias: intento.value };
     }
+    errores.push(`${FUENTES[i].url}: ${intento.reason?.message ?? String(intento.reason)}`);
   }
   throw new Error(errores.join(' | '));
 }

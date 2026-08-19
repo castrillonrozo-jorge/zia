@@ -197,6 +197,7 @@ const App: React.FC = () => {
         }} 
         onNotifications={() => handleNavigate('notifications')}
         onOpenCalculator={() => setIsCalculatorOpen(true)}
+        onOpenAI={() => setIsAIChatOpen(true)}
         onSearch={() => setIsSearchOpen(true)}
         isDarkMode={isDarkMode}
         toggleDarkMode={() => setIsDarkMode(!isDarkMode)}
@@ -256,24 +257,7 @@ const App: React.FC = () => {
         <WelcomeTour onFinish={() => setShowTour(false)} />
       )}
 
-      {/* Botón flotante de IA: anillo de gradiente girando, letras IA */}
-      {!isAIChatOpen && (
-        <button
-          onClick={() => setIsAIChatOpen(true)}
-          data-tour="ia"
-          aria-label="Abrir asistente de IA"
-          className="fixed bottom-[104px] z-[95] w-[60px] h-[60px] active:scale-95 transition-transform duration-150"
-          style={{ right: 'max(calc(50vw - 224px + 20px), 20px)' }}
-        >
-          <span className="absolute inset-[-2.5px] rounded-full animate-anillo-ia" style={{ background: 'conic-gradient(from 0deg, #2F62A8, #19C6B5, #7850DC, #2F62A8)' }} />
-          <span className="absolute inset-0 rounded-full bg-white dark:bg-[#0D1117] flex items-center justify-center shadow-[0_8px_22px_rgba(20,33,58,0.18)]">
-            <span className="text-[15px] font-black tracking-[0.02em] text-[#2F62A8] dark:text-[#7FA9DC]">IA</span>
-          </span>
-        </button>
-      )}
 
-      {/* Fade-out Mask */}
-      <div className="fixed bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white dark:from-[#1C1C1E] via-white/80 dark:via-[#1C1C1E]/80 to-transparent pointer-events-none z-[90]" />
 
       <BottomNav currentView={currentView} setView={handleNavigate} />
     </div>

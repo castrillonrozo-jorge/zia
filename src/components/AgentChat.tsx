@@ -355,7 +355,7 @@ export const AgentChat: React.FC<AgentChatProps> = ({ isOpen, onClose, userName,
             />
             <button
               onClick={() => handleSendAiMessage()}
-              className={`w-11 h-11 rounded-xl bg-[#4F84C4] hover:bg-[#4F84C4] text-white flex items-center justify-center hover:scale-95 transition-all chip-aurora${['','-morado','-verde','-ambar','-rojo','-teal','-rosa','-lima'][idx % 8]}`}
+              className="w-11 h-11 rounded-xl bg-[#4F84C4] hover:bg-[#4F84C4] text-white flex items-center justify-center hover:scale-95 transition-all chip-aurora"
             >
               <Icons.Send size={18} />
             </button>
