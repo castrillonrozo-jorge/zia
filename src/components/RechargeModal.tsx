@@ -56,7 +56,7 @@ export const RechargeModal: React.FC<RechargeModalProps> = ({ isOpen, onClose, o
                   <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Cifrado de Grado Militar</p>
                 </div>
               </div>
-              <button onClick={onClose} className="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-400 hover:text-black dark:hover:text-white transition-colors chip-aurora">
+              <button onClick={onClose} className="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-400 hover:text-black dark:hover:text-white transition-colors chip-aurora-morado">
                 <Icons.X size={18} strokeWidth={2.5} />
               </button>
             </div>
@@ -101,7 +101,7 @@ export const RechargeModal: React.FC<RechargeModalProps> = ({ isOpen, onClose, o
               <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
                 <div className="bg-slate-50 dark:bg-white/5 p-6 rounded-3xl border border-slate-100 dark:border-white/5">
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-rose-500 flex items-center justify-center text-white font-bold text-xs chip-aurora">BDV</div>
+                    <div className="w-12 h-12 rounded-xl bg-rose-500 flex items-center justify-center text-white font-bold text-xs chip-aurora-verde">BDV</div>
                     <div>
                       <p className="text-[10px] font-bold text-slate-400 uppercase">Banco Emisor</p>
                       <p className="text-sm font-bold">{selectedBank}</p>
@@ -153,7 +153,7 @@ export const RechargeModal: React.FC<RechargeModalProps> = ({ isOpen, onClose, o
 
             {step === 'success' && (
               <div className="py-8 flex flex-col items-center gap-6 text-center animate-in zoom-in-95 duration-500">
-                <div className="w-20 h-20 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500 chip-aurora">
+                <div className="w-20 h-20 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500 chip-aurora-ambar">
                   <Icons.CheckCircle2 size={48} />
                 </div>
                 <div className="space-y-2">

@@ -164,7 +164,7 @@ export const NationalPride: React.FC = () => {
                       }}
                       className="flex items-start gap-5 p-6 rounded-[2rem] border border-white/10 shadow-none relative overflow-hidden"
                     >
-                      <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 relative z-10 text-yellow-300 chip-aurora">
+                      <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 relative z-10 text-yellow-300 chip-aurora${['','-morado','-verde','-ambar','-rojo','-teal','-rosa','-lima'][i % 8]}`}>
                         <Icons.Trophy size={20} />
                       </div>
                       <p className="text-sm font-bold text-[#FFFFFF] leading-snug relative z-10">{award}</p>
@@ -193,7 +193,7 @@ export const NationalPride: React.FC = () => {
         }}
         className="px-8 py-16 rounded-[3.5rem] text-center space-y-6 border border-white/10 shadow-none mx-4 relative overflow-hidden"
       >
-        <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto relative z-10 chip-aurora">
+        <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto relative z-10 chip-aurora-morado">
           <Icons.Sparkles size={24} className="text-[#FFFFFF]" />
         </div>
         <p className="font-serif text-2xl italic text-[#FFFFFF] leading-relaxed tracking-tight relative z-10">

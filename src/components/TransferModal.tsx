@@ -123,7 +123,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({ isOpen, onClose, o
 
         {step === 3 && (
           <div className="flex flex-col items-center justify-center py-10 space-y-6 animate-in zoom-in duration-500">
-            <div className="w-20 h-20 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500 chip-aurora">
+            <div className="w-20 h-20 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500 chip-aurora-morado">
               <Icons.CheckCircle2 size={48} />
             </div>
             <div className="text-center space-y-2">

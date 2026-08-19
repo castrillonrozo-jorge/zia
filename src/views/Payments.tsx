@@ -136,7 +136,7 @@ export const Payments: React.FC<PaymentsProps> = ({ onNavigate }) => {
       <div className="space-y-5 px-2">
         {services
           .filter(s => selectedCategory === 'todos' || s.category === selectedCategory)
-          .map((service) => (
+          .map((service, iCh) => (
           <div 
             key={service.id} 
             style={{
@@ -158,7 +158,7 @@ export const Payments: React.FC<PaymentsProps> = ({ onNavigate }) => {
                   boxShadow: 'none',
                   border: '1px solid rgba(255,255,255,0.08)',
                 }}
-                className={`w-14 h-14 shrink-0 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110 shadow-none chip-aurora`}
+                className={`w-14 h-14 shrink-0 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110 shadow-none chip-aurora${['','-morado','-verde','-ambar','-rojo','-teal','-rosa','-lima'][iCh % 8]}`}
               >
                 <service.icon size={22} className="text-white brightness-125" strokeWidth={1.5} />
               </div>

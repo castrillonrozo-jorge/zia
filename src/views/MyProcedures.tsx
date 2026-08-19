@@ -77,7 +77,7 @@ export const MyProcedures: React.FC = () => {
       </div>
 
       <div className="flex flex-col gap-5">
-        {procedures.map((proc) => (
+        {procedures.map((proc, iCh) => (
           <div key={proc.id} 
               style={{
                 background: 'radial-gradient(circle at 14% 12%, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.05) 36%, transparent 58%), linear-gradient(180deg, rgba(255,255,255,0.10) 0%, transparent 44%), radial-gradient(circle at 82% 100%, rgba(25,198,181,0.50) 0%, transparent 55%), radial-gradient(circle at 12% 90%, rgba(20,100,160,0.85) 0%, transparent 62%), radial-gradient(circle at 78% 12%, rgba(120,80,220,0.30) 0%, transparent 55%), linear-gradient(135deg, #0E2A52 0%, #1464A0 100%)',
@@ -87,7 +87,7 @@ export const MyProcedures: React.FC = () => {
               className="p-8 rounded-[2.5rem] flex flex-col gap-6 group active:scale-[0.98] transition-all relative overflow-hidden">
             <div className="flex justify-between items-start relative z-10">
               <div className="flex gap-5">
-                <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-14 h-14 rounded-2xl flex items-center justify-center text-[#FFFFFF] shadow-none chip-aurora">
+                <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className={`w-14 h-14 rounded-2xl flex items-center justify-center text-[#FFFFFF] shadow-none chip-aurora${['','-morado','-verde','-ambar','-rojo','-teal','-rosa','-lima'][iCh % 8]}`}>
                   <proc.icon size={26} />
                 </div>
                 <div>

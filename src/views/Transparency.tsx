@@ -101,7 +101,7 @@ export const Transparency: React.FC<{ selectedNewsId?: string | number | null, o
             }}
             className="p-6 rounded-[2rem] border border-white/10 flex flex-col items-center text-center gap-3 shadow-none relative overflow-hidden"
           >
-            <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-10 h-10 rounded-xl flex items-center justify-center text-[#FFFFFF] relative z-10 chip-aurora">
+            <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className={`w-10 h-10 rounded-xl flex items-center justify-center text-[#FFFFFF] relative z-10 chip-aurora${['','-morado','-verde','-ambar','-rojo','-teal','-rosa','-lima'][i % 8]}`}>
               <stat.icon size={20} />
             </div>
             <div className="space-y-0.5 relative z-10">
@@ -134,7 +134,7 @@ export const Transparency: React.FC<{ selectedNewsId?: string | number | null, o
             >
               <div className="flex items-center justify-between relative z-10">
                 <div className="flex items-center gap-6">
-                  <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className={`w-16 h-16 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-none chip-aurora`}>
+                  <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className={`w-16 h-16 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-none chip-aurora${['','-morado','-verde','-ambar','-rojo','-teal','-rosa','-lima'][idx % 8]}`}>
                     <item.icon className="text-[#FFFFFF]" size={32} strokeWidth={2} />
                   </div>
                   <div className="space-y-1">

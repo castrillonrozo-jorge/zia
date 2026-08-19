@@ -80,7 +80,7 @@ export const IDRenewal: React.FC = () => {
                 <div className="relative z-10 h-full flex flex-col justify-between">
                   <div className="flex justify-between items-start">
                     <div className="flex gap-4 items-center">
-                       <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-14 h-14 rounded-[18px] flex items-center justify-center group-hover:scale-105 transition-transform overflow-hidden relative chip-aurora">
+                       <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-14 h-14 rounded-[18px] flex items-center justify-center group-hover:scale-105 transition-transform overflow-hidden relative chip-aurora-morado">
                          <Icons.User size={24} className="text-[#FFFFFF]" />
                        </div>
                        <div className="space-y-1">
@@ -120,7 +120,7 @@ export const IDRenewal: React.FC = () => {
 
                 <div className="relative z-10 h-full flex flex-col justify-between">
                   <div className="flex justify-between items-start">
-                    <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-14 h-14 rounded-[18px] flex items-center justify-center group-hover:scale-105 transition-transform relative overflow-hidden chip-aurora">
+                    <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-14 h-14 rounded-[18px] flex items-center justify-center group-hover:scale-105 transition-transform relative overflow-hidden chip-aurora-verde">
                       <Icons.Globe size={26} className="text-[#FFFFFF] drop-shadow-none" />
                     </div>
                     <div className="flex flex-col items-end">
@@ -157,7 +157,7 @@ export const IDRenewal: React.FC = () => {
                 }}
                 className="p-6 rounded-[2.5rem] border border-white/10 text-left space-y-4 active:scale-95 transition-all relative overflow-hidden"
               >
-                <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-10 h-10 rounded-xl flex items-center justify-center relative z-10 chip-aurora">
+                <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-10 h-10 rounded-xl flex items-center justify-center relative z-10 chip-aurora-ambar">
                   <Icons.RefreshCw size={20} className="text-[#FFFFFF]" />
                 </div>
                 <p className="text-[10px] font-black text-[#FFFFFF] uppercase tracking-widest leading-tight relative z-10">Renovar Cédula</p>
@@ -171,7 +171,7 @@ export const IDRenewal: React.FC = () => {
                 }}
                 className="p-6 rounded-[2.5rem] border border-white/10 text-left space-y-4 active:scale-95 transition-all relative overflow-hidden"
               >
-                <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-10 h-10 rounded-xl flex items-center justify-center relative z-10 chip-aurora">
+                <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-10 h-10 rounded-xl flex items-center justify-center relative z-10 chip-aurora-rojo">
                   <Icons.Plane size={20} className="text-[#FFFFFF]" />
                 </div>
                 <p className="text-[10px] font-black text-[#FFFFFF] uppercase tracking-widest leading-tight relative z-10">Gestionar Pasaporte</p>
@@ -188,7 +188,7 @@ export const IDRenewal: React.FC = () => {
           }}
           className="p-6 rounded-[28px] border border-white/10 flex items-center gap-5 relative overflow-hidden"
         >
-           <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-16 h-16 rounded-3xl flex items-center justify-center relative z-10 shrink-0 chip-aurora">
+           <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-16 h-16 rounded-3xl flex items-center justify-center relative z-10 shrink-0 chip-aurora-teal">
              <Icons.ShieldCheck size={32} className="text-[#FFFFFF]" />
            </div>
            <div className="space-y-1 relative z-10">
@@ -206,7 +206,7 @@ export const IDRenewal: React.FC = () => {
     return (
       <div className="px-4 flex flex-col gap-5 animate-in fade-in slide-in-from-bottom-8 duration-700 pt-6 pb-32">
         <div className="flex items-center justify-between">
-          <button onClick={resetFlow} className="w-11 h-11 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center chip-aurora">
+          <button onClick={resetFlow} className="w-11 h-11 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center chip-aurora-rosa">
             <Icons.ArrowLeft size={19} className="text-slate-900 dark:text-white" />
           </button>
           <h2 className="text-sm font-black uppercase tracking-[0.3em] text-slate-900 dark:text-white">Cédula Digital</h2>
@@ -216,7 +216,7 @@ export const IDRenewal: React.FC = () => {
               if (navigator.share) { navigator.share({ title: 'Cédula Digital', text: texto }); }
               else { navigator.clipboard?.writeText(texto); }
             }}
-            className="w-11 h-11 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center chip-aurora"
+            className="w-11 h-11 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center chip-aurora-lima"
           >
             <Icons.Share2 size={19} className="text-slate-900 dark:text-white" />
           </button>
@@ -467,13 +467,13 @@ export const IDRenewal: React.FC = () => {
     return (
       <div className="px-4 flex flex-col gap-5 animate-in fade-in slide-in-from-bottom-8 duration-700 pt-6 pb-32">
         <div className="flex items-center justify-between">
-          <button onClick={resetFlow} className="w-11 h-11 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center chip-aurora">
+          <button onClick={resetFlow} className="w-11 h-11 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center chip-aurora-morado">
             <Icons.ArrowLeft size={19} className="text-slate-900 dark:text-white" />
           </button>
           <h2 className="text-sm font-black uppercase tracking-[0.3em] text-slate-900 dark:text-white">Pasaporte Bio</h2>
           <button
             onClick={() => window.open('https://www.saime.gob.ve/', '_blank')}
-            className="w-11 h-11 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center chip-aurora"
+            className="w-11 h-11 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center chip-aurora-verde"
           >
             <Icons.Globe size={19} className="text-slate-900 dark:text-white" />
           </button>
@@ -597,7 +597,7 @@ export const IDRenewal: React.FC = () => {
                   República Bolivariana<br />de Venezuela
                 </p>
                 <div className="flex flex-col items-center gap-3">
-                  <div className="w-14 h-14 rounded-full border-2 flex items-center justify-center chip-aurora" style={{ borderColor: 'rgba(228,193,112,0.55)' }}>
+                  <div className="w-14 h-14 rounded-full border-2 flex items-center justify-center chip-aurora-ambar" style={{ borderColor: 'rgba(228,193,112,0.55)' }}>
                     <Icons.Globe size={28} style={{ color: '#E4C170' }} />
                   </div>
                   <p className="text-[15px] font-black uppercase tracking-[0.42em]" style={{ color: '#E4C170' }}>Pasaporte</p>
@@ -629,7 +629,7 @@ export const IDRenewal: React.FC = () => {
               className="w-full p-5 rounded-[24px] border border-white/10 flex items-center justify-between group active:scale-[0.98] transition-all relative overflow-hidden"
             >
               <div className="flex items-center gap-4 relative z-10">
-                <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 chip-aurora">
+                <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 chip-aurora-rojo">
                   <Icons.CheckCircle2 size={24} className="text-white" />
                 </div>
                 <div>
@@ -649,7 +649,7 @@ export const IDRenewal: React.FC = () => {
               className="w-full p-5 rounded-[24px] border border-white/10 flex items-center justify-between group active:scale-[0.98] transition-all relative overflow-hidden"
             >
               <div className="flex items-center gap-4 relative z-10">
-                <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 chip-aurora">
+                <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 chip-aurora-teal">
                   <Icons.FileText size={24} className="text-white" />
                 </div>
                 <div>
@@ -669,7 +669,7 @@ export const IDRenewal: React.FC = () => {
               className="w-full p-5 rounded-[24px] border border-white/10 flex items-center justify-between group active:scale-[0.98] transition-all relative overflow-hidden"
             >
               <div className="flex items-center gap-4 relative z-10">
-                <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 chip-aurora">
+                <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 chip-aurora-rosa">
                   <Icons.Activity size={24} className="text-white" />
                 </div>
                 <div>
@@ -962,7 +962,7 @@ export const IDRenewal: React.FC = () => {
                      <h4 className="text-sm font-black uppercase tracking-tight text-black dark:text-white">Renovación Adulto</h4>
                      <p className="text-[10px] text-slate-400 dark:text-white font-bold uppercase tracking-widest">Vigencia 10 años</p>
                    </div>
-                   <div className="w-10 h-10 rounded-full bg-white dark:bg-black flex items-center justify-center shadow-none group-hover:translate-x-1 transition-transform chip-aurora">
+                   <div className="w-10 h-10 rounded-full bg-white dark:bg-black flex items-center justify-center shadow-none group-hover:translate-x-1 transition-transform chip-aurora-lima">
                      <Icons.ChevronRight size={18} className="text-black dark:text-white" />
                    </div>
                 </button>
@@ -1076,7 +1076,7 @@ export const IDRenewal: React.FC = () => {
               <div className="grid grid-cols-1 gap-4">
                 <button onClick={() => setStep(6)} className="w-full bg-slate-50 dark:bg-white/5 p-6 rounded-[2rem] border border-black/5 dark:border-white/5 flex items-center justify-between group active:scale-[0.98] transition-all">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center shadow-none chip-aurora">
+                    <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center shadow-none chip-aurora-morado">
                       <Icons.CreditCard size={24} className="text-white" />
                     </div>
                     <div className="text-left space-y-1">

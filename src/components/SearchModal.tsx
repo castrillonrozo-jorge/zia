@@ -73,7 +73,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ onClose, onNavigate })
                 }}
                 className="w-full p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-black/5 dark:border-white/5 flex items-center gap-4 group active:scale-[0.98] transition-all"
               >
-                <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center chip-aurora">
+                <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center chip-aurora-morado">
                   <item.icon size={20} className="text-[#4F84C4] dark:text-blue-400" />
                 </div>
                 <div className="flex-1 text-left">

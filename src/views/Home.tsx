@@ -62,7 +62,7 @@ const ServiceCard = React.memo(({ service, onNavigate }: { service: { id: string
 
       {/* Icons container */}
       <div className="relative z-10 w-full flex justify-end items-start mt-[-4px]">
-        <div className="h-9 w-9 flex items-center justify-center rounded-[12px] bg-black/20 backdrop-blur-xl shadow-[inset_0_1px_4px_rgba(0,0,0,0.4),_0_1px_0_rgba(255,255,255,0.15)] border border-black/20 text-white group-hover:scale-110 transition-transform duration-300 chip-aurora">
+        <div className={`h-9 w-9 flex items-center justify-center rounded-[12px] bg-black/20 backdrop-blur-xl shadow-[inset_0_1px_4px_rgba(0,0,0,0.4),_0_1px_0_rgba(255,255,255,0.15)] border border-black/20 text-white group-hover:scale-110 transition-transform duration-300 chip-aurora${(service as any).chip ?? ''}`}>
           {IconComponent && <IconComponent size={20} strokeWidth={1.5} />}
         </div>
       </div>
@@ -189,20 +189,20 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   }, []);
 
   const fixedServices = [
-    { id: 'id-renewal', title: 'Saime', icon: 'Fingerprint', status: 'CITA EN 12 D.', statusColor: '#00FF66' },
-    { id: 'business-reg', title: 'Saren', icon: 'FileText', status: 'FIRMA PENDIENTE', statusColor: '#FFA000' },
-    { id: 'payments', title: 'Pagos', icon: 'CreditCard', status: 'SIN DEUDAS', statusColor: '#00FF66' },
-    { id: 'renacer', title: 'Renacer', icon: 'Home', status: 'TU VIVIENDA', statusColor: '#00FF66' },
+    { id: 'id-renewal', title: 'Saime', icon: 'Fingerprint', status: 'CITA EN 12 D.', statusColor: '#00FF66', chip: '' },
+    { id: 'business-reg', title: 'Saren', icon: 'FileText', status: 'FIRMA PENDIENTE', statusColor: '#FFA000', chip: '-morado' },
+    { id: 'payments', title: 'Pagos', icon: 'CreditCard', status: 'SIN DEUDAS', statusColor: '#00FF66', chip: '-verde' },
+    { id: 'renacer', title: 'Renacer', icon: 'Home', status: 'TU VIVIENDA', statusColor: '#00FF66', chip: '-ambar' },
   ];
 
   const carouselServices = [
-    { id: 'intt', title: 'Intt', icon: 'Car', status: 'VENCE MAÑANA', statusColor: '#FF9F0A' },
-    { id: 'employment', title: 'Empleo', icon: 'Briefcase', status: 'VACANTES REPSOL', statusColor: '#00FF66' },
-    { id: 'seniat', title: 'Seniat', icon: 'Landmark', status: 'CONTRIBUYENTE AL DÍA', statusColor: '#00FF66' },
-    { id: 'economy', title: 'Economía', icon: 'BarChart3', status: 'TASA BCV ACTUALIZADA', statusColor: '#00FF66' },
-    { id: 'national-pride', title: 'Lo Nuestro', icon: 'Flag', status: 'VERIFICADO', statusColor: '#00FF66' },
-    { id: 'my-procedures', title: 'Trámites', icon: 'ClipboardList', status: '1 EN PROCESO', statusColor: '#FFA000' },
-    { id: 'transparency', title: 'Transparencia', icon: 'ShieldCheck', status: 'VERIFICADO', statusColor: '#00FF66' },
+    { id: 'intt', title: 'Intt', icon: 'Car', status: 'VENCE MAÑANA', statusColor: '#FF9F0A', chip: '-rojo' },
+    { id: 'employment', title: 'Empleo', icon: 'Briefcase', status: 'VACANTES REPSOL', statusColor: '#00FF66', chip: '-teal' },
+    { id: 'seniat', title: 'Seniat', icon: 'Landmark', status: 'CONTRIBUYENTE AL DÍA', statusColor: '#00FF66', chip: '-lima' },
+    { id: 'economy', title: 'Economía', icon: 'BarChart3', status: 'TASA BCV ACTUALIZADA', statusColor: '#00FF66', chip: '-verde' },
+    { id: 'national-pride', title: 'Lo Nuestro', icon: 'Flag', status: 'VERIFICADO', statusColor: '#00FF66', chip: '-rosa' },
+    { id: 'my-procedures', title: 'Trámites', icon: 'ClipboardList', status: '1 EN PROCESO', statusColor: '#FFA000', chip: '-morado' },
+    { id: 'transparency', title: 'Transparencia', icon: 'ShieldCheck', status: 'VERIFICADO', statusColor: '#00FF66', chip: '' },
   ];
 
   const getServiceSVG = (id: string) => {

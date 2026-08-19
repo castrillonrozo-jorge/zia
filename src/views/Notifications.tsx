@@ -62,12 +62,12 @@ export const Notifications: React.FC = () => {
       </div>
 
       <div className="space-y-4">
-        {alerts.map((alert) => (
+        {alerts.map((alert, iCh) => (
           <div 
             key={alert.id} 
             className={`p-8 rounded-[2.5rem] flex items-start gap-6 transition-all border border-black/[0.05] dark:border-white/[0.08] shadow-none active:scale-[0.98] ${alert.unread ? 'bg-[#4F84C4]/[0.03] dark:bg-blue-400/[0.05] border-[#4F84C4]/20 dark:border-blue-400/30' : 'bg-white dark:bg-[#0D1117]'}`}
           >
-            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 ${alert.color} dark:bg-white/5 backdrop-blur-xl shadow-none border border-black/[0.05] dark:border-white/[0.05] chip-aurora`}>
+            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 ${alert.color} dark:bg-white/5 backdrop-blur-xl shadow-none border border-black/[0.05] dark:border-white/[0.05] chip-aurora${['','-morado','-verde','-ambar','-rojo','-teal','-rosa','-lima'][iCh % 8]}`}>
               <alert.icon size={26} strokeWidth={2.5} />
             </div>
             <div className="flex-1">

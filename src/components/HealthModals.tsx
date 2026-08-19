@@ -70,7 +70,7 @@ export const HealthModals: React.FC<HealthModalsProps> = ({ isOpen, onClose, typ
               onClose();
               setSelectedRegion(null);
             }}
-            className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 hover:bg-slate-200 transition-colors chip-aurora"
+            className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 hover:bg-slate-200 transition-colors chip-aurora-morado"
           >
             <Icons.X size={20} />
           </button>

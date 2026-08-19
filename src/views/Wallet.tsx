@@ -82,7 +82,7 @@ export const Wallet: React.FC<WalletProps> = ({ balance, onOpenRecharge, onOpenT
             boxShadow: 'none',
             border: '1px solid rgba(255,255,255,0.12)'
           }} className="p-5 rounded-[2rem] flex flex-col items-center justify-center text-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400 chip-aurora">
+            <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400 chip-aurora-morado">
               <Icons.Bitcoin size={24} />
             </div>
             <p className="text-[9px] font-black uppercase tracking-widest text-white">Cripto / P2P</p>
@@ -92,7 +92,7 @@ export const Wallet: React.FC<WalletProps> = ({ balance, onOpenRecharge, onOpenT
             boxShadow: 'none',
             border: '1px solid rgba(255,255,255,0.12)'
           }} className="p-5 rounded-[2rem] flex flex-col items-center justify-center text-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 chip-aurora">
+            <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 chip-aurora-verde">
               <Icons.LineChart size={24} />
             </div>
             <p className="text-[9px] font-black uppercase tracking-widest text-white">Mercados BCV</p>
@@ -106,10 +106,10 @@ export const Wallet: React.FC<WalletProps> = ({ balance, onOpenRecharge, onOpenT
           <button className="text-[9px] font-bold text-blue-500 uppercase tracking-widest">Ver Todos</button>
         </div>
         <div className="space-y-4">
-          {transactions.map((tx) => (
+          {transactions.map((tx, iCh) => (
             <div key={tx.id} className="flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5">
               <div className="flex items-center gap-4">
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${tx.type === 'in' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-rose-500/10 text-rose-500'} chip-aurora`}>
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${tx.type === 'in' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-rose-500/10 text-rose-500'} chip-aurora${['','-morado','-verde','-ambar','-rojo','-teal','-rosa','-lima'][iCh % 8]}`}>
                    {tx.type === 'in' ? <Icons.ArrowDown size={18} /> : <Icons.ArrowUp size={18} />}
                 </div>
                 <div>
