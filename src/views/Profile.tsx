@@ -334,7 +334,7 @@ export const Profile: React.FC<ProfileProps> = ({ balance, onOpenRecharge, onOpe
             borderTop: '1px solid rgba(255, 255, 255, 0.25)',
             border: '1px solid rgba(255,255,255,0.08)',
           }}
-          className="rounded-[3rem] p-10 space-y-8 relative overflow-hidden"
+          className="rounded-[3rem] p-6 space-y-6 relative overflow-hidden"
         >
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '35%', background: 'linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 100%)', pointerEvents: 'none' }} />
           <div className="flex items-center justify-between relative z-10 border-b border-white/[0.04] pb-4">
@@ -347,33 +347,33 @@ export const Profile: React.FC<ProfileProps> = ({ balance, onOpenRecharge, onOpe
           </div>
           
           <div className="grid grid-cols-1 gap-6 relative z-10">
-            <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="flex items-center gap-6 p-4 rounded-[2rem]">
+            <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="flex items-center gap-4 p-4 rounded-[2rem]">
               <div style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%)', border: '1px solid rgba(255,255,255,0.15)' }} className="w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-none chip-aurora-teal">
                 <Icons.Fingerprint size={24} />
               </div>
-              <div>
+              <div className="min-w-0 flex-1">
                 <p className="text-[9px] font-semibold text-[#FFFFFF] uppercase tracking-[0.3em] mb-1">Identificación</p>
-                <p className="text-base font-bold tracking-tight text-white">V-{userData.cedula}</p>
+                <p className="text-[15px] font-bold tracking-tight text-white break-words">V-{userData.cedula}</p>
               </div>
             </div>
 
-            <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="flex items-center gap-6 p-4 rounded-[2rem]">
+            <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="flex items-center gap-4 p-4 rounded-[2rem]">
               <div style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%)', border: '1px solid rgba(255,255,255,0.15)' }} className="w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-none chip-aurora-rosa">
                 <Icons.PhoneCall size={24} />
               </div>
-              <div>
+              <div className="min-w-0 flex-1">
                 <p className="text-[9px] font-semibold text-[#FFFFFF] uppercase tracking-[0.3em] mb-1">Contacto Directo</p>
-                <p className="text-base font-bold tracking-tight text-white">{userData.phone}</p>
+                <p className="text-[15px] font-bold tracking-tight text-white break-words">{userData.phone}</p>
               </div>
             </div>
 
-            <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="flex items-center gap-6 p-4 rounded-[2rem]">
+            <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="flex items-center gap-4 p-4 rounded-[2rem]">
               <div style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%)', border: '1px solid rgba(255,255,255,0.15)' }} className="w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-none chip-aurora-lima">
                 <Icons.MapPin size={24} />
               </div>
-              <div>
+              <div className="min-w-0 flex-1">
                 <p className="text-[9px] font-semibold text-[#FFFFFF] uppercase tracking-[0.3em] mb-1">Residencia Fiscal</p>
-                <p className="text-base font-bold tracking-tight text-white">{userData.location}</p>
+                <p className="text-[15px] font-bold tracking-tight text-white break-words">{userData.location}</p>
               </div>
             </div>
           </div>

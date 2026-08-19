@@ -97,6 +97,19 @@ const App: React.FC = () => {
   };
   
   const [isAIChatOpen, setIsAIChatOpen] = useState(false);
+  const [aiPromptInicial, setAiPromptInicial] = useState<string | null>(null);
+
+  // Cualquier pantalla puede abrir el chat con una consulta prellenada
+  // (p. ej. «la IA hace tu currículo» en Empleo).
+  useEffect(() => {
+    const abrirIA = (e: Event) => {
+      const detalle = (e as CustomEvent).detail;
+      setAiPromptInicial(detalle?.prompt ?? null);
+      setIsAIChatOpen(true);
+    };
+    window.addEventListener('agiliza:abrir-ia', abrirIA);
+    return () => window.removeEventListener('agiliza:abrir-ia', abrirIA);
+  }, []);
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
@@ -246,7 +259,9 @@ const App: React.FC = () => {
 
       <AgentChat
         isOpen={isAIChatOpen}
-        onClose={() => setIsAIChatOpen(false)}
+        onClose={() => { setIsAIChatOpen(false); setAiPromptInicial(null); }}
+        promptInicial={aiPromptInicial}
+        onPromptConsumido={() => setAiPromptInicial(null)}
         userName={userName}
         currentView={currentView}
         onNavigate={handleNavigate}

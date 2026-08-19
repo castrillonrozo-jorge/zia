@@ -12,9 +12,11 @@ interface AgentChatProps {
   currentView: AppView;
   onNavigate: (view: AppView) => void;
   showStatus: (message: string, type?: 'success' | 'info' | 'warning' | 'error') => void;
+  promptInicial?: string | null;
+  onPromptConsumido?: () => void;
 }
 
-export const AgentChat: React.FC<AgentChatProps> = ({ isOpen, onClose, userName, currentView, onNavigate, showStatus }) => {
+export const AgentChat: React.FC<AgentChatProps> = ({ isOpen, onClose, userName, currentView, onNavigate, showStatus, promptInicial, onPromptConsumido }) => {
   const { vibrate } = useVibration();
   const [showApiSettings, setShowApiSettings] = useState(false);
   const [selectedModel, setSelectedModel] = useState(() => {
@@ -112,6 +114,16 @@ export const AgentChat: React.FC<AgentChatProps> = ({ isOpen, onClose, userName,
       }
     }
   }, [isOpen, currentView]);
+
+  // Consulta prellenada desde otra pantalla (p. ej. currículo en Empleo):
+  // se envía sola al abrir el chat, una sola vez.
+  useEffect(() => {
+    if (isOpen && promptInicial && !isAiLoading) {
+      sendAiMessage(promptInicial, { useSearch });
+      onPromptConsumido?.();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen, promptInicial]);
 
   const handleSendAiMessage = (text?: string | any) => {
     const messageToSend = (typeof text === 'string' ? text : '') || aiInput;

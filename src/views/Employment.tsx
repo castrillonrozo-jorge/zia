@@ -9,41 +9,43 @@ export const Employment: React.FC = () => {
   const [selectedJob, setSelectedJob] = useState<any>(null);
   const [isApplying, setIsApplying] = useState(false);
 
+  // Colores corporativos reales de cada empresa; el nombre en texto,
+  // nunca un dibujo del logo.
   const companies = [
-    { 
+    {
       name: 'PDVSA',
-      logoRender: () => <span className="text-[14px] leading-none font-black text-red-600 tracking-tighter">PDVSA</span>,
-      containerClass: 'bg-white border-[1.5px] border-black/10 dark:border-white/10' 
+      logoRender: () => <span className="text-[13px] leading-none font-black text-white tracking-tight">PDVSA</span>,
+      containerClass: 'bg-[#CE1126] border border-black/10',
     },
-    { 
+    {
       name: 'SLB',
-      logoRender: () => <span className="text-[18px] leading-none font-black text-white tracking-widest">SLB</span>,
-      containerClass: 'bg-[#001433] border-none shadow-[inset_0_2px_10px_rgba(0,0,0,0.5)]' 
+      logoRender: () => <span className="text-[17px] leading-none font-black text-white tracking-widest">SLB</span>,
+      containerClass: 'bg-[#0014DC] border border-black/10',
     },
-    { 
+    {
       name: 'SHELL',
-      logoRender: () => <span className="text-[12px] leading-none font-black text-red-600 tracking-wider">SHELL</span>,
-      containerClass: 'bg-white border-[3px] border-yellow-400 shadow-[0_0_0_2px_#ef4444,inset_0_0_0_1px_#ef4444]' 
+      logoRender: () => <span className="text-[12px] leading-none font-black text-[#DD1D21] tracking-wider">SHELL</span>,
+      containerClass: 'bg-[#FBCE07] border border-black/10',
     },
-    { 
+    {
       name: 'REPSOL',
-      logoRender: () => <span className="text-[11px] leading-none font-black text-slate-900 tracking-widest">REPSOL</span>,
-      containerClass: 'bg-gradient-to-tr from-[#FF8200] via-white to-white border border-black/5' 
+      logoRender: () => <span className="text-[11px] leading-none font-black text-white tracking-widest">REPSOL</span>,
+      containerClass: 'bg-[#FF6600] border border-black/10',
     },
-    { 
+    {
       name: 'CANTV',
-      logoRender: () => <span className="text-[13px] leading-none font-black text-blue-500 tracking-wide">CANTV</span>,
-      containerClass: 'bg-white border border-black/5 dark:border-white/10' 
+      logoRender: () => <span className="text-[13px] leading-none font-black text-white tracking-wide">CANTV</span>,
+      containerClass: 'bg-[#0033A0] border border-black/10',
     },
-    { 
+    {
       name: 'CORPOELEC',
-      logoRender: () => <div className="text-[8px] leading-tight font-black text-orange-500 tracking-tighter text-center"><span className="text-[#888]">CORPO</span><br/>ELEC</div>,
-      containerClass: 'bg-white border border-black/5 dark:border-white/10' 
+      logoRender: () => <div className="text-[8.5px] leading-tight font-black text-white tracking-tight text-center">CORPO<br/>ELEC</div>,
+      containerClass: 'bg-[#1B4F9C] border border-black/10',
     },
-    { 
+    {
       name: 'BDV',
-      logoRender: () => <span className="text-[16px] leading-none font-black text-[#004B87] tracking-widest">BDV</span>,
-      containerClass: 'bg-white border border-black/5 dark:border-white/10' 
+      logoRender: () => <span className="text-[15px] leading-none font-black text-white tracking-widest">BDV</span>,
+      containerClass: 'bg-[#D50032] border border-black/10',
     },
   ];
 
@@ -160,13 +162,30 @@ export const Employment: React.FC = () => {
         <Icons.Briefcase size={120} className="absolute -right-8 -bottom-8 text-white/10 rotate-12" />
       </div>
 
+      {/* La IA prepara tu currículo y tu postulación */}
+      <button
+        onClick={() => window.dispatchEvent(new CustomEvent('agiliza:abrir-ia', {
+          detail: { prompt: 'Quiero postularme a un empleo pero no sé preparar mi currículo. Hazlo conmigo paso a paso: pregúntame mis datos, estudios y experiencia, redáctalo en formato profesional y dime cómo enviarlo a la vacante.' },
+        }))}
+        className="w-full flex items-center gap-4 p-4 rounded-[1.6rem] bg-white dark:bg-[#0D1117] border border-black/[0.06] dark:border-white/10 shadow-[0_2px_12px_rgba(15,30,60,0.06)] text-left active:scale-[0.98] transition-all"
+      >
+        <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style={{ background: '#25D366', boxShadow: '0 4px 14px rgba(37,211,102,0.45), inset 0 1px 1px rgba(255,255,255,0.35)' }}>
+          <span className="text-[13px] font-black text-black">IA</span>
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="text-[14px] font-black tracking-tight text-slate-900 dark:text-white">¿No sabes hacer tu currículo?</p>
+          <p className="text-[11.5px] font-medium text-slate-500 dark:text-slate-400 mt-0.5">La IA lo redacta contigo y te ayuda a postularte a cualquier vacante</p>
+        </div>
+        <Icons.ChevronRight size={16} className="text-slate-300 dark:text-slate-600 shrink-0" />
+      </button>
+
       {/* Companies Scroll */}
       <div className="space-y-4">
         <h4 className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.2em] px-4">Empresas Aliadas</h4>
         <div className="flex gap-5 overflow-x-auto no-scrollbar py-2 px-2">
           {companies.map((company, i) => (
             <div key={i} className="flex flex-col items-center gap-3 shrink-0 group active:scale-90 transition-all">
-              <div className={`w-16 h-16 rounded-[1.5rem] flex items-center justify-center overflow-hidden backdrop-blur-xl transition-transform group-hover:scale-105 ${company.containerClass} chip-aurora${['','-morado','-verde','-ambar','-rojo','-teal','-rosa','-lima'][i % 8]}`}>
+              <div className={`w-16 h-16 rounded-[1.5rem] flex items-center justify-center overflow-hidden transition-transform group-hover:scale-105 shadow-[0_6px_18px_rgba(14,42,82,0.20)] ${company.containerClass}`}>
                 {company.logoRender()}
               </div>
               <span className="text-[9px] font-black text-slate-900 dark:text-white uppercase tracking-widest">{company.name}</span>
