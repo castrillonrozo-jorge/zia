@@ -1,14 +1,26 @@
 /**
- * GET /api/news — Noticias en vivo desde el feed RSS de La Iguana TV.
+ * GET /api/news — Noticias en vivo desde portales venezolanos (RSS).
  *
- * Igual que /api/rate: el navegador no puede leer el portal directamente
- * (CORS), así que esta función lo hace del lado del servidor, extrae
- * título, enlace, fecha, resumen e imagen de cada nota y responde JSON.
- * Si el feed no responde o cambia de formato, se dice con claridad
- * (disponible: false) — nunca se inventan noticias.
+ * Igual que /api/rate: el navegador no puede leer los portales
+ * directamente (CORS), así que esta función lo hace del lado del
+ * servidor. Se intenta una cadena de fuentes en orden — variantes del
+ * feed de La Iguana TV y un portal de respaldo — con agente de usuario
+ * de navegador real (algunos WAF devuelven una página HTML a los bots).
+ * Acepta RSS 2.0 (<item>) y Atom (<entry>). Si ninguna fuente responde,
+ * se dice con claridad (disponible: false) y el detalle técnico lista
+ * qué falló en cada una — nunca se inventan noticias.
  */
 
-const FEED_URL = 'https://www.laiguana.tv/feed/';
+const FUENTES: { nombre: string; url: string }[] = [
+  { nombre: 'La Iguana TV', url: 'https://www.laiguana.tv/feed/' },
+  { nombre: 'La Iguana TV', url: 'https://www.laiguana.tv/?feed=rss2' },
+  { nombre: 'La Iguana TV', url: 'https://laiguana.tv/feed/' },
+  { nombre: 'Últimas Noticias', url: 'https://ultimasnoticias.com.ve/feed/' },
+];
+
+const UA_NAVEGADOR =
+  'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1';
+
 const CACHE_MS = 20 * 60 * 1000; // 20 minutos
 const MAX_NOTICIAS = 6;
 
@@ -22,7 +34,7 @@ interface NoticiaViva {
   fuente: string;
 }
 
-let cache: { hora: number; noticias: NoticiaViva[] } | null = null;
+let cache: { hora: number; fuente: string; noticias: NoticiaViva[] } | null = null;
 
 const MESES = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
 
@@ -44,83 +56,127 @@ function limpiarTexto(s: string): string {
     .trim();
 }
 
-function extraerEtiqueta(item: string, etiqueta: string): string {
-  const m = item.match(new RegExp(`<${etiqueta}[^>]*>([\\s\\S]*?)</${etiqueta}>`, 'i'));
+function extraerEtiqueta(bloque: string, etiqueta: string): string {
+  const m = bloque.match(new RegExp(`<${etiqueta}[^>]*>([\\s\\S]*?)</${etiqueta}>`, 'i'));
   return m ? m[1] : '';
 }
 
-function extraerImagen(item: string): string | null {
-  // 1) media:content / enclosure con url de imagen
-  const media = item.match(/<(?:media:content|enclosure)[^>]*url="([^"]+\.(?:jpe?g|png|webp|gif)[^"]*)"/i);
+function extraerImagen(bloque: string): string | null {
+  const media = bloque.match(/<(?:media:content|media:thumbnail|enclosure)[^>]*url="([^"]+\.(?:jpe?g|png|webp|gif)[^"]*)"/i);
   if (media) return media[1];
-  // 2) primer <img src="..."> dentro de content:encoded o description
-  const img = item.match(/<img[^>]*src="([^"]+)"/i);
+  const img = bloque.match(/<img[^>]*src="([^"]+)"/i);
   if (img && /\.(jpe?g|png|webp|gif)/i.test(img[1])) return img[1];
   return null;
 }
 
-function formatearFecha(pubDate: string): string {
-  const d = new Date(pubDate);
+function formatearFecha(cruda: string): string {
+  const d = new Date(cruda);
   if (isNaN(d.getTime())) return '';
   return `${String(d.getUTCDate()).padStart(2, '0')} ${MESES[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
 }
 
-async function obtenerNoticias(): Promise<NoticiaViva[]> {
+function parsearRss(xml: string, fuente: string): NoticiaViva[] {
+  const items = xml.match(/<item[\s>][\s\S]*?<\/item>/gi) ?? [];
+  const noticias: NoticiaViva[] = [];
+  for (const item of items) {
+    const titulo = limpiarTexto(extraerEtiqueta(item, 'title'));
+    const enlace = limpiarTexto(extraerEtiqueta(item, 'link'));
+    if (!titulo || !/^https?:/i.test(enlace)) continue;
+    const contenido = extraerEtiqueta(item, 'content:encoded') || extraerEtiqueta(item, 'description');
+    noticias.push({
+      id: 'viva-' + noticias.length + '-' + (enlace.split('/').filter(Boolean).pop() ?? ''),
+      titulo,
+      descripcion: limpiarTexto(extraerEtiqueta(item, 'description')).slice(0, 220),
+      fecha: formatearFecha(limpiarTexto(extraerEtiqueta(item, 'pubDate'))),
+      imagenUrl: extraerImagen(item) ?? extraerImagen(contenido),
+      enlace,
+      fuente,
+    });
+    if (noticias.length >= MAX_NOTICIAS) break;
+  }
+  return noticias;
+}
+
+function parsearAtom(xml: string, fuente: string): NoticiaViva[] {
+  const entradas = xml.match(/<entry[\s>][\s\S]*?<\/entry>/gi) ?? [];
+  const noticias: NoticiaViva[] = [];
+  for (const entrada of entradas) {
+    const titulo = limpiarTexto(extraerEtiqueta(entrada, 'title'));
+    const enlaceM = entrada.match(/<link[^>]*href="([^"]+)"/i);
+    const enlace = enlaceM ? enlaceM[1] : '';
+    if (!titulo || !/^https?:/i.test(enlace)) continue;
+    const contenido = extraerEtiqueta(entrada, 'content') || extraerEtiqueta(entrada, 'summary');
+    noticias.push({
+      id: 'viva-' + noticias.length + '-' + (enlace.split('/').filter(Boolean).pop() ?? ''),
+      titulo,
+      descripcion: limpiarTexto(extraerEtiqueta(entrada, 'summary')).slice(0, 220),
+      fecha: formatearFecha(limpiarTexto(extraerEtiqueta(entrada, 'published') || extraerEtiqueta(entrada, 'updated'))),
+      imagenUrl: extraerImagen(entrada) ?? extraerImagen(contenido),
+      enlace,
+      fuente,
+    });
+    if (noticias.length >= MAX_NOTICIAS) break;
+  }
+  return noticias;
+}
+
+async function leerFuente(fuente: { nombre: string; url: string }): Promise<NoticiaViva[]> {
   const controlador = new AbortController();
-  const timeout = setTimeout(() => controlador.abort(), 15000);
+  const timeout = setTimeout(() => controlador.abort(), 12000);
   try {
-    const res = await fetch(FEED_URL, {
+    const res = await fetch(fuente.url, {
       signal: controlador.signal,
+      redirect: 'follow',
       headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; AgilizaApp/1.0; lector RSS)',
-        Accept: 'application/rss+xml, application/xml, text/xml, */*',
+        'User-Agent': UA_NAVEGADOR,
+        Accept: 'application/rss+xml, application/atom+xml, application/xml, text/xml, */*;q=0.8',
+        'Accept-Language': 'es-VE,es;q=0.9',
       },
     });
-    if (!res.ok) throw new Error(`El feed respondió ${res.status}`);
-    const xml = await res.text();
+    if (!res.ok) throw new Error(`respondió ${res.status}`);
+    const cuerpo = await res.text();
 
-    const items = xml.match(/<item>[\s\S]*?<\/item>/gi) ?? [];
-    const noticias: NoticiaViva[] = [];
-    for (const item of items) {
-      const titulo = limpiarTexto(extraerEtiqueta(item, 'title'));
-      const enlace = limpiarTexto(extraerEtiqueta(item, 'link'));
-      if (!titulo || !enlace) continue;
-      const contenido = extraerEtiqueta(item, 'content:encoded') || extraerEtiqueta(item, 'description');
-      const descripcion = limpiarTexto(extraerEtiqueta(item, 'description')).slice(0, 220);
-      noticias.push({
-        id: 'iguana-' + noticias.length + '-' + enlace.split('/').filter(Boolean).pop(),
-        titulo,
-        descripcion,
-        fecha: formatearFecha(limpiarTexto(extraerEtiqueta(item, 'pubDate'))),
-        imagenUrl: extraerImagen(item) ?? extraerImagen(contenido),
-        enlace,
-        fuente: 'La Iguana TV',
-      });
-      if (noticias.length >= MAX_NOTICIAS) break;
+    let noticias = parsearRss(cuerpo, fuente.nombre);
+    if (noticias.length === 0) noticias = parsearAtom(cuerpo, fuente.nombre);
+    if (noticias.length === 0) {
+      const esHtml = /<html[\s>]/i.test(cuerpo.slice(0, 2000));
+      throw new Error(esHtml ? 'devolvió una página web, no el feed' : `sin ítems legibles (inicio: ${cuerpo.slice(0, 120).replace(/\s+/g, ' ')})`);
     }
-    if (noticias.length === 0) throw new Error('El feed no trajo ninguna noticia legible');
     return noticias;
   } finally {
     clearTimeout(timeout);
   }
 }
 
+async function obtenerNoticias(): Promise<{ fuente: string; noticias: NoticiaViva[] }> {
+  const errores: string[] = [];
+  for (const fuente of FUENTES) {
+    try {
+      const noticias = await leerFuente(fuente);
+      return { fuente: fuente.nombre, noticias };
+    } catch (err: any) {
+      errores.push(`${fuente.url}: ${err?.message ?? String(err)}`);
+    }
+  }
+  throw new Error(errores.join(' | '));
+}
+
 export default async function handler(_req: any, res: any) {
   res.setHeader('Cache-Control', 's-maxage=1200, stale-while-revalidate=600');
   if (cache && Date.now() - cache.hora < CACHE_MS) {
-    return res.status(200).json({ disponible: true, fuente: 'La Iguana TV', noticias: cache.noticias });
+    return res.status(200).json({ disponible: true, fuente: cache.fuente, noticias: cache.noticias });
   }
   try {
-    const noticias = await obtenerNoticias();
-    cache = { hora: Date.now(), noticias };
-    return res.status(200).json({ disponible: true, fuente: 'La Iguana TV', noticias });
+    const { fuente, noticias } = await obtenerNoticias();
+    cache = { hora: Date.now(), fuente, noticias };
+    return res.status(200).json({ disponible: true, fuente, noticias });
   } catch (err: any) {
     if (cache) {
-      return res.status(200).json({ disponible: true, fuente: 'La Iguana TV', noticias: cache.noticias });
+      return res.status(200).json({ disponible: true, fuente: cache.fuente, noticias: cache.noticias });
     }
     return res.status(503).json({
       disponible: false,
-      error: 'No se pudo leer el portal de noticias en este momento.',
+      error: 'No se pudo leer ningún portal de noticias en este momento.',
       detalle: err?.message ?? String(err),
     });
   }
