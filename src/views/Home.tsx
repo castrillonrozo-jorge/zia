@@ -132,6 +132,33 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const [showAllServices, setShowAllServices] = useState(false);
   const [carouselIndex, setCarouselIndex] = useState(0);
 
+  // Carrusel de noticias: avanza solo, lento, y se pausa al tocarlo.
+  const carruselRef = useRef<HTMLDivElement | null>(null);
+  const pausaRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [carruselPausado, setCarruselPausado] = useState(false);
+
+  const pausarCarrusel = useCallback(() => {
+    setCarruselPausado(true);
+    if (pausaRef.current) clearTimeout(pausaRef.current);
+    pausaRef.current = setTimeout(() => setCarruselPausado(false), 12000);
+  }, []);
+
+  React.useEffect(() => {
+    const id = setInterval(() => {
+      const cont = carruselRef.current;
+      if (!cont || carruselPausado) return;
+      const tarjeta = cont.firstElementChild as HTMLElement | null;
+      if (!tarjeta) return;
+      const paso = tarjeta.offsetWidth + 16;
+      const final = cont.scrollWidth - cont.clientWidth - 8;
+      const siguiente = cont.scrollLeft >= final ? 0 : cont.scrollLeft + paso;
+      cont.scrollTo({ left: siguiente, behavior: 'smooth' });
+    }, 7000);
+    return () => clearInterval(id);
+  }, [carruselPausado]);
+
+  React.useEffect(() => () => { if (pausaRef.current) clearTimeout(pausaRef.current); }, []);
+
   // Noticias en vivo desde /api/news (La Iguana TV). Si el feed no
   // responde, el carrusel muestra solo las notas curadas — sin inventar.
   const [noticiasVivas, setNoticiasVivas] = useState<any[]>([]);
@@ -142,6 +169,8 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       .then((d) => {
         if (activo && d?.disponible && Array.isArray(d.noticias) && d.noticias.length > 0) {
           setNoticiasVivas(d.noticias);
+          // El carrusel arranca siempre en la primera nota del portal.
+          requestAnimationFrame(() => carruselRef.current?.scrollTo({ left: 0 }));
         }
       })
       .catch(() => {});
@@ -356,10 +385,16 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
       
 
-      {/* News Carousel */}
-      <section data-tour="noticias" className="mt-8 mb-6 bg-white dark:bg-transparent">
-        <h3 className="text-[14px] font-black text-slate-900 dark:text-white uppercase tracking-wider mb-4 px-5">Últimas Noticias</h3>
-        <div className="flex overflow-x-auto gap-4 snap-x snap-mandatory no-scrollbar px-5 pb-4">
+      {/* News Carousel: cinta sobre blanco puro, avance automático lento */}
+      <section data-tour="noticias" className="mt-8 mb-6 -mx-4 py-1" style={{ background: '#FFFFFF' }}>
+        <h3 className="text-[14px] font-black text-slate-900 uppercase tracking-wider mb-4 px-5 pt-3">Últimas Noticias</h3>
+        <div
+          ref={carruselRef}
+          onPointerDown={pausarCarrusel}
+          onTouchStart={pausarCarrusel}
+          onWheel={pausarCarrusel}
+          className="flex overflow-x-auto gap-4 snap-x snap-mandatory no-scrollbar px-5 pb-4"
+        >
           {[...noticiasVivas, ...MOCK_NEWS].map(item => (
             <NewsCard key={item.id} item={item} onNavigate={onNavigate} />
           ))}
