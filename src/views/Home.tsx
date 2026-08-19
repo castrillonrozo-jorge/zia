@@ -93,7 +93,7 @@ const NewsCard = React.memo(({ item, onNavigate }: { item: any, onNavigate: (vie
   const [imagenRota, setImagenRota] = useState(false);
   return (
     <div
-      className="flex-none w-[92%] h-[440px] rounded-[28px] relative overflow-hidden snap-center cursor-pointer shadow-[0_18px_44px_rgba(10,25,50,0.35)] group border border-black/5 dark:border-white/10 active:scale-[0.985] transition-all duration-150"
+      className="flex-none w-[92%] h-[440px] rounded-[28px] relative overflow-hidden snap-center cursor-pointer shadow-[0_8px_22px_rgba(10,25,50,0.14)] group border border-black/5 dark:border-white/10 active:scale-[0.985] transition-all duration-150"
       style={{ background: 'linear-gradient(160deg, #1E3A5F 0%, #0D1B2E 100%)' }}
       onClick={() => item.enlace ? window.open(item.enlace, '_blank') : onNavigate('transparency', { newsId: item.id })}
     >
@@ -102,10 +102,11 @@ const NewsCard = React.memo(({ item, onNavigate }: { item: any, onNavigate: (vie
           src={item.imagenUrl}
           alt={item.titulo}
           onError={() => setImagenRota(true)}
-          className="absolute inset-0 w-full h-full object-cover opacity-95 group-hover:scale-105 transition-transform duration-700 ease-out"
+          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
         />
       )}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/35 to-black/5"></div>
+      {/* Velo solo en el tercio inferior: la foto queda limpia arriba */}
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 30%, rgba(0,0,0,0) 58%)' }}></div>
       <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end">
         <div className="flex items-center gap-2 mb-3.5">
           <span className="inline-block text-white text-[9.5px] font-black uppercase tracking-[0.18em] px-3 py-1.5 rounded-full w-fit" style={{ background: '#CC0000', boxShadow: '0 2px 12px rgba(204,0,0,0.55)' }}>

@@ -61,11 +61,17 @@ function extraerEtiqueta(bloque: string, etiqueta: string): string {
   return m ? m[1] : '';
 }
 
+// WordPress suele incrustar miniaturas («foto-300x200.jpg»); quitando el
+// sufijo de tamaño se obtiene la imagen original a resolución completa.
+function imagenACalidadCompleta(url: string): string {
+  return url.replace(/-\d{2,4}x\d{2,4}(?=\.(?:jpe?g|png|webp|gif))/i, '');
+}
+
 function extraerImagen(bloque: string): string | null {
   const media = bloque.match(/<(?:media:content|media:thumbnail|enclosure)[^>]*url="([^"]+\.(?:jpe?g|png|webp|gif)[^"]*)"/i);
-  if (media) return media[1];
+  if (media) return imagenACalidadCompleta(media[1]);
   const img = bloque.match(/<img[^>]*src="([^"]+)"/i);
-  if (img && /\.(jpe?g|png|webp|gif)/i.test(img[1])) return img[1];
+  if (img && /\.(jpe?g|png|webp|gif)/i.test(img[1])) return imagenACalidadCompleta(img[1]);
   return null;
 }
 

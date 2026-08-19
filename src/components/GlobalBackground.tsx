@@ -17,7 +17,7 @@ export const GlobalBackground: React.FC = () => {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-[#4F84C4]/20 blur-[100px] dark:bg-[#4F84C4]/10"
+        className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-[#4F84C4]/10 blur-[100px] dark:bg-[#4F84C4]/10"
       />
 
       {/* Amber Blob */}
@@ -33,7 +33,7 @@ export const GlobalBackground: React.FC = () => {
           ease: "easeInOut",
           delay: 2,
         }}
-        className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-[#FFBF00]/20 blur-[100px] dark:bg-[#FFBF00]/10"
+        className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-[#FFBF00]/10 blur-[100px] dark:bg-[#FFBF00]/10"
       />
 
       {/* Pastel Pink Blob */}
@@ -49,7 +49,7 @@ export const GlobalBackground: React.FC = () => {
           ease: "easeInOut",
           delay: 5,
         }}
-        className="absolute top-[30%] right-[10%] w-[40%] h-[40%] rounded-full bg-[#FFD1DC]/20 blur-[100px] dark:bg-[#FFD1DC]/10"
+        className="absolute top-[30%] right-[10%] w-[40%] h-[40%] rounded-full bg-[#FFD1DC]/10 blur-[100px] dark:bg-[#FFD1DC]/10"
       />
       
       {/* Subtle Noise Overlay */}

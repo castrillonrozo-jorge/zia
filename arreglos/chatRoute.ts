@@ -28,7 +28,36 @@ import { obtenerTasaBCV } from './bcvRate';
 
 // Verifica en tu consola de Google cuáles tiene habilitados tu proyecto.
 // Un id inexistente hace que cada respuesta gaste todos los reintentos.
-const MODELS = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-flash-latest'];
+const MODELS = ['gemini-2.5-flash', 'gemini-2.5-flash-lite', 'gemini-2.0-flash', 'gemini-flash-latest'];
+
+// Gemini responde 503/429 en picos de demanda; son fallos transitorios
+// que se resuelven reintentando con una pequeña espera antes de saltar
+// al siguiente modelo de la lista.
+function esErrorTransitorio(err: unknown): boolean {
+  const texto = String((err as any)?.message ?? err);
+  return (
+    texto.includes('503') ||
+    texto.includes('429') ||
+    texto.includes('overloaded') ||
+    texto.includes('high demand') ||
+    texto.includes('UNAVAILABLE') ||
+    texto.includes('RESOURCE_EXHAUSTED')
+  );
+}
+
+async function generarConReintento(ai: any, peticion: any, intentos = 2): Promise<any> {
+  let ultimo: unknown;
+  for (let i = 0; i <= intentos; i++) {
+    try {
+      return await generarConReintento(ai, peticion);
+    } catch (err) {
+      ultimo = err;
+      if (!esErrorTransitorio(err) || i === intentos) throw err;
+      await new Promise((r) => setTimeout(r, 700 * (i + 1)));
+    }
+  }
+  throw ultimo;
+}
 
 const MAX_TURNOS = 10;
 
@@ -227,7 +256,7 @@ export async function chatRoute(req: Request, res: Response) {
 
   for (const model of MODELS) {
     try {
-      let response: any = await ai.models.generateContent({
+      let response: any = await generarConReintento(ai, {
         model,
         contents,
         config,
@@ -271,7 +300,7 @@ export async function chatRoute(req: Request, res: Response) {
             const turnoNav =
               response.candidates?.[0]?.content ??
               { role: 'model', parts: [{ functionCall: nav }] };
-            const seguimiento: any = await ai.models.generateContent({
+            const seguimiento: any = await generarConReintento(ai, {
               model,
               contents: [
                 ...contents,
@@ -330,7 +359,7 @@ export async function chatRoute(req: Request, res: Response) {
           { role: 'user', parts: resultados },
         ];
 
-        response = await ai.models.generateContent({
+        response = await generarConReintento(ai, {
           model,
           contents: conversacion,
           config,
@@ -340,7 +369,7 @@ export async function chatRoute(req: Request, res: Response) {
       // Segunda pasada con búsqueda: para todo lo informativo, con fuentes.
       if (useSearch !== false) {
         try {
-          const conBusqueda: any = await ai.models.generateContent({
+          const conBusqueda: any = await generarConReintento(ai, {
             model,
             contents,
             config: {
