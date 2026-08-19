@@ -23,6 +23,10 @@ export const AgentChat: React.FC<AgentChatProps> = ({ isOpen, onClose, userName,
     if (typeof localStorage !== 'undefined') return localStorage.getItem('venia_selected_model') || 'gemini-3.1-flash-lite';
     return 'gemini-3.1-flash-lite';
   });
+  const [modoLocal, setModoLocal] = useState(() => {
+    if (typeof localStorage !== 'undefined') return localStorage.getItem('venia_modo_local') === 'true';
+    return false;
+  });
   const [useSearch, setUseSearch] = useState(() => {
     if (typeof localStorage !== 'undefined') {
       const stored = localStorage.getItem('venia_use_search');
@@ -56,7 +60,7 @@ export const AgentChat: React.FC<AgentChatProps> = ({ isOpen, onClose, userName,
     loading: isAiLoading,
     error: aiError,
     send: sendAiMessage,
-  } = useAgentChat({ onNavigate: (view) => onNavigate(view as AppView) });
+  } = useAgentChat({ onNavigate: (view) => onNavigate(view as AppView), modoLocal });
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -253,6 +257,37 @@ export const AgentChat: React.FC<AgentChatProps> = ({ isOpen, onClose, userName,
               </div>
             </div>
 
+            {/* Modo sin conexión: respuestas desde el propio dispositivo */}
+            <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-black border border-black/10 dark:border-white/10">
+              <div className="pr-4">
+                <label className="text-xs font-bold leading-tight flex items-center gap-1.5 text-slate-800 dark:text-slate-200">
+                  <Icons.ShieldCheck size={13} className="text-emerald-500" />
+                  Modo sin conexión (a prueba de fallos)
+                </label>
+                <p className="text-[10px] text-slate-500 mt-0.5 leading-tight">
+                  Responde al instante desde la base de trámites cargada en el teléfono, sin depender de internet ni de ningún servicio externo. Ideal para presentaciones y para zonas sin señal.
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  vibrate('medium');
+                  const nuevo = !modoLocal;
+                  setModoLocal(nuevo);
+                  if (typeof localStorage !== 'undefined') localStorage.setItem('venia_modo_local', String(nuevo));
+                  showStatus(nuevo ? 'Modo sin conexión activado' : 'Modo sin conexión desactivado', 'info');
+                }}
+                className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+                  modoLocal ? 'bg-emerald-500' : 'bg-slate-200 dark:bg-slate-800'
+                }`}
+              >
+                <span
+                  className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-205 ease-in-out ${
+                    modoLocal ? 'translate-x-4' : 'translate-x-0'
+                  }`}
+                />
+              </button>
+            </div>
+
             {/* Switch de Búsqueda de Google (Grounding) */}
             <div className="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-black border border-black/10 dark:border-white/10">
               <div className="pr-4">
@@ -302,6 +337,12 @@ export const AgentChat: React.FC<AgentChatProps> = ({ isOpen, onClose, userName,
                 style={msg.role === 'ai' ? { backgroundColor: '#F4F6F9', color: '#1A2B49' } : {}}
               >
                 {msg.role === 'ai' ? formatMessageText(msg.text) : msg.text}
+                {msg.role === 'ai' && msg.origen === 'local' && (
+                  <div className="mt-2.5 flex items-center gap-1.5 opacity-70">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    <span className="text-[9px] font-bold uppercase tracking-widest">Respuesta local · sin conexión</span>
+                  </div>
+                )}
                 {msg.role === 'ai' && msg.sources && msg.sources.length > 0 && (
                   <div className="mt-3 pt-2 border-t border-black/10 space-y-1">
                     <p className="text-[9px] font-bold uppercase tracking-widest opacity-60">Fuentes</p>

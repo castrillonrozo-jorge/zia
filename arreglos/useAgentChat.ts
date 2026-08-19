@@ -13,6 +13,7 @@
  */
 
 import { useCallback, useRef, useState } from 'react';
+import { buscarRespuestaLocal } from '../src/data/baseConocimiento';
 
 export type Fuente = { titulo: string; url: string };
 
@@ -20,16 +21,24 @@ export type Mensaje = {
   role: 'user' | 'ai';
   text: string;
   sources?: Fuente[];
+  /** 'local' = respondió la base de conocimiento del propio dispositivo. */
+  origen?: 'ia' | 'local';
 };
 
 type Opciones = {
   onNavigate?: (view: string) => void;
   endpoint?: string;
+  /** Fuerza que todas las respuestas salgan de la base local. */
+  modoLocal?: boolean;
 };
+
+/** Más allá de esto, la espera se vuelve incómoda en una demostración. */
+const TIEMPO_MAXIMO_MS = 12000;
 
 export function useAgentChat({
   onNavigate,
   endpoint = '/api/chat',
+  modoLocal = false,
 }: Opciones = {}) {
   const [messages, setMessages] = useState<Mensaje[]>([]);
   const [loading, setLoading] = useState(false);
@@ -49,10 +58,40 @@ export function useAgentChat({
       const historial = messages.map((m) => ({ role: m.role, text: m.text }));
       setMessages((prev) => [...prev, { role: 'user', text: mensaje }]);
 
+      // Red de seguridad: si la IA remota falla o tarda demasiado, responde
+      // la base de conocimiento del dispositivo. El ciudadano nunca se queda
+      // sin respuesta por una caída ajena.
+      const responderEnLocal = (): boolean => {
+        const local = buscarRespuestaLocal(mensaje);
+        if (!local) return false;
+        setMessages((prev) => [
+          ...prev,
+          { role: 'ai', text: local.respuesta, sources: [], origen: 'local' },
+        ]);
+        if (local.vista) onNavigate?.(local.vista);
+        return true;
+      };
+
+      if (modoLocal) {
+        if (!responderEnLocal()) {
+          setError(
+            'En modo sin conexión solo puedo resolver los trámites cargados en el dispositivo. ' +
+            'Desactiva el modo sin conexión para preguntarme cualquier otra cosa.',
+          );
+        }
+        setLoading(false);
+        enVuelo.current = false;
+        return;
+      }
+
+      const corte = new AbortController();
+      const reloj = setTimeout(() => corte.abort(), TIEMPO_MAXIMO_MS);
+
       try {
         const res = await fetch(endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          signal: corte.signal,
           body: JSON.stringify({
             message: mensaje,
             history: historial,
@@ -65,7 +104,8 @@ export function useAgentChat({
           data = await res.json();
         } catch {
           // El servidor respondió, pero no con JSON: función ausente (404),
-          // caída (500) o cortada por tiempo (504). Mostrar el código real.
+          // caída (500) o cortada por tiempo (504).
+          if (responderEnLocal()) return;
           setError(
             `El servidor del chat respondió ${res.status} sin datos. ` +
             (res.status === 404
@@ -78,6 +118,7 @@ export function useAgentChat({
         }
 
         if (!res.ok) {
+          if (responderEnLocal()) return;
           setError(data?.error ?? 'No se pudo contactar al asistente.');
           return;
         }
@@ -89,20 +130,25 @@ export function useAgentChat({
           ]);
         } else if (!data.action) {
           // Respuesta 200 sin texto ni acción: que nunca parezca que murió.
-          setError('El asistente respondió sin contenido. Intenta reformular.');
+          if (!responderEnLocal()) {
+            setError('El asistente respondió sin contenido. Intenta reformular.');
+          }
         }
 
         if (data.action?.type === 'navigate' && data.action.view) {
           onNavigate?.(data.action.view);
         }
       } catch {
-        setError('Sin conexión con el asistente. Revisa tu red.');
+        if (!responderEnLocal()) {
+          setError('Sin conexión con el asistente. Revisa tu red.');
+        }
       } finally {
+        clearTimeout(reloj);
         setLoading(false);
         enVuelo.current = false;
       }
     },
-    [messages, endpoint, onNavigate],
+    [messages, endpoint, onNavigate, modoLocal],
   );
 
   const reset = useCallback(() => {

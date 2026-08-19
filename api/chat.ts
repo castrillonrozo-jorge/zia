@@ -432,8 +432,15 @@ function extraerFuentes(response: any) {
 }
 
 async function chatRoute(req: Request, res: Response) {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
+  // Varias claves permitidas: si una agota su cuota o la rechazan por
+  // demanda, se intenta con la siguiente sin que el usuario note nada.
+  const claves = [
+    process.env.GEMINI_API_KEY,
+    process.env.GEMINI_API_KEY_2,
+    process.env.GEMINI_API_KEY_3,
+  ].filter((k): k is string => Boolean(k && k.trim()));
+
+  if (claves.length === 0) {
     return res.status(500).json({
       error:
         'Falta GEMINI_API_KEY en el entorno. La clave no debe estar en el código.',
@@ -445,7 +452,6 @@ async function chatRoute(req: Request, res: Response) {
     return res.status(400).json({ error: 'Falta el mensaje.' });
   }
 
-  const ai = new GoogleGenAI({ apiKey });
   const contents = construirContents(history, message);
 
   // googleSearch y functionDeclarations no conviven en la misma llamada.
@@ -459,7 +465,16 @@ async function chatRoute(req: Request, res: Response) {
 
   let ultimoError: unknown = null;
 
-  for (const model of MODELS) {
+  // Cada combinación de clave y modelo es un intento independiente: hacen
+  // falta muchos fallos simultáneos de Google para que el chat se quede
+  // sin responder.
+  const intentos: { clave: string; model: string }[] = [];
+  for (const clave of claves) {
+    for (const model of MODELS) intentos.push({ clave, model });
+  }
+
+  for (const { clave, model } of intentos) {
+    const ai = new GoogleGenAI({ apiKey: clave });
     try {
       let response: any = await generarConReintento(ai, {
         model,
