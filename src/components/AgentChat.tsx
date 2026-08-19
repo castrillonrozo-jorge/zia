@@ -143,7 +143,7 @@ export const AgentChat: React.FC<AgentChatProps> = ({ isOpen, onClose, userName,
                 boxShadow: 'none',
                 border: '1px solid rgba(129, 140, 248, 0.4)',
               }}
-              className="w-9 h-9 rounded-full flex items-center justify-center relative overflow-hidden group"
+              className="w-9 h-9 rounded-full flex items-center justify-center relative overflow-hidden group chip-aurora"
             >
               <Icons.Sparkles size={14} className="text-white drop-shadow-none" />
             </div>
@@ -355,7 +355,7 @@ export const AgentChat: React.FC<AgentChatProps> = ({ isOpen, onClose, userName,
             />
             <button
               onClick={() => handleSendAiMessage()}
-              className="w-11 h-11 rounded-xl bg-[#4F84C4] hover:bg-[#4F84C4] text-white flex items-center justify-center hover:scale-95 transition-all"
+              className="w-11 h-11 rounded-xl bg-[#4F84C4] hover:bg-[#4F84C4] text-white flex items-center justify-center hover:scale-95 transition-all chip-aurora"
             >
               <Icons.Send size={18} />
             </button>

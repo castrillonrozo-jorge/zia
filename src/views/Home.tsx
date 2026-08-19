@@ -62,7 +62,7 @@ const ServiceCard = React.memo(({ service, onNavigate }: { service: { id: string
 
       {/* Icons container */}
       <div className="relative z-10 w-full flex justify-end items-start mt-[-4px]">
-        <div className="h-9 w-9 flex items-center justify-center rounded-[12px] bg-black/20 backdrop-blur-xl shadow-[inset_0_1px_4px_rgba(0,0,0,0.4),_0_1px_0_rgba(255,255,255,0.15)] border border-black/20 text-white group-hover:scale-110 transition-transform duration-300">
+        <div className="h-9 w-9 flex items-center justify-center rounded-[12px] bg-black/20 backdrop-blur-xl shadow-[inset_0_1px_4px_rgba(0,0,0,0.4),_0_1px_0_rgba(255,255,255,0.15)] border border-black/20 text-white group-hover:scale-110 transition-transform duration-300 chip-aurora">
           {IconComponent && <IconComponent size={20} strokeWidth={1.5} />}
         </div>
       </div>

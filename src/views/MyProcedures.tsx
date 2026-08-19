@@ -87,7 +87,7 @@ export const MyProcedures: React.FC = () => {
               className="p-8 rounded-[2.5rem] flex flex-col gap-6 group active:scale-[0.98] transition-all relative overflow-hidden">
             <div className="flex justify-between items-start relative z-10">
               <div className="flex gap-5">
-                <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-14 h-14 rounded-2xl flex items-center justify-center text-[#FFFFFF] shadow-none">
+                <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-14 h-14 rounded-2xl flex items-center justify-center text-[#FFFFFF] shadow-none chip-aurora">
                   <proc.icon size={26} />
                 </div>
                 <div>
@@ -119,7 +119,7 @@ export const MyProcedures: React.FC = () => {
           borderTop: '1px solid rgba(255, 255, 255, 0.25)',
         }}
         className="rounded-[3.5rem] p-12 text-center space-y-8 mx-2 relative overflow-hidden">
-        <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-20 h-20 rounded-3xl flex items-center justify-center mx-auto shadow-none">
+        <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-20 h-20 rounded-3xl flex items-center justify-center mx-auto shadow-none chip-aurora">
            <Icons.Clock size={32} className="text-[#FFFFFF]" />
         </div>
         <div className="space-y-3 relative z-10">

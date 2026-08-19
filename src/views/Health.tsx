@@ -75,7 +75,7 @@ export const Health: React.FC = () => {
                   boxShadow: 'none',
                   border: '1px solid rgba(255,255,255,0.08)',
                 }}
-                className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-none relative z-10"
+                className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-none relative z-10 chip-aurora"
               >
                   <service.icon size={25} className="text-white group-hover:scale-110 transition-transform" />
               </div>
@@ -108,7 +108,7 @@ export const Health: React.FC = () => {
                 boxShadow: 'none',
                 border: '1px solid rgba(255,255,255,0.08)',
               }}
-              className="w-10 h-10 rounded-xl flex items-center justify-center"
+              className="w-10 h-10 rounded-xl flex items-center justify-center chip-aurora"
             >
               <Icons.Activity className="text-blue-400 font-bold" size={20} />
             </div>

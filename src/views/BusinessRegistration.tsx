@@ -67,7 +67,7 @@ export const BusinessRegistration: React.FC = () => {
             }}
             className="text-[#FFFFFF] p-8 rounded-[2.5rem] flex flex-col justify-between h-44 shadow-none active:scale-95 transition-all border border-white/10"
            >
-              <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-12 h-12 rounded-2xl flex items-center justify-center">
+              <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-12 h-12 rounded-2xl flex items-center justify-center chip-aurora">
                 <Icons.FileText size={24} className="text-[#FFFFFF]" />
               </div>
               <span className="text-xs font-black uppercase tracking-widest text-left">Trámites</span>
@@ -81,7 +81,7 @@ export const BusinessRegistration: React.FC = () => {
             }}
             className="border border-white/10 text-[#FFFFFF] p-8 rounded-[2.5rem] flex flex-col justify-between h-44 shadow-none active:scale-95 transition-all"
            >
-              <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-12 h-12 rounded-2xl flex items-center justify-center">
+              <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-12 h-12 rounded-2xl flex items-center justify-center chip-aurora">
                 <Icons.CreditCard size={24} className="text-[#FFFFFF]" />
               </div>
               <span className="text-xs font-black uppercase tracking-widest text-left">Pagos PUB</span>
@@ -100,7 +100,7 @@ export const BusinessRegistration: React.FC = () => {
               }}
               className="flex items-center gap-5 p-6 border border-white/10 rounded-[2.5rem] shadow-none hover:shadow-none active:scale-[0.98] transition-all text-left group relative overflow-hidden"
             >
-              <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 shadow-none text-[#FFFFFF] relative z-10`}>
+              <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 shadow-none text-[#FFFFFF] relative z-10 chip-aurora`}>
                 <fn.icon size={28} />
               </div>
               <div className="flex-1 relative z-10">
@@ -144,7 +144,7 @@ export const BusinessRegistration: React.FC = () => {
         </div>
 
         <div className="bg-emerald-500/[0.05] dark:bg-emerald-400/[0.08] p-8 rounded-[2.5rem] border border-emerald-500/10 dark:border-emerald-400/20 flex gap-5 backdrop-blur-xl">
-           <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center shrink-0">
+           <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center shrink-0 chip-aurora">
             <Icons.ShieldCheck className="text-emerald-600 dark:text-emerald-400" size={24} />
            </div>
            <p className="text-[11px] text-emerald-800 dark:text-slate-200 font-bold leading-relaxed">Sus pagos se procesan de forma inmediata a través del sistema de banca nacional interconectada.</p>
@@ -254,7 +254,7 @@ export const BusinessRegistration: React.FC = () => {
             <h3 className="text-xs font-black text-[#FFFFFF] opacity-80 uppercase tracking-widest relative z-10">Carga de Recaudos</h3>
             
             <div style={{ background: 'rgba(255, 255, 255, 0.05)', backdropFilter: 'blur(8px)', border: '2px dashed rgba(255, 255, 255, 0.2)' }} className="rounded-[3rem] p-16 flex flex-col items-center gap-6 hover:bg-white/10 cursor-pointer transition-all group active:scale-[0.98] relative z-10">
-              <div style={{ background: 'rgba(255, 255, 255, 0.15)', backdropFilter: 'blur(8px)' }} className="w-20 h-20 rounded-3xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-none text-[#FFFFFF]">
+              <div style={{ background: 'rgba(255, 255, 255, 0.15)', backdropFilter: 'blur(8px)' }} className="w-20 h-20 rounded-3xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-none text-[#FFFFFF] chip-aurora">
                 <Icons.Upload size={32} />
               </div>
               <div className="text-center space-y-2">

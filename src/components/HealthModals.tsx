@@ -62,7 +62,7 @@ export const HealthModals: React.FC<HealthModalsProps> = ({ isOpen, onClose, typ
     <div className="fixed inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] z-[150] bg-black/40 backdrop-blur-sm flex items-end justify-center p-4 animate-in fade-in duration-300">
       <div className="w-full max-w-md bg-white rounded-[2.5rem] p-8 shadow-none animate-in slide-in-from-bottom-full duration-500 max-h-[90vh] overflow-y-auto no-scrollbar">
         <div className="flex justify-between items-start mb-6">
-          <div className="w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center">
+          <div className="w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center chip-aurora">
             {content.icon}
           </div>
           <button 
@@ -70,7 +70,7 @@ export const HealthModals: React.FC<HealthModalsProps> = ({ isOpen, onClose, typ
               onClose();
               setSelectedRegion(null);
             }}
-            className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 hover:bg-slate-200 transition-colors"
+            className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 hover:bg-slate-200 transition-colors chip-aurora"
           >
             <Icons.X size={20} />
           </button>

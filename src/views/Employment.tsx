@@ -166,7 +166,7 @@ export const Employment: React.FC = () => {
         <div className="flex gap-5 overflow-x-auto no-scrollbar py-2 px-2">
           {companies.map((company, i) => (
             <div key={i} className="flex flex-col items-center gap-3 shrink-0 group active:scale-90 transition-all">
-              <div className={`w-16 h-16 rounded-[1.5rem] flex items-center justify-center overflow-hidden backdrop-blur-xl transition-transform group-hover:scale-105 ${company.containerClass}`}>
+              <div className={`w-16 h-16 rounded-[1.5rem] flex items-center justify-center overflow-hidden backdrop-blur-xl transition-transform group-hover:scale-105 ${company.containerClass} chip-aurora`}>
                 {company.logoRender()}
               </div>
               <span className="text-[9px] font-black text-slate-900 dark:text-white uppercase tracking-widest">{company.name}</span>
@@ -206,7 +206,7 @@ export const Employment: React.FC = () => {
           >
             <div className="flex justify-between items-start relative z-10">
               <div className="flex gap-5">
-                <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-14 h-14 rounded-2xl flex items-center justify-center text-[#FFFFFF] shadow-none shrink-0 relative z-10">
+                <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-14 h-14 rounded-2xl flex items-center justify-center text-[#FFFFFF] shadow-none shrink-0 relative z-10 chip-aurora">
                   <job.icon size={26} />
                 </div>
                 <div>
@@ -272,7 +272,7 @@ export const Employment: React.FC = () => {
                       setIsApplying(false);
                     }} 
                     style={{ background: 'rgba(255, 255, 255, 0.15)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.2)' }}
-                    className="w-10 h-10 rounded-full flex items-center justify-center text-[#FFFFFF] hover:bg-white/20 transition-all"
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-[#FFFFFF] hover:bg-white/20 transition-all chip-aurora"
                   >
                     <Icons.X size={20} />
                   </button>
@@ -295,7 +295,7 @@ export const Employment: React.FC = () => {
                       </div>
 
                       <div style={{ background: 'rgba(255, 255, 255, 0.05)', backdropFilter: 'blur(8px)', border: '2px dashed rgba(255, 255, 255, 0.2)' }} className="p-8 rounded-[2rem] flex flex-col items-center justify-center text-center gap-4 group cursor-pointer hover:bg-white/10 transition-all">
-                        <div style={{ background: 'rgba(255, 255, 255, 0.15)', backdropFilter: 'blur(8px)' }} className="w-14 h-14 rounded-2xl flex items-center justify-center text-[#FFFFFF]">
+                        <div style={{ background: 'rgba(255, 255, 255, 0.15)', backdropFilter: 'blur(8px)' }} className="w-14 h-14 rounded-2xl flex items-center justify-center text-[#FFFFFF] chip-aurora">
                           <Icons.Upload size={24} />
                         </div>
                         <div className="space-y-1">
@@ -315,7 +315,7 @@ export const Employment: React.FC = () => {
                   </div>
                 ) : (
                   <div className="py-10 flex flex-col items-center text-center gap-6">
-                    <div style={{ background: 'rgba(255, 255, 255, 0.15)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.2)' }} className="w-20 h-20 rounded-full flex items-center justify-center text-[#FFFFFF]">
+                    <div style={{ background: 'rgba(255, 255, 255, 0.15)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.2)' }} className="w-20 h-20 rounded-full flex items-center justify-center text-[#FFFFFF] chip-aurora">
                       <Icons.CheckCircle2 size={48} />
                     </div>
                     <div className="space-y-2">

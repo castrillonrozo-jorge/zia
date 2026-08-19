@@ -65,7 +65,7 @@ export const Economy: React.FC = () => {
               className={`flex items-center justify-between py-8 px-10 hover:bg-white/5 transition-colors group cursor-pointer ${idx !== commodities.length - 1 ? 'border-b border-white/10' : ''}`}
             >
               <div className="flex items-center gap-6 relative z-10">
-                <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className={`w-14 h-14 rounded-2xl flex items-center justify-center text-[#FFFFFF] shadow-none group-hover:scale-110 transition-transform duration-500`}>
+                <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className={`w-14 h-14 rounded-2xl flex items-center justify-center text-[#FFFFFF] shadow-none group-hover:scale-110 transition-transform duration-500 chip-aurora`}>
                   <item.icon size={24} />
                 </div>
                 <div>
@@ -164,7 +164,7 @@ export const Economy: React.FC = () => {
                 backdropFilter: 'blur(8px)',
                 border: '1px solid rgba(255, 255, 255, 0.18)',
               }}
-              className="w-12 h-12 rounded-2xl flex items-center justify-center"
+              className="w-12 h-12 rounded-2xl flex items-center justify-center chip-aurora"
             >
               <Icons.Brain size={24} className="text-[#FFFFFF]" />
             </div>

@@ -58,7 +58,7 @@ export const INTT: React.FC = () => {
             }}
             className="p-8 rounded-[2.5rem] text-[#FFFFFF] flex flex-col justify-between h-44 shadow-none active:scale-95 transition-all border border-white/10"
           >
-            <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-12 h-12 rounded-2xl flex items-center justify-center">
+            <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-12 h-12 rounded-2xl flex items-center justify-center chip-aurora">
               <Icons.Layers size={24} className="text-[#FFFFFF]" />
             </div>
             <span className="text-xs font-black uppercase tracking-widest text-left">Trámites</span>
@@ -72,7 +72,7 @@ export const INTT: React.FC = () => {
             }}
             className="p-8 rounded-[2.5rem] text-[#FFFFFF] flex flex-col justify-between h-44 shadow-none active:scale-95 transition-all border border-white/10"
           >
-            <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-12 h-12 rounded-2xl flex items-center justify-center">
+            <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-12 h-12 rounded-2xl flex items-center justify-center chip-aurora">
               <Icons.CreditCard size={24} className="text-[#FFFFFF]" />
             </div>
             <span className="text-xs font-black uppercase tracking-widest text-left">Pagos</span>
@@ -93,7 +93,7 @@ export const INTT: React.FC = () => {
                 }}
                 className="flex items-center gap-5 p-6 border border-white/10 rounded-[2.5rem] shadow-none hover:shadow-none transition-all text-left group active:scale-[0.98] relative overflow-hidden"
               >
-                <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 shadow-none text-[#FFFFFF] relative z-10`}>
+                <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 shadow-none text-[#FFFFFF] relative z-10 chip-aurora`}>
                   <proc.icon size={26} />
                 </div>
                 <div className="flex-1 relative z-10">
@@ -167,7 +167,7 @@ export const INTT: React.FC = () => {
           }}
           className="p-10 rounded-[2.5rem] border border-white/10 text-center space-y-6 shadow-none relative overflow-hidden"
         >
-           <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto shadow-none relative z-10">
+           <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto shadow-none relative z-10 chip-aurora">
             <Icons.Calculator size={32} className="text-[#FFFFFF]" />
            </div>
            <div className="space-y-2 relative z-10">

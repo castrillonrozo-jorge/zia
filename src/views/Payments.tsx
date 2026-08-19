@@ -158,7 +158,7 @@ export const Payments: React.FC<PaymentsProps> = ({ onNavigate }) => {
                   boxShadow: 'none',
                   border: '1px solid rgba(255,255,255,0.08)',
                 }}
-                className={`w-14 h-14 shrink-0 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110 shadow-none`}
+                className={`w-14 h-14 shrink-0 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110 shadow-none chip-aurora`}
               >
                 <service.icon size={22} className="text-white brightness-125" strokeWidth={1.5} />
               </div>
@@ -215,7 +215,7 @@ export const Payments: React.FC<PaymentsProps> = ({ onNavigate }) => {
             boxShadow: 'none',
             border: '1px solid rgba(255,255,255,0.08)',
           }}
-          className="w-20 h-20 rounded-2xl flex items-center justify-center relative z-10"
+          className="w-20 h-20 rounded-2xl flex items-center justify-center relative z-10 chip-aurora"
         >
           <Icons.QrCode size={34} className="text-blue-400" />
         </div>

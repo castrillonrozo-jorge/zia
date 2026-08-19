@@ -53,7 +53,7 @@ export const QRScannerModal: React.FC<QRScannerModalProps> = ({ isOpen, onClose,
           <div className="p-8">
             <div className="flex justify-between items-center mb-8">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-500">
+                <div className="w-10 h-10 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 chip-aurora">
                   <Icons.QrCode size={20} />
                 </div>
                 <div>
@@ -61,7 +61,7 @@ export const QRScannerModal: React.FC<QRScannerModalProps> = ({ isOpen, onClose,
                   <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Pago Instantáneo</p>
                 </div>
               </div>
-              <button onClick={onClose} className="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-400">
+              <button onClick={onClose} className="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-400 chip-aurora">
                 <Icons.X size={18} />
               </button>
             </div>
@@ -101,7 +101,7 @@ export const QRScannerModal: React.FC<QRScannerModalProps> = ({ isOpen, onClose,
               <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <div className="bg-slate-50 dark:bg-white/5 p-6 rounded-3xl border border-slate-100 dark:border-white/5">
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-12 h-12 rounded-2xl bg-indigo-500 flex items-center justify-center text-white">
+                    <div className="w-12 h-12 rounded-2xl bg-indigo-500 flex items-center justify-center text-white chip-aurora">
                       <Icons.Building2 size={24} />
                     </div>
                     <div>
@@ -157,7 +157,7 @@ export const QRScannerModal: React.FC<QRScannerModalProps> = ({ isOpen, onClose,
 
             {step === 'success' && (
               <div className="py-8 flex flex-col items-center gap-6 text-center animate-in zoom-in-95 duration-500">
-                <div className="w-20 h-20 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+                <div className="w-20 h-20 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500 chip-aurora">
                   <Icons.CheckCircle2 size={48} />
                 </div>
                 <div className="space-y-2">

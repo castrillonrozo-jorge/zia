@@ -39,7 +39,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ onClose, onNavigate })
           <div className="flex items-center gap-4">
             <button 
               onClick={onClose}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-white"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-white chip-aurora"
             >
               <Icons.ArrowLeft size={18} />
             </button>
@@ -73,7 +73,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ onClose, onNavigate })
                 }}
                 className="w-full p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-black/5 dark:border-white/5 flex items-center gap-4 group active:scale-[0.98] transition-all"
               >
-                <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center chip-aurora">
                   <item.icon size={20} className="text-[#4F84C4] dark:text-blue-400" />
                 </div>
                 <div className="flex-1 text-left">

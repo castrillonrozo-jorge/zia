@@ -37,7 +37,7 @@ export const Header: React.FC<HeaderProps> = ({
               boxShadow: 'none',
               border: '1px solid rgba(255,255,255,0.08)',
             }}
-            className="w-9 h-9 rounded-full flex items-center justify-center active:scale-90 transition-all text-slate-700 dark:text-slate-300 hover:text-black dark:hover:text-white"
+            className="w-9 h-9 rounded-full flex items-center justify-center active:scale-90 transition-all text-slate-700 dark:text-slate-300 hover:text-black dark:hover:text-white chip-aurora"
           >
             <Icons.ArrowLeft size={16} />
           </button>

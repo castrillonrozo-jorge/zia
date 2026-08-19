@@ -157,7 +157,7 @@ export const Renacer: React.FC<RenacerProps> = ({ onNavigate }) => {
       {/* Renace Venezuela — programa nacional para jóvenes */}
       <div className="bg-white dark:bg-[#0D1117] rounded-[22px] p-4 shadow-[0_2px_8px_rgba(20,22,28,0.06)] border border-black/5 dark:border-white/10 flex flex-col gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-[14px] flex items-center justify-center shrink-0" style={{ background: 'linear-gradient(140deg, #F7C325 0%, #E8A317 100%)', boxShadow: '0 6px 16px rgba(232,163,23,0.35)' }}>
+          <div className="w-11 h-11 rounded-[14px] flex items-center justify-center shrink-0 chip-aurora" style={{ background: 'linear-gradient(140deg, #F7C325 0%, #E8A317 100%)', boxShadow: '0 6px 16px rgba(232,163,23,0.35)' }}>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="7" r="3.2" /><path d="M5.5 21c.5-4 3-6.2 6.5-6.2s6 2.2 6.5 6.2" /><path d="M12 2v1.5M18.5 4.5l-1 1M5.5 4.5l1 1" /></svg>
           </div>
           <div className="min-w-0">

@@ -67,7 +67,7 @@ export const ExchangeCalculator: React.FC<ExchangeCalculatorProps> = ({ isOpen, 
           <div className="p-8">
             <div className="flex justify-between items-center mb-8">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500">
+                <div className="w-10 h-10 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 chip-aurora">
                   <Icons.Calculator size={20} />
                 </div>
                 <div>
@@ -75,7 +75,7 @@ export const ExchangeCalculator: React.FC<ExchangeCalculatorProps> = ({ isOpen, 
                   <p className="text-[9px] font-bold text-slate-400 tracking-widest">Conversión Instantánea</p>
                 </div>
               </div>
-              <button onClick={onClose} className="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-400">
+              <button onClick={onClose} className="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-400 chip-aurora">
                 <Icons.X size={18} />
               </button>
             </div>

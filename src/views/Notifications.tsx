@@ -67,7 +67,7 @@ export const Notifications: React.FC = () => {
             key={alert.id} 
             className={`p-8 rounded-[2.5rem] flex items-start gap-6 transition-all border border-black/[0.05] dark:border-white/[0.08] shadow-none active:scale-[0.98] ${alert.unread ? 'bg-[#4F84C4]/[0.03] dark:bg-blue-400/[0.05] border-[#4F84C4]/20 dark:border-blue-400/30' : 'bg-white dark:bg-[#0D1117]'}`}
           >
-            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 ${alert.color} dark:bg-white/5 backdrop-blur-xl shadow-none border border-black/[0.05] dark:border-white/[0.05]`}>
+            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 ${alert.color} dark:bg-white/5 backdrop-blur-xl shadow-none border border-black/[0.05] dark:border-white/[0.05] chip-aurora`}>
               <alert.icon size={26} strokeWidth={2.5} />
             </div>
             <div className="flex-1">
@@ -88,7 +88,7 @@ export const Notifications: React.FC = () => {
       </div>
 
       <div className="bg-slate-50 dark:bg-[#0D1117] rounded-[3.5rem] p-12 text-center space-y-8 border border-black/[0.05] dark:border-white/[0.08] shadow-none mx-2">
-        <div className="w-20 h-20 rounded-3xl bg-white dark:bg-white/5 flex items-center justify-center mx-auto shadow-none border border-black/[0.05] dark:border-white/[0.05]">
+        <div className="w-20 h-20 rounded-3xl bg-white dark:bg-white/5 flex items-center justify-center mx-auto shadow-none border border-black/[0.05] dark:border-white/[0.05] chip-aurora">
           <Icons.Bell className="text-[#4F84C4] dark:text-blue-400" size={36} />
         </div>
         <div className="space-y-3">

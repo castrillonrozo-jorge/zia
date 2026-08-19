@@ -57,7 +57,7 @@ export const PaymentGatewayModal: React.FC<PaymentGatewayModalProps> = ({ isOpen
           <div className="p-8">
             <div className="flex justify-between items-center mb-8">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+                <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 chip-aurora">
                   <Icons.CreditCard size={20} />
                 </div>
                 <div>
@@ -65,7 +65,7 @@ export const PaymentGatewayModal: React.FC<PaymentGatewayModalProps> = ({ isOpen
                   <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{serviceName}</p>
                 </div>
               </div>
-              <button onClick={onClose} className="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-400">
+              <button onClick={onClose} className="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-400 chip-aurora">
                 <Icons.X size={18} />
               </button>
             </div>
@@ -85,7 +85,7 @@ export const PaymentGatewayModal: React.FC<PaymentGatewayModalProps> = ({ isOpen
                       onClick={() => handleMethodSelect(method.id)}
                       className="flex items-center gap-4 p-4 bg-slate-50 dark:bg-white/5 rounded-2xl border border-slate-100 dark:border-white/5 hover:border-blue-500 transition-all text-left group"
                     >
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${method.color}`}>
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${method.color} chip-aurora`}>
                         <method.icon size={20} />
                       </div>
                       <div className="flex-1">
@@ -173,7 +173,7 @@ export const PaymentGatewayModal: React.FC<PaymentGatewayModalProps> = ({ isOpen
 
             {step === 'success' && (
               <div className="py-8 flex flex-col items-center gap-6 text-center animate-in zoom-in-95 duration-500">
-                <div className="w-20 h-20 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+                <div className="w-20 h-20 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500 chip-aurora">
                   <Icons.CheckCircle2 size={48} />
                 </div>
                 <div className="space-y-2">

@@ -48,7 +48,7 @@ export const Seniat: React.FC = () => {
             className="p-6 md:p-8 rounded-[3rem] flex items-center justify-between group active:scale-[0.98] transition-all border border-white/10 shadow-none relative overflow-hidden"
           >
             <div className="flex items-center gap-4 md:gap-6 flex-1 min-w-0 pr-4 relative z-10">
-              <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className={`w-14 h-14 md:w-16 md:h-16 shrink-0 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110 text-[#FFFFFF] shadow-none`}>
+              <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className={`w-14 h-14 md:w-16 md:h-16 shrink-0 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110 text-[#FFFFFF] shadow-none chip-aurora`}>
                 <payment.icon size={24} className="md:w-7 md:h-7" strokeWidth={2.5} />
               </div>
               <div className="space-y-1 min-w-0">
@@ -85,7 +85,7 @@ export const Seniat: React.FC = () => {
         }}
         className="rounded-[3.5rem] p-12 border border-white/10 flex flex-col items-center text-center gap-8 mx-2 shadow-none relative overflow-hidden"
       >
-        <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-20 h-20 rounded-3xl flex items-center justify-center shadow-none relative z-10">
+        <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="w-20 h-20 rounded-3xl flex items-center justify-center shadow-none relative z-10 chip-aurora">
            <Icons.ShieldCheck size={32} className="text-[#FFFFFF]" />
         </div>
         <div className="space-y-3 relative z-10">

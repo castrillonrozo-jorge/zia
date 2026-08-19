@@ -54,7 +54,7 @@ export const Profile: React.FC<ProfileProps> = ({ balance, onOpenRecharge, onOpe
     return (
       <div className="animate-in slide-in-from-right-4 duration-500 p-8 space-y-10 pt-12">
         <div className="flex items-center justify-between">
-          <button onClick={() => setIsEditing(false)} className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center">
+          <button onClick={() => setIsEditing(false)} className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center chip-aurora">
             <Icons.X size={20} className="text-slate-900 dark:text-white" />
           </button>
           <h2 className="text-sm font-black uppercase tracking-[0.3em] text-slate-900 dark:text-white">Perfil Ejecutivo</h2>
@@ -66,7 +66,7 @@ export const Profile: React.FC<ProfileProps> = ({ balance, onOpenRecharge, onOpe
             <div className="w-32 h-32 rounded-full overflow-hidden bg-slate-100 dark:bg-white/5 border-4 border-white dark:border-black shadow-none">
                <img src={userData.photo} className="w-full h-full object-cover" alt="" />
             </div>
-            <label className="absolute -bottom-2 -right-2 w-12 h-12 bg-[#4F84C4] rounded-full flex items-center justify-center text-white shadow-none border-4 border-white dark:border-black active:scale-90 transition-transform cursor-pointer">
+            <label className="absolute -bottom-2 -right-2 w-12 h-12 bg-[#4F84C4] rounded-full flex items-center justify-center text-white shadow-none border-4 border-white dark:border-black active:scale-90 transition-transform cursor-pointer chip-aurora">
               <Icons.Camera size={20} />
               <input type="file" accept="image/*" className="hidden" onChange={handlePhotoUpload} />
             </label>
@@ -213,10 +213,10 @@ export const Profile: React.FC<ProfileProps> = ({ balance, onOpenRecharge, onOpe
                 <p className="text-[12px] font-mono tracking-[0.2em] text-[#FFFFFF] drop-shadow-none">**** **** **** 8892</p>
               </div>
               <div className="flex gap-2.5">
-                <div className="bg-white/10 text-white w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center border border-white/20 backdrop-blur-md">
+                <div className="bg-white/10 text-white w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center border border-white/20 backdrop-blur-md chip-aurora">
                   <Icons.Plus size={16} strokeWidth={3} />
                 </div>
-                <div className="bg-white/10 text-white w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center border border-white/20 backdrop-blur-md">
+                <div className="bg-white/10 text-white w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center border border-white/20 backdrop-blur-md chip-aurora">
                   <Icons.Send size={16} strokeWidth={2.5} />
                 </div>
               </div>
@@ -232,7 +232,7 @@ export const Profile: React.FC<ProfileProps> = ({ balance, onOpenRecharge, onOpe
             <div className="p-8 space-y-8">
               <div className="flex justify-between items-center">
                 <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em]">Tarjeta Digital</h3>
-                <button onClick={() => setIsCardModalOpen(false)} style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }} className="w-10 h-10 rounded-full flex items-center justify-center">
+                <button onClick={() => setIsCardModalOpen(false)} style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }} className="w-10 h-10 rounded-full flex items-center justify-center chip-aurora">
                   <Icons.X size={18} className="text-white" />
                 </button>
               </div>
@@ -348,7 +348,7 @@ export const Profile: React.FC<ProfileProps> = ({ balance, onOpenRecharge, onOpe
           
           <div className="grid grid-cols-1 gap-6 relative z-10">
             <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="flex items-center gap-6 p-4 rounded-[2rem]">
-              <div style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%)', border: '1px solid rgba(255,255,255,0.15)' }} className="w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-none">
+              <div style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%)', border: '1px solid rgba(255,255,255,0.15)' }} className="w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-none chip-aurora">
                 <Icons.Fingerprint size={24} />
               </div>
               <div>
@@ -358,7 +358,7 @@ export const Profile: React.FC<ProfileProps> = ({ balance, onOpenRecharge, onOpe
             </div>
 
             <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="flex items-center gap-6 p-4 rounded-[2rem]">
-              <div style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%)', border: '1px solid rgba(255,255,255,0.15)' }} className="w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-none">
+              <div style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%)', border: '1px solid rgba(255,255,255,0.15)' }} className="w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-none chip-aurora">
                 <Icons.PhoneCall size={24} />
               </div>
               <div>
@@ -368,7 +368,7 @@ export const Profile: React.FC<ProfileProps> = ({ balance, onOpenRecharge, onOpe
             </div>
 
             <div style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }} className="flex items-center gap-6 p-4 rounded-[2rem]">
-              <div style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%)', border: '1px solid rgba(255,255,255,0.15)' }} className="w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-none">
+              <div style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%)', border: '1px solid rgba(255,255,255,0.15)' }} className="w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-none chip-aurora">
                 <Icons.MapPin size={24} />
               </div>
               <div>
@@ -403,7 +403,7 @@ export const Profile: React.FC<ProfileProps> = ({ balance, onOpenRecharge, onOpe
               <div className="flex items-center gap-5 relative z-10">
                 <div 
                   style={{ background: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255, 255, 255, 0.18)' }}
-                  className={`w-12 h-12 rounded-xl flex items-center justify-center ${tx.type === 'in' ? 'text-emerald-300' : 'text-rose-300'}`}
+                  className={`w-12 h-12 rounded-xl flex items-center justify-center ${tx.type === 'in' ? 'text-emerald-300' : 'text-rose-300'} chip-aurora`}
                 >
                   {tx.type === 'in' ? <Icons.ArrowLeft className="rotate-45" size={20} strokeWidth={2.5} /> : <Icons.ArrowLeft className="-rotate-[135deg]" size={20} strokeWidth={2.5} />}
                 </div>

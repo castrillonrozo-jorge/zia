@@ -42,7 +42,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({ isOpen, onClose, o
           <h3 className="text-xl font-black text-black dark:text-white uppercase tracking-tight">Transferencia</h3>
           <button 
             onClick={reset}
-            className="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-400 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors"
+            className="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-400 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors chip-aurora"
           >
             <Icons.X size={20} />
           </button>
@@ -123,7 +123,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({ isOpen, onClose, o
 
         {step === 3 && (
           <div className="flex flex-col items-center justify-center py-10 space-y-6 animate-in zoom-in duration-500">
-            <div className="w-20 h-20 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+            <div className="w-20 h-20 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500 chip-aurora">
               <Icons.CheckCircle2 size={48} />
             </div>
             <div className="text-center space-y-2">
