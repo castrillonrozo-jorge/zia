@@ -8,7 +8,6 @@ interface HeaderProps {
   showBack?: boolean;
   onNotifications?: () => void;
   onOpenCalculator?: () => void;
-  onOpenAI?: () => void;
   onSearch?: () => void;
   isDarkMode: boolean;
   toggleDarkMode: () => void;
@@ -18,9 +17,8 @@ export const Header: React.FC<HeaderProps> = ({
   title, 
   onBack, 
   showBack, 
-  onNotifications, 
+  onNotifications,
   onOpenCalculator,
-  onOpenAI,
   onSearch,
   isDarkMode,
   toggleDarkMode
@@ -57,26 +55,6 @@ export const Header: React.FC<HeaderProps> = ({
             ) : <span className="text-slate-900 dark:text-slate-100 block max-w-[96px] truncate">{title}</span>}
           </h1>
         </div>
-      </div>
-
-      {/* Centered Compact AI Assistant Button (VenIA) */}
-      <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex items-center">
-        <button
-          onClick={onOpenAI}
-          data-tour="ia"
-          style={{
-            background: 'linear-gradient(135deg, #4F84C4 0%, #315C91 100%)',
-            boxShadow: '0 4px 12px rgba(79, 132, 196, 0.3)',
-            border: '1px solid rgba(255, 255, 255, 0.2)'
-          }}
-          className="h-10 px-5 rounded-full flex items-center gap-2.5 active:scale-95 transition-transform group"
-          title="VenIA - Inteligencia Artificial"
-        >
-          <div className="flex items-center justify-center gap-1.5">
-            <Icons.MessageCircle size={15} className="text-[#00FF66] group-hover:scale-110 transition-transform duration-300 stroke-[2.5]" />
-          </div>
-          <span className="text-[11px] font-bold tracking-widest text-white uppercase" style={{ color: '#FFFFFF' }}>IA</span>
-        </button>
       </div>
 
       <div data-tour="buscar" className="flex items-center h-10 bg-slate-100 dark:bg-white/5 rounded-full p-1 border border-black/5 dark:border-white/5">

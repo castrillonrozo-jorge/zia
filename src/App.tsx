@@ -197,7 +197,6 @@ const App: React.FC = () => {
         }} 
         onNotifications={() => handleNavigate('notifications')}
         onOpenCalculator={() => setIsCalculatorOpen(true)}
-        onOpenAI={() => setIsAIChatOpen(true)}
         onSearch={() => setIsSearchOpen(true)}
         isDarkMode={isDarkMode}
         toggleDarkMode={() => setIsDarkMode(!isDarkMode)}
@@ -261,6 +260,7 @@ const App: React.FC = () => {
       {!isAIChatOpen && (
         <button
           onClick={() => setIsAIChatOpen(true)}
+          data-tour="ia"
           aria-label="Abrir asistente de IA"
           className="fixed bottom-[104px] z-[95] w-[60px] h-[60px] active:scale-95 transition-transform duration-150"
           style={{ right: 'max(calc(50vw - 224px + 20px), 20px)' }}

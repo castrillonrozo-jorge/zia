@@ -95,9 +95,9 @@ const NewsCard = React.memo(({ item, onNavigate }: { item: any, onNavigate: (vie
     <div
       className="flex-none w-[92%] h-[440px] rounded-[28px] relative overflow-hidden snap-center cursor-pointer shadow-[0_18px_44px_rgba(10,25,50,0.35)] group border border-black/5 dark:border-white/10 active:scale-[0.985] transition-all duration-150"
       style={{ background: 'linear-gradient(160deg, #1E3A5F 0%, #0D1B2E 100%)' }}
-      onClick={() => onNavigate('transparency', { newsId: item.id })}
+      onClick={() => item.enlace ? window.open(item.enlace, '_blank') : onNavigate('transparency', { newsId: item.id })}
     >
-      {!imagenRota && (
+      {!imagenRota && item.imagenUrl && (
         <img
           src={item.imagenUrl}
           alt={item.titulo}
@@ -120,7 +120,7 @@ const NewsCard = React.memo(({ item, onNavigate }: { item: any, onNavigate: (vie
         <h4 className="text-white font-black text-[23px] leading-[1.14] mb-2.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] pr-2 tracking-tight">{item.titulo}</h4>
         <p className="text-white/85 text-[13px] leading-relaxed line-clamp-2 font-medium pr-4">{item.descripcion}</p>
         <div className="flex items-center gap-1.5 mt-3.5 text-white/60">
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Leer la nota completa</span>
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em]">{item.enlace ? `Leer en ${item.fuente ?? 'el portal'}` : 'Leer la nota completa'}</span>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 5l7 7-7 7" /></svg>
         </div>
       </div>
@@ -131,6 +131,22 @@ const NewsCard = React.memo(({ item, onNavigate }: { item: any, onNavigate: (vie
 export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const [showAllServices, setShowAllServices] = useState(false);
   const [carouselIndex, setCarouselIndex] = useState(0);
+
+  // Noticias en vivo desde /api/news (La Iguana TV). Si el feed no
+  // responde, el carrusel muestra solo las notas curadas — sin inventar.
+  const [noticiasVivas, setNoticiasVivas] = useState<any[]>([]);
+  React.useEffect(() => {
+    let activo = true;
+    fetch('/api/news')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (activo && d?.disponible && Array.isArray(d.noticias) && d.noticias.length > 0) {
+          setNoticiasVivas(d.noticias);
+        }
+      })
+      .catch(() => {});
+    return () => { activo = false; };
+  }, []);
 
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -344,7 +360,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       <section data-tour="noticias" className="mt-8 mb-6 bg-white dark:bg-transparent">
         <h3 className="text-[14px] font-black text-slate-900 dark:text-white uppercase tracking-wider mb-4 px-5">Últimas Noticias</h3>
         <div className="flex overflow-x-auto gap-4 snap-x snap-mandatory no-scrollbar px-5 pb-4">
-          {MOCK_NEWS.map(item => (
+          {[...noticiasVivas, ...MOCK_NEWS].map(item => (
             <NewsCard key={item.id} item={item} onNavigate={onNavigate} />
           ))}
         </div>
